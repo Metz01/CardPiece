@@ -3,7 +3,8 @@
         {
             "name": "Win32",
             "includePath": [
-                "D:/Qt/6.4.1/mingw_64/include"
+                "/usr/include/qt6",
+                "/usr/include/qt6/QtWidgets"
             ],
             "defines": [
                 "_DEBUG",

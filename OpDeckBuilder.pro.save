@@ -9,4 +9,3 @@ QT += widgets
 
 #Input
 SOURCES+= main.cpp
-SOURCES+= Widgets/Card.cpp
