@@ -8,7 +8,8 @@ class Attacker: virtual public ColoredCard
     private:
         int _attack;
     public:
-        Attacker(std::string, std::string, std::string, std::string, int);
+        Attacker(std::string, std::string, std::string, std::string, Colors, int);
+        Attacker(int attack);
         ~Attacker();
 };
 

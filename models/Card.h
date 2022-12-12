@@ -10,6 +10,7 @@ protected:
     std::string _effect; // TODO: make effect class
 public:
     Card(std::string name, std::string artPath, std::string effect);
+    Card();
     std::string getArtPath();
     std::string getName();
 };

@@ -8,7 +8,8 @@ class PlayableCard: virtual public ColoredCard
     private:
         int _cost;
     public:
-        PlayableCard(std::string, std::string, std::string, std::string, int);
+        PlayableCard(std::string, std::string, std::string, std::string, Colors, int);
+        PlayableCard(int);
         ~PlayableCard();
 };
 

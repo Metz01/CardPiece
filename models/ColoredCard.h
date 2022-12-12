@@ -2,15 +2,17 @@
 #define COLORED_H
 #include <string>
 #include "Card.h"
+#include "../utils/Enums.h"
 
 class ColoredCard: public Card 
 {
     protected:
         std::string _code;
-        std::string _color;
+        Colors _color;
         
     public:
-        ColoredCard(std::string, std::string, std::string, std::string);
+        ColoredCard(std::string, std::string, std::string, std::string, Colors);
+        ColoredCard();
 
 };
 

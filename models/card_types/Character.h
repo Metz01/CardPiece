@@ -9,7 +9,7 @@ class Character: public Attacker, public PlayableCard
 private:
     int counter;
 public:
-    Character(std::string, std::string, std::string, std::string, int, int);
+    Character(std::string, std::string, std::string, std::string, Colors, int, int);
     ~Character();
 };
 
