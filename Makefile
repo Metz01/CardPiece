@@ -52,8 +52,31 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = main.cpp 
-OBJECTS       = main.o
+SOURCES       = main.cpp \
+		models/Card.cpp \
+		models/ColoredCard.cpp \
+		models/Don.cpp \
+		models/Attacker.cpp \
+		models/PlayableCard.cpp \
+		models/card_types/Character.cpp \
+		models/card_types/Leader.cpp \
+		widgets/Card_widget.cpp \
+		widgets/Main_window.cpp qrc_resources.cpp \
+		moc_Card_widget.cpp \
+		moc_Main_window.cpp
+OBJECTS       = main.o \
+		Card.o \
+		ColoredCard.o \
+		Don.o \
+		Attacker.o \
+		PlayableCard.o \
+		Character.o \
+		Leader.o \
+		Card_widget.o \
+		Main_window.o \
+		qrc_resources.o \
+		moc_Card_widget.o \
+		moc_Main_window.o
 DIST          = /usr/lib/qt6/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt6/mkspecs/common/unix.conf \
 		/usr/lib/qt6/mkspecs/common/linux.conf \
@@ -119,7 +142,24 @@ DIST          = /usr/lib/qt6/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt6/mkspecs/features/exceptions.prf \
 		/usr/lib/qt6/mkspecs/features/yacc.prf \
 		/usr/lib/qt6/mkspecs/features/lex.prf \
-		OpDeckBuilder.pro  main.cpp
+		OpDeckBuilder.pro models/Card.h \
+		models/ColoredCard.h \
+		models/Don.h \
+		models/Attacker.h \
+		models/PlayableCard.h \
+		models/card_types/Character.h \
+		models/card_types/Leader.h \
+		widgets/Card_widget.h \
+		widgets/Main_window.h main.cpp \
+		models/Card.cpp \
+		models/ColoredCard.cpp \
+		models/Don.cpp \
+		models/Attacker.cpp \
+		models/PlayableCard.cpp \
+		models/card_types/Character.cpp \
+		models/card_types/Leader.cpp \
+		widgets/Card_widget.cpp \
+		widgets/Main_window.cpp
 QMAKE_TARGET  = main
 DESTDIR       = 
 TARGET        = main
@@ -197,6 +237,7 @@ Makefile: OpDeckBuilder.pro /usr/lib/qt6/mkspecs/linux-g++/qmake.conf /usr/lib/q
 		/usr/lib/qt6/mkspecs/features/yacc.prf \
 		/usr/lib/qt6/mkspecs/features/lex.prf \
 		OpDeckBuilder.pro \
+		resources.qrc \
 		/usr/lib/libQt6Widgets.prl \
 		/usr/lib/libQt6Gui.prl \
 		/usr/lib/libQt6Core.prl
@@ -267,6 +308,7 @@ Makefile: OpDeckBuilder.pro /usr/lib/qt6/mkspecs/linux-g++/qmake.conf /usr/lib/q
 /usr/lib/qt6/mkspecs/features/yacc.prf:
 /usr/lib/qt6/mkspecs/features/lex.prf:
 OpDeckBuilder.pro:
+resources.qrc:
 /usr/lib/libQt6Widgets.prl:
 /usr/lib/libQt6Gui.prl:
 /usr/lib/libQt6Core.prl:
@@ -284,8 +326,10 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt6/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents models/Card.h models/ColoredCard.h models/Don.h models/Attacker.h models/PlayableCard.h models/card_types/Character.h models/card_types/Leader.h widgets/Card_widget.h widgets/Main_window.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp models/Card.cpp models/ColoredCard.cpp models/Don.cpp models/Attacker.cpp models/PlayableCard.cpp models/card_types/Character.cpp models/card_types/Leader.cpp widgets/Card_widget.cpp widgets/Main_window.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -309,16 +353,36 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_resources.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_resources.cpp
+qrc_resources.cpp: resources.qrc \
+		/usr/lib/qt6/rcc \
+		assets/OP01-006.png
+	/usr/lib/qt6/rcc -name resources resources.qrc -o qrc_resources.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
 moc_predefs.h: /usr/lib/qt6/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -Wextra -fPIC -dM -E -o moc_predefs.h /usr/lib/qt6/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all:
+compiler_moc_header_make_all: moc_Card_widget.cpp moc_Main_window.cpp
 compiler_moc_header_clean:
+	-$(DEL_FILE) moc_Card_widget.cpp moc_Main_window.cpp
+moc_Card_widget.cpp: widgets/Card_widget.h \
+		models/Card.h \
+		moc_predefs.h \
+		/usr/lib/qt6/moc
+	/usr/lib/qt6/moc $(DEFINES) --include /home/metz/it/projects/cpp/qt/OPDeckBuilder/OpDeckBuilder/moc_predefs.h -I/usr/lib/qt6/mkspecs/linux-g++ -I/home/metz/it/projects/cpp/qt/OPDeckBuilder/OpDeckBuilder -I/home/metz/it/projects/cpp/qt/OPDeckBuilder/OpDeckBuilder -I/usr/include/qt6 -I/usr/include/qt6/QtWidgets -I/usr/include/qt6/QtGui -I/usr/include/qt6/QtCore -I/usr/include/c++/12.2.0 -I/usr/include/c++/12.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/12.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/12.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/12.2.0/include-fixed -I/usr/include widgets/Card_widget.h -o moc_Card_widget.cpp
+
+moc_Main_window.cpp: widgets/Main_window.h \
+		widgets/Card_widget.h \
+		models/Card.h \
+		moc_predefs.h \
+		/usr/lib/qt6/moc
+	/usr/lib/qt6/moc $(DEFINES) --include /home/metz/it/projects/cpp/qt/OPDeckBuilder/OpDeckBuilder/moc_predefs.h -I/usr/lib/qt6/mkspecs/linux-g++ -I/home/metz/it/projects/cpp/qt/OPDeckBuilder/OpDeckBuilder -I/home/metz/it/projects/cpp/qt/OPDeckBuilder/OpDeckBuilder -I/usr/include/qt6 -I/usr/include/qt6/QtWidgets -I/usr/include/qt6/QtGui -I/usr/include/qt6/QtCore -I/usr/include/c++/12.2.0 -I/usr/include/c++/12.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/12.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/12.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/12.2.0/include-fixed -I/usr/include widgets/Main_window.h -o moc_Main_window.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
@@ -331,12 +395,66 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean 
 
 ####### Compile
 
-main.o: main.cpp 
+main.o: main.cpp widgets/Main_window.h \
+		widgets/Card_widget.h \
+		models/Card.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
+
+Card.o: models/Card.cpp models/Card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Card.o models/Card.cpp
+
+ColoredCard.o: models/ColoredCard.cpp models/ColoredCard.h \
+		models/Card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ColoredCard.o models/ColoredCard.cpp
+
+Don.o: models/Don.cpp models/Don.h \
+		models/Card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Don.o models/Don.cpp
+
+Attacker.o: models/Attacker.cpp models/Attacker.h \
+		models/ColoredCard.h \
+		models/Card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Attacker.o models/Attacker.cpp
+
+PlayableCard.o: models/PlayableCard.cpp models/PlayableCard.h \
+		models/ColoredCard.h \
+		models/Card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PlayableCard.o models/PlayableCard.cpp
+
+Character.o: models/card_types/Character.cpp models/card_types/Character.h \
+		models/Attacker.h \
+		models/ColoredCard.h \
+		models/Card.h \
+		models/PlayableCard.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Character.o models/card_types/Character.cpp
+
+Leader.o: models/card_types/Leader.cpp models/card_types/Leader.h \
+		models/Attacker.h \
+		models/ColoredCard.h \
+		models/Card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Leader.o models/card_types/Leader.cpp
+
+Card_widget.o: widgets/Card_widget.cpp widgets/Card_widget.h \
+		models/Card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Card_widget.o widgets/Card_widget.cpp
+
+Main_window.o: widgets/Main_window.cpp widgets/Main_window.h \
+		widgets/Card_widget.h \
+		models/Card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Main_window.o widgets/Main_window.cpp
+
+qrc_resources.o: qrc_resources.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
+
+moc_Card_widget.o: moc_Card_widget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Card_widget.o moc_Card_widget.cpp
+
+moc_Main_window.o: moc_Main_window.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Main_window.o moc_Main_window.cpp
 
 ####### Install
 

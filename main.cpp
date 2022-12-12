@@ -1,21 +1,17 @@
 // Includes Qt header files
 #include <QApplication>
 #include <QLabel>
+#include <QHBoxLayout>
+#include "./widgets/Main_window.h"
+#include "./models/Card.h"
 
 int main(int argc, char *argv[])
 {
-
-    // Defines an application object
-
     QApplication app(argc, argv);
-    // A piece of text
-    QLabel hello(" Hello world ! ");
 
-    // Tells Qt to actually show the label
-
-    hello.show();
-
-    // Runs application
-
+    Main_window mw(Card("Otama", "OP01-006", "+2000"));
+    mw.resize(1920, 1080);
+    mw.show();
+    
     return app.exec();
 }

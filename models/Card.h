@@ -9,7 +9,7 @@ protected:
     std::string _name;
     std::string _effect; // TODO: make effect class
 public:
-    Card(std::string, std::string, std::string);
+    Card(std::string name, std::string artPath, std::string effect);
     std::string getArtPath();
     std::string getName();
 };

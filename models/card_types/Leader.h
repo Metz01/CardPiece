@@ -1,5 +1,5 @@
-#ifndef CARD_H
-#define CARD_H
+#ifndef LEADER_H
+#define LEADER_H
 #include <string>
 #include "../Attacker.h"
 
