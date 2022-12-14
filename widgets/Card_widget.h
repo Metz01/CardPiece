@@ -10,10 +10,11 @@ class CardWidget : public QWidget
     Q_OBJECT
 private:
     QLabel *artWork;
-    Card _card;
+    Card *_card;
 public:
-    CardWidget(Card& card, QWidget* parent = 0);
+    CardWidget(Card *card, QWidget* parent = 0);
     void refresh();
+    std::string getInfo();
 };
 
 #endif

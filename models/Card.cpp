@@ -5,6 +5,10 @@ Card::Card(std::string name, std::string artPath, std::string effect) : _name(na
 
 Card::Card(){}
 
+Card::~Card(){}
+
 std::string Card::getArtPath() { return _artPath; }
 
 std::string Card::getName() { return _name; }
+
+/* std::string* Card::info() {} */

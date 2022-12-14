@@ -10,6 +10,7 @@ private:
 public:
     Leader(std::string name, std::string artPath, std::string effect, std::string code, Colors color, int attack, int life);
     ~Leader();
+    std::string* info() const;
 };
 
 #endif

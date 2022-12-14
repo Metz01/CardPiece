@@ -11,3 +11,5 @@ Attacker::Attacker(int attack):
 Attacker::~Attacker()
 {
 }
+
+/* std::string* Attacker::info(){} */

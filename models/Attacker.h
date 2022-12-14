@@ -10,7 +10,8 @@ class Attacker: virtual public ColoredCard
     public:
         Attacker(std::string, std::string, std::string, std::string, Colors, int);
         Attacker(int attack);
-        ~Attacker();
+        virtual ~Attacker();
+        virtual std::string* info() const = 0;
 };
 
 

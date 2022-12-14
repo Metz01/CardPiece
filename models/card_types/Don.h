@@ -1,7 +1,7 @@
 #ifndef DON_H
 #define DON_H
 #include <string>
-#include "Card.h"
+#include "../Card.h"
 
 class Don : public Card{
     private:
@@ -13,6 +13,7 @@ class Don : public Card{
         int getAttackIncrement();
         Don(std::string, std::string, std::string);
         ~Don();
+        std::string* info();
 };
 
 #endif

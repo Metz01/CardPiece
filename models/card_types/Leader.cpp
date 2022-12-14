@@ -7,3 +7,8 @@ Leader::Leader(std::string name, std::string artPath, std::string effect, std::s
 Leader::~Leader()
 {
 }
+
+std::string* Leader::info() const{
+    std::string *c = new std::string("Leader");
+    return c;
+}

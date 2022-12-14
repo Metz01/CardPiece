@@ -11,6 +11,7 @@ private:
 public:
     Character(std::string, std::string, std::string, std::string, Colors, int, int);
     ~Character();
+    virtual std::string* info() const;
 };
 
 #endif

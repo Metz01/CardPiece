@@ -10,7 +10,8 @@ class PlayableCard: virtual public ColoredCard
     public:
         PlayableCard(std::string, std::string, std::string, std::string, Colors, int);
         PlayableCard(int);
-        ~PlayableCard();
+        virtual ~PlayableCard();
+        virtual std::string* info() const = 0;
 };
 
 #endif

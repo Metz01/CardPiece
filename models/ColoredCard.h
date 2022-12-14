@@ -13,6 +13,8 @@ class ColoredCard: public Card
     public:
         ColoredCard(std::string, std::string, std::string, std::string, Colors);
         ColoredCard();
+        virtual ~ColoredCard();
+        virtual std::string* info() const = 0;
 
 };
 

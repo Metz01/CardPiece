@@ -7,3 +7,8 @@ Character::Character(std::string name, std::string artPath, std::string effect, 
 Character::~Character()
 {
 }
+
+std::string* Character::info() const{
+    std::string *c = new std::string("Otama");
+    return c;
+}

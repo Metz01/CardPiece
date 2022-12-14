@@ -9,3 +9,5 @@ PlayableCard::PlayableCard(int cost): _cost(cost) {}
 PlayableCard::~PlayableCard()
 {
 }
+
+/* std::string* PlayableCard::info(){} */
