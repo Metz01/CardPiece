@@ -12,3 +12,8 @@ std::string* Leader::info() const{
     std::string *c = new std::string("Leader");
     return c;
 }
+
+std::string* Leader::lead() const{
+    std::string *c = new std::string("Leader");
+    return c;
+}

@@ -74,6 +74,7 @@
         "variant": "cpp",
         "*.inc": "cpp",
         "qtcoredepends": "cpp",
-        "qtdbusdepends": "cpp"
+        "qtdbusdepends": "cpp",
+        "qvboxlayout": "cpp"
     }
 }

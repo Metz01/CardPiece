@@ -4,8 +4,8 @@
 #include <QVBoxLayout>
 #include "Card_widget.h"
 
-
-CardWidget::CardWidget(Card *card, QWidget* parent): QWidget(parent), _card(card){
+template <typename T>
+CardWidget<T>::CardWidget(T *card, QWidget* parent): QWidget(parent), _card(card){
     QHBoxLayout* layout =  new QHBoxLayout( this );
     layout->setAlignment(Qt::AlignLeft | Qt::AlignTop );
     QPixmap *image = new QPixmap( ":assets/" + QString::fromStdString((*_card).getArtPath()) + ".png" ) ;
@@ -14,6 +14,12 @@ CardWidget::CardWidget(Card *card, QWidget* parent): QWidget(parent), _card(card
     layout->addWidget(artWork);
 }
 
-std::string CardWidget::getInfo(){
+template <typename T>
+std::string CardWidget<T>::getInfo(){
     return *(*_card).info();
+}
+
+template <typename T>
+Card* CardWidget<T>::getCard(){
+    return _card;
 }
