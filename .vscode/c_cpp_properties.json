@@ -4,7 +4,8 @@
             "name": "Win32",
             "includePath": [
                 "/usr/include/qt6",
-                "/usr/include/qt6/QtWidgets"
+                "/usr/include/qt6/QtWidgets",
+                "/usr/include/qt/QtCore"
             ],
             "defines": [
                 "_DEBUG",

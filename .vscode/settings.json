@@ -75,6 +75,13 @@
         "*.inc": "cpp",
         "qtcoredepends": "cpp",
         "qtdbusdepends": "cpp",
-        "qvboxlayout": "cpp"
+        "qvboxlayout": "cpp",
+        "qjsonvalue": "cpp",
+        "regex": "cpp",
+        "bitset": "cpp",
+        "qjsonobject": "cpp",
+        "qjsonparseerror": "cpp",
+        "*.json": "json",
+        "qdebug": "cpp"
     }
 }

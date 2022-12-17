@@ -1,6 +1,7 @@
 #ifndef ATTACKER_H
 #define ATTACKER_H
 #include <string>
+#include <QJsonObject>
 #include "ColoredCard.h"
 
 class Attacker: virtual public ColoredCard
@@ -8,7 +9,8 @@ class Attacker: virtual public ColoredCard
     private:
         int _attack;
     public:
-        Attacker(std::string, std::string, std::string, std::string, Colors, int);
+        Attacker(std::string, std::string, std::string, std::string, Enums::Colors, int);
+        Attacker(QJsonObject Json);
         Attacker(int attack);
         virtual ~Attacker();
         virtual std::string* info() const = 0;

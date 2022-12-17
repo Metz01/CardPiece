@@ -1,0 +1,19 @@
+{
+    "OP020040":{
+        "name": "Otama",
+        "attack": "1000",
+        "life": "1",
+        "type": "1",
+        "effect": {
+            "description": "Lorem Ipsum",
+            "buff": "200"
+        },
+        "colorData":{
+            "color": "2",
+            "cardData": {
+                "name": "Otama",
+                "artPath": "..."
+            }
+        }
+    }
+}

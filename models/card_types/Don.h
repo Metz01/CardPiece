@@ -2,6 +2,7 @@
 #define DON_H
 #include <string>
 #include "../Card.h"
+#include <QJsonObject>
 
 class Don : public Card{
     private:
@@ -12,6 +13,7 @@ class Don : public Card{
         void attachCard(Card *);
         int getAttackIncrement();
         Don(std::string, std::string, std::string);
+        Don(QJsonObject Json);
         ~Don();
         std::string* info();
 };

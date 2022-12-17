@@ -14,6 +14,10 @@ int Don::getAttackIncrement()
 Don::Don(std::string name, std::string artPath, std::string effect): Card(name, artPath, effect){
 }
 
+Don::Don(QJsonObject Json) : Card(Json){
+    
+}
+
 Don::~Don()
 {
     delete _attachedCard;

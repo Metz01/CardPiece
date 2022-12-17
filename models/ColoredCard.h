@@ -3,15 +3,17 @@
 #include <string>
 #include "Card.h"
 #include "../utils/Enums.h"
+#include <QJsonObject>
 
 class ColoredCard: public Card 
 {
     protected:
         std::string _code;
-        Colors _color;
+        Enums::Colors _color;
         
     public:
-        ColoredCard(std::string, std::string, std::string, std::string, Colors);
+        ColoredCard(std::string, std::string, std::string, std::string, Enums::Colors);
+        ColoredCard(QJsonObject Json);
         ColoredCard();
         virtual ~ColoredCard();
         virtual std::string* info() const = 0;

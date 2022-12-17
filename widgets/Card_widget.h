@@ -5,18 +5,16 @@
 #include <QWidget>
 #include "../models/Card.h"
 
-template <typename T>
 class CardWidget : public QWidget
 {
     Q_OBJECT
 private:
     QLabel *artWork;
-    T *_card;
+    Card *_card;
 public:
-    CardWidget(T *card, QWidget* parent = 0);
+    CardWidget(Card *card, QWidget* parent = 0);
     void refresh();
     std::string getInfo();
-    Card* getCard();
 };
 
 #endif

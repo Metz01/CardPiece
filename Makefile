@@ -60,6 +60,8 @@ SOURCES       = main.cpp \
 		models/card_types/Character.cpp \
 		models/card_types/Don.cpp \
 		models/card_types/Leader.cpp \
+		utils/Card_builder.cpp \
+		utils/database_helper.cpp \
 		widgets/Card_widget.cpp \
 		widgets/Main_window.cpp qrc_resources.cpp \
 		moc_Card_widget.cpp \
@@ -72,6 +74,8 @@ OBJECTS       = main.o \
 		Character.o \
 		Don.o \
 		Leader.o \
+		Card_builder.o \
+		database_helper.o \
 		Card_widget.o \
 		Main_window.o \
 		qrc_resources.o \
@@ -146,11 +150,15 @@ DIST          = /usr/lib/qt6/mkspecs/features/spec_pre.prf \
 		models/ColoredCard.h \
 		models/Attacker.h \
 		models/PlayableCard.h \
+		models/card_types/CardTypes.h \
 		models/card_types/Character.h \
 		models/card_types/Don.h \
 		models/card_types/Leader.h \
 		widgets/Card_widget.h \
-		widgets/Main_window.h main.cpp \
+		widgets/Main_window.h \
+		utils/Card_builder.h \
+		utils/database_helper.h \
+		utils/Enums.h main.cpp \
 		models/Card.cpp \
 		models/ColoredCard.cpp \
 		models/Attacker.cpp \
@@ -158,6 +166,8 @@ DIST          = /usr/lib/qt6/mkspecs/features/spec_pre.prf \
 		models/card_types/Character.cpp \
 		models/card_types/Don.cpp \
 		models/card_types/Leader.cpp \
+		utils/Card_builder.cpp \
+		utils/database_helper.cpp \
 		widgets/Card_widget.cpp \
 		widgets/Main_window.cpp
 QMAKE_TARGET  = main
@@ -328,8 +338,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt6/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents models/Card.h models/ColoredCard.h models/Attacker.h models/PlayableCard.h models/card_types/Character.h models/card_types/Don.h models/card_types/Leader.h widgets/Card_widget.h widgets/Main_window.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp models/Card.cpp models/ColoredCard.cpp models/Attacker.cpp models/PlayableCard.cpp models/card_types/Character.cpp models/card_types/Don.cpp models/card_types/Leader.cpp widgets/Card_widget.cpp widgets/Main_window.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents models/Card.h models/ColoredCard.h models/Attacker.h models/PlayableCard.h models/card_types/CardTypes.h models/card_types/Character.h models/card_types/Don.h models/card_types/Leader.h widgets/Card_widget.h widgets/Main_window.h utils/Card_builder.h utils/database_helper.h utils/Enums.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp models/Card.cpp models/ColoredCard.cpp models/Attacker.cpp models/PlayableCard.cpp models/card_types/Character.cpp models/card_types/Don.cpp models/card_types/Leader.cpp utils/Card_builder.cpp utils/database_helper.cpp widgets/Card_widget.cpp widgets/Main_window.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -402,7 +412,11 @@ main.o: main.cpp widgets/Main_window.h \
 		models/Attacker.h \
 		models/ColoredCard.h \
 		models/Card.h \
-		utils/Enums.h
+		utils/Enums.h \
+		utils/database_helper.h \
+		models/card_types/CardTypes.h \
+		models/card_types/Character.h \
+		models/PlayableCard.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 Card.o: models/Card.cpp models/Card.h
@@ -443,6 +457,20 @@ Leader.o: models/card_types/Leader.cpp models/card_types/Leader.h \
 		models/Card.h \
 		utils/Enums.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Leader.o models/card_types/Leader.cpp
+
+Card_builder.o: utils/Card_builder.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Card_builder.o utils/Card_builder.cpp
+
+database_helper.o: utils/database_helper.cpp utils/database_helper.h \
+		models/card_types/CardTypes.h \
+		models/card_types/Character.h \
+		models/Attacker.h \
+		models/ColoredCard.h \
+		models/Card.h \
+		utils/Enums.h \
+		models/PlayableCard.h \
+		models/card_types/Leader.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o database_helper.o utils/database_helper.cpp
 
 Card_widget.o: widgets/Card_widget.cpp widgets/Card_widget.h \
 		models/Card.h
