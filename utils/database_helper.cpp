@@ -1,16 +1,22 @@
 #include "database_helper.h"
+#include "Constants.h"
+
+
+/// @brief Constructor for DatabaseHelper to read the json file
 
 DatabaseHelper::DatabaseHelper() {
+
+    // Initialize variables
     QTextStream ts(stdout);
     QJsonParseError parseError;
-    {
-        QFile fin(JSON_PATH);
-        fin.open(QIODevice::ReadWrite);
-        QByteArray ba2 = fin.readAll();
-        fin.close();
-        database = QJsonDocument::fromJson(ba2, &parseError);
-    }
-
+    
+    // Read Json File
+    QFile fin(JSON_PATH);
+    fin.open(QIODevice::ReadWrite);
+    QByteArray ba2 = fin.readAll();
+    fin.close();
+    database = QJsonDocument::fromJson(ba2, &parseError);
+    
     // Assert Json Syntax
     if (parseError.error != QJsonParseError::NoError) {
         qWarning() << "Parse error at" << parseError.offset << ":" << parseError.errorString();
@@ -19,15 +25,16 @@ DatabaseHelper::DatabaseHelper() {
     }
 }
 
+/// @brief from the json file, select the card with the given cardCode and initialize it
+/// @param cardCode code of the card to be selected
+/// @return istanciated card
 
 Card* DatabaseHelper::selectJSonCard(char cardCode[]){
     QTextStream ts(stdout);
     QJsonObject jsonObj = database.object();
-    QJsonObject cardInfoJson = jsonObj.value(QString(cardCode)).toObject();
+    QJsonObject cardInfoJson = JsonParser::jsonKeytoJsonObject(jsonObj, cardCode);
 
     QJsonValue type = cardInfoJson.value(QString("type"));
-    
-    // if type.toString == enum.Leader.value
 
     int cardType = (type.toString().toInt());
 
@@ -35,33 +42,21 @@ Card* DatabaseHelper::selectJSonCard(char cardCode[]){
     {
     case Enums::leader:
         qWarning() << "Leader" << "\n";
-        return new Leader(cardInfoJson);
+        return new Leader(cardInfoJson, std::string(cardCode));
         break;
     case Enums::character:
-        return new Character(cardInfoJson);
+        return new Character(cardInfoJson, std::string(cardCode));
         break;
     case Enums::event:
-        return new Character(cardInfoJson);
+        return new Character(cardInfoJson, std::string(cardCode));
         //return new Event(cardInfoJson);
         break;
     case Enums::stage:
-        return new Character(cardInfoJson);
+        return new Character(cardInfoJson, std::string(cardCode));
         //return new Stage(cardInfoJson);
         break;
     default:
-        return new Character(cardInfoJson);
+        return new Character(cardInfoJson, std::string(cardCode));
         break;
     }
-    
-
-    /* for (QString &currentKey : cardInfoJson.keys())
-    {
-        QJsonValue item = cardInfoJson.value(currentKey);
-        if(item.isObject()){
-            QJsonObject itemObj = item.toObject();
-        }else{
-            QString value = item.toString();
-        }
-        ts << currentKey << " - " << .toString() << "\n";
-    } */
 }

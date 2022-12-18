@@ -18,7 +18,7 @@
 #include <QDebug>
 
 #include "../models/card_types/CardTypes.h"
-#define JSON_PATH "assets/cardDB.json"
+
 
 class DatabaseHelper{
     private:

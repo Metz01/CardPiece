@@ -82,6 +82,11 @@
         "qjsonobject": "cpp",
         "qjsonparseerror": "cpp",
         "*.json": "json",
-        "qdebug": "cpp"
-    }
+        "qdebug": "cpp",
+        "qjsondocument": "cpp",
+        "qstring": "cpp"
+    },
+    "cSpell.words": [
+        "endregion"
+    ]
 }

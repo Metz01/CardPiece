@@ -10,7 +10,7 @@ class Attacker: virtual public ColoredCard
         int _attack;
     public:
         Attacker(std::string, std::string, std::string, std::string, Enums::Colors, int);
-        Attacker(QJsonObject Json);
+        Attacker(QJsonObject Json, std::string cardCodes);
         Attacker(int attack);
         virtual ~Attacker();
         virtual std::string* info() const = 0;

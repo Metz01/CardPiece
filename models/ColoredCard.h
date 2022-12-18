@@ -2,8 +2,8 @@
 #define COLORED_H
 #include <string>
 #include "Card.h"
-#include "../utils/Enums.h"
 #include <QJsonObject>
+#include "../utils/Enums.h"
 
 class ColoredCard: public Card 
 {
@@ -13,7 +13,7 @@ class ColoredCard: public Card
         
     public:
         ColoredCard(std::string, std::string, std::string, std::string, Enums::Colors);
-        ColoredCard(QJsonObject Json);
+        ColoredCard(QJsonObject Json, std::string cardCode);
         ColoredCard();
         virtual ~ColoredCard();
         virtual std::string* info() const = 0;

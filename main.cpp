@@ -11,6 +11,7 @@ void _testFunctions(){
     DatabaseHelper *db = new DatabaseHelper();
     Leader *leader = dynamic_cast<Leader*> (db->selectJSonCard("OP020040"));
     std::cout << *(leader->info()) << std::endl;
+    return;
 }
 
 int main(int argc, char *argv[])

@@ -10,7 +10,7 @@ class PlayableCard: virtual public ColoredCard
         int _cost;
     public:
         PlayableCard(std::string, std::string, std::string, std::string, Enums::Colors, int);
-        PlayableCard(QJsonObject Json);
+        PlayableCard(QJsonObject Json, std::string cardCode);
         PlayableCard(int);
         virtual ~PlayableCard();
         virtual std::string* info() const = 0;
