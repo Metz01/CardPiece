@@ -3,14 +3,20 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include "./widgets/Main_window.h"
-#include "./models/card_types/Leader.h"
+#include "./models/card/card_types/Leader.h"
 #include "./utils/Enums.h"
-#include "utils/database_helper.h"
+#include "./utils/database_helper.h"
+
+void _setup(){
+  DatabaseHelper();
+}
 
 void _testFunctions(){
-    DatabaseHelper *db = new DatabaseHelper();
-    Leader *leader = dynamic_cast<Leader*> (db->selectJSonCard("OP020040"));
-    std::cout << *(leader->info()) << std::endl;
+    //  DatabaseHelper *db = new DatabaseHelper();
+    //  Card *leader = (db->selectJSonCard("OP020040"));
+    //  std::cout << *(leader->info()) << std::endl;
+    _setup();
+    DatabaseHelper::testFunctions();
     return;
 }
 

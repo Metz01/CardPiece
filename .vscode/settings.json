@@ -84,7 +84,9 @@
         "*.json": "json",
         "qdebug": "cpp",
         "qjsondocument": "cpp",
-        "qstring": "cpp"
+        "qstring": "cpp",
+        "qcoreapplication": "cpp",
+        "qtextstream": "cpp"
     },
     "cSpell.words": [
         "endregion"

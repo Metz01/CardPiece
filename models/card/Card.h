@@ -2,8 +2,8 @@
 #define CARD_H
 #include <string>
 #include <QJsonObject>
-#include "../utils/JsonParser.h"
-#include "../utils/Constants.h"
+#include "../../utils/JsonParser.h"
+#include "../../utils/Constants.h"
 
 class Card
 {

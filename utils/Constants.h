@@ -16,5 +16,6 @@
 #define JSON_CARD_DATA std::string("cardData")
 #define JSON_CODE std::string("code")
 #define JSON_COST std::string("cost")
+#define END_OF_DECK std::string("EOD")
 
 #endif

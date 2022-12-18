@@ -3,7 +3,7 @@
 #include <string>
 #include "Card.h"
 #include <QJsonObject>
-#include "../utils/Enums.h"
+#include "../../utils/Enums.h"
 
 class ColoredCard: public Card 
 {
