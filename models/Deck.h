@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 #include "LinkedList.h"
+#include "../utils/database_helper.h"
 
 class Deck
 {
@@ -13,7 +14,9 @@ private:
 public:
     Deck(std::string path);
     ~Deck();
+    std::string findLeader() const;
     std::string drawCard();
+    void printDecK() const;
 };
 
 #endif

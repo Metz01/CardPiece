@@ -6,9 +6,14 @@
 #include "./models/card/card_types/Leader.h"
 #include "./utils/Enums.h"
 #include "./utils/database_helper.h"
+#include "./models/Player.h"
 
 void _setup(){
   DatabaseHelper();
+  std::cout << "Setting up..." << std::endl;
+  Player p = Player("./assets/deck/deck1.txt", "Alex");
+  std::cout << "print deck" << std::endl;
+  p.printDeck();
 }
 
 void _testFunctions(){

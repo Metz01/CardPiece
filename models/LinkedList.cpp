@@ -14,6 +14,7 @@ LinkedList::~LinkedList()
 
 void LinkedList::add(std::string cardCode)
 {
+    std::cout << "Adding card: " << cardCode << std::endl;
     Node *newNode = new Node;
     newNode->cardCode = cardCode;
     newNode->nextCard = NULL;

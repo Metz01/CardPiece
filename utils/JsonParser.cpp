@@ -14,7 +14,7 @@
 /// @param key the key of the info you want to get
 /// @return the info of the key in the json object as an int
  int JsonParser::jsonKeytoInt(QJsonObject json, std::string key){
-    return json.value(QString::fromStdString(key)).toInt();
+    return std::stoi(json.value(QString::fromStdString(key)).toString().toStdString());
  }
 
 /// @brief returns the info of the key in the json object as a QJsonObject

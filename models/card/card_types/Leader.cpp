@@ -30,3 +30,7 @@ std::string* Leader::lead() const{
     std::string *c = new std::string("Leader");
     return c;
 }
+
+int Leader::getLife() const{
+    return _life;
+}

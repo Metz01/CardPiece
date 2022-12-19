@@ -11,11 +11,11 @@ QT += widgets
 
 #Input
 SOURCES+= main.cpp
-SOURCES+= models/card/Card.cpp models/card/ColoredCard.cpp models/card/Attacker.cpp models/card/PlayableCard.cpp
+SOURCES+= models/card/Card.cpp models/card/ColoredCard.cpp models/card/Attacker.cpp models/card/PlayableCard.cpp models/Deck.cpp models/Player.cpp models/LinkedList.cpp
 SOURCES+= models/card/card_types/*.cpp
 SOURCES+= utils/*.cpp
 SOURCES+= widgets/Card_widget.cpp widgets/Main_Window.cpp
-HEADERS+= models/card/Card.h models/card/ColoredCard.h models/card/Attacker.h models/card/PlayableCard.h
+HEADERS+= models/card/Card.h models/card/ColoredCard.h models/card/Attacker.h models/card/PlayableCard.h models/Deck.h models/Player.h models/LinkedList.h
 HEADERS+= models/card/card_types/*.h
 HEADERS+= widgets/Card_widget.h widgets/Main_Window.h
 HEADERS+= utils/*.h

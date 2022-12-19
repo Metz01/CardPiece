@@ -1,6 +1,24 @@
 {
-    "OP020040":{
+    "OP020060":{
         "name": "Otama",
+        "attack": "1000",
+        "cost": "1",
+        "type": "2",
+        "effect": {
+            "description": "Lorem Ipsum",
+            "buff": "200"
+        },
+        "colorData":{
+            "color": "2",
+            "cardData": {
+                "name": "Otama",
+                "artPath": "..."
+            }
+        }
+    },
+
+    "OP020020":{
+        "name": "Law",
         "attack": "1000",
         "life": "1",
         "type": "1",
@@ -11,7 +29,7 @@
         "colorData":{
             "color": "2",
             "cardData": {
-                "name": "Otama",
+                "name": "Law",
                 "artPath": "..."
             }
         }
