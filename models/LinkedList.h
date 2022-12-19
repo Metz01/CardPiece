@@ -24,6 +24,7 @@ public:
     void print();
     int getSize();
     std::string getCardCode(int index);
+    void remove(std::string cardCode);
     void clear();
 };
 

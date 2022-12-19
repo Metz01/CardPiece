@@ -1,5 +1,7 @@
 #include "LinkedList.h"
 
+
+/// @brief constructor for the linked list, create a new empty linked list
 LinkedList::LinkedList()
 {
     head = NULL;
@@ -7,11 +9,13 @@ LinkedList::LinkedList()
     size = 0;
 }
 
+/// @brief remove all the cards from the linked list
 LinkedList::~LinkedList()
 {
     clear();
 }
 
+/// @brief add a card(cardCode) to the linked list
 void LinkedList::add(std::string cardCode)
 {
     std::cout << "Adding card: " << cardCode << std::endl;
@@ -31,6 +35,7 @@ void LinkedList::add(std::string cardCode)
     size++;
 }
 
+/// @brief remove the firs card(cardCode) from the linked list
 std::string LinkedList::popFirst()
 {
     Node *current = head;
@@ -45,6 +50,7 @@ std::string LinkedList::popFirst()
     return cardCode;
 }
 
+/// @brief print the linked list
 void LinkedList::print()
 {
     Node *current = head;
@@ -55,11 +61,13 @@ void LinkedList::print()
     }
 }
 
+/// @brief get the size of the linked list
 int LinkedList::getSize()
 {
     return size;
 }
 
+/// @brief get the card code of the card in the index position
 std::string LinkedList::getCardCode(int index)
 {
     Node *current = head;
@@ -77,6 +85,7 @@ std::string LinkedList::getCardCode(int index)
     return END_OF_DECK;
 }
 
+/// @brief remove all the cards from the linked list
 void LinkedList::clear()
 {
     Node *current = head;
@@ -90,4 +99,30 @@ void LinkedList::clear()
     head = NULL;
     tail = NULL;
     size = 0;
+}
+
+/// @brief remove the card(cardCode) from the linked list
+void LinkedList::remove(std::string cardCode)
+{
+    Node *current = head;
+    Node *previous = NULL;
+    while (current != NULL)
+    {
+        if (current->cardCode == cardCode)
+        {
+            if (previous == NULL)
+            {
+                head = current->nextCard;
+            }
+            else
+            {
+                previous->nextCard = current->nextCard;
+            }
+            delete current;
+            size--;
+            return;
+        }
+        previous = current;
+        current = current->nextCard;
+    }
 }
