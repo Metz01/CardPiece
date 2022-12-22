@@ -7,12 +7,15 @@
 #include "./utils/Enums.h"
 #include "./utils/database_helper.h"
 #include "./models/Player.h"
+#include "./utils/Debug.h"
+#include "./fsm/fsm.h"
 
 void _setup(){
   DatabaseHelper();
   std::cout << "Setting up..." << std::endl;
   Player p = Player("./assets/deck/deck1.txt", "Alex");
   std::cout << "print deck" << std::endl;
+  FSM fms();
   p.printDeck();
 }
 
@@ -21,6 +24,7 @@ void _testFunctions(){
     //  Card *leader = (db->selectJSonCard("OP020040"));
     //  std::cout << *(leader->info()) << std::endl;
     _setup();
+    FSM::drawCardRequest();
     DatabaseHelper::testFunctions();
     return;
 }

@@ -5,7 +5,7 @@
 /// @param path path to the deck file
 /// @param name name of the player
 Player::Player(std::string path, std::string name) : 
-    deck(Deck(path)), hand(std::vector<Card*>()), _name(name){
+    deck(Deck(path)), hand(std::vector<Card*>()), graveyard(std::vector<Card*>()), ground(std::vector<Card*>()) ,_name(name){
     this->leader = dynamic_cast<Leader*>(DatabaseHelper::selectJSonCard(getLeaderCodeFromDeck()));
     this->life = leader->getLife();
     std::cout << "Life set " << this->life << std::endl;
@@ -19,13 +19,24 @@ std::string Player::getLeaderCodeFromDeck() const
 }
 
 /// @brief draw a card from the deck and add it to the hand
-void Player::drawCard()
+Card* Player::drawCard()
 {
-    hand.push_back(DatabaseHelper::selectJSonCard(deck.drawCard()));
+    Card* drawedCard = DatabaseHelper::selectJSonCard(deck.drawCard());
+    hand.push_back(drawedCard);
+    return drawedCard;
 }
 
 /// @brief print the deck
 void Player::printDeck() const
 {
-    deck.printDecK();
+    deck.printDeck();
+}
+
+void Player::drawDon(int numberOfDon = 2){
+    don += numberOfDon;
+}
+
+void Player::playCard(Card* selctedCard){
+    std::remove(hand.begin(), hand.end(), selctedCard);
+    ground.push_back(selctedCard);
 }

@@ -1,16 +1,17 @@
 #ifndef DON_H
 #define DON_H
 #include <string>
-#include "../Card.h"
+#include "../Attacker.h"
 #include <QJsonObject>
 
 class Don : public Card{
     private:
-        Card *_attachedCard;
+        Attacker*_attachedCard;
         static int const attackIncrement = 1000;
 
     public:
-        void attachCard(Card *);
+        void attachCard(Attacker *);
+        void deattachCard();
         int getAttackIncrement();
         Don(std::string, std::string, std::string);
         Don(QJsonObject Json);

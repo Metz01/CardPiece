@@ -42,7 +42,7 @@ std::string Deck::drawCard()
     return cards->popFirst();
 }
 /// @brief print the deck
-void Deck::printDecK() const
+void Deck::printDeck() const
 {
     cards->print();
 }

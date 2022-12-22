@@ -14,9 +14,14 @@ Don::~Don()
 }
 
 
-void Don::attachCard(Card *card)
+void Don::attachCard(Attacker *card)
 {
     _attachedCard = card;
+}
+
+void Don::deattachCard(){
+    //TODO: remove buff to the attached card
+    _attachedCard = NULL;
 }
 
 int Don::getAttackIncrement()

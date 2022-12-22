@@ -16,7 +16,7 @@ public:
     ~Deck();
     std::string findLeader() const;
     std::string drawCard();
-    void printDecK() const;
+    void printDeck() const;
 };
 
 #endif

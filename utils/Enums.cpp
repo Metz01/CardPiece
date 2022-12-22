@@ -19,3 +19,14 @@ Enums::Colors EnumsHelper::getColor(int value){
     }
     return Enums::red;
 }
+
+const std::string EnumsHelper::ToString(Enums::State state){
+    switch (state){
+        case Enums::Draw:   return "Draw";
+        case Enums::DrawDon:   return "DrawDon";
+        case Enums::SelectCard: return "SelectCard";
+        case Enums::UseCard: return "UseCard";
+        case Enums::SelectEnemyCard: return "SelectEnemyCard";
+        default:      return "[Unknown State]";
+    }
+}

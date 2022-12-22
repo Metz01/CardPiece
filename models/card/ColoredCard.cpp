@@ -15,5 +15,9 @@ ColoredCard::ColoredCard(QJsonObject Json, std::string cardCode) :
 ColoredCard::ColoredCard() {}
 ColoredCard::~ColoredCard() {}
 
+std::string ColoredCard::getCode() const
+{
+    return _code;
+}
 
 /* std::string* ColoredCard::info(){} */

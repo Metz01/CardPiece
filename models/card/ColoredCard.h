@@ -17,6 +17,7 @@ class ColoredCard: public Card
         ColoredCard();
         virtual ~ColoredCard();
         virtual std::string* info() const = 0;
+        std::string getCode() const;
 
 };
 

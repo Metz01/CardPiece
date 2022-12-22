@@ -5,7 +5,9 @@
             "includePath": [
                 "/usr/include/qt6",
                 "/usr/include/qt6/QtWidgets",
-                "/usr/include/qt/QtCore"
+                "/usr/include/qt/QtCore",
+                "/usr/include/wine/windows",
+                "/usr/include/wine/msvcrt"
             ],
             "defines": [
                 "_DEBUG",
