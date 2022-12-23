@@ -3,7 +3,7 @@
 
 #include <QLabel>
 #include <QWidget>
-#include "../models/Card.h"
+#include "../models/card/Card.h"
 
 class CardWidget : public QWidget
 {
@@ -11,8 +11,9 @@ class CardWidget : public QWidget
 private:
     QLabel *artWork;
     Card *_card;
+
 public:
-    CardWidget(Card *card, QWidget* parent = 0);
+    CardWidget(Card *card, QWidget *parent = 0);
     void refresh();
     std::string getInfo();
 };
