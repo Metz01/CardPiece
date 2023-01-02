@@ -56,11 +56,13 @@ std::string LinkedList::popFirst()
 void LinkedList::print()
 {
     Node *current = head;
+    Debug::LogDebug("----- Printing Deck: -----");
     while (current != NULL)
     {
-        std::cout << current->cardCode << std::endl;
+        Debug::LogDebug(current->cardCode);
         current = current->nextCard;
     }
+    Debug::LogDebug("----- Deck Printed! -----");
 }
 
 /// @brief get the size of the linked list

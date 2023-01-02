@@ -41,6 +41,7 @@ Attacker *Don::getAttachedCard()
 }
 
 Utils::CardInfo Don::info(Enums::InfoAttribute attribute, Utils::CardInfo onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo )) const{
+    onGetAttribute(attribute, QJsonObject());
     throw "Don::info() not used";
 }
 

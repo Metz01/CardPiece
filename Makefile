@@ -69,6 +69,7 @@ SOURCES       = main.cpp \
 		utils/Debug.cpp \
 		utils/Enums.cpp \
 		utils/JsonParser.cpp \
+		utils/Utils.cpp \
 		widgets/Card_widget.cpp \
 		widgets/Main_window.cpp qrc_resources.cpp \
 		moc_Card_widget.cpp \
@@ -90,6 +91,7 @@ OBJECTS       = build/main.o \
 		build/Debug.o \
 		build/Enums.o \
 		build/JsonParser.o \
+		build/Utils.o \
 		build/Card_widget.o \
 		build/Main_window.o \
 		build/qrc_resources.o \
@@ -198,6 +200,7 @@ DIST          = /usr/lib/qt6/mkspecs/features/spec_pre.prf \
 		utils/Debug.cpp \
 		utils/Enums.cpp \
 		utils/JsonParser.cpp \
+		utils/Utils.cpp \
 		widgets/Card_widget.cpp \
 		widgets/Main_window.cpp
 QMAKE_TARGET  = main
@@ -369,7 +372,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt6/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents models/card/Card.h models/card/ColoredCard.h models/card/Attacker.h models/card/PlayableCard.h models/Deck.h models/Player.h models/LinkedList.h models/card/card_types/CardTypes.h models/card/card_types/Character.h models/card/card_types/Don.h models/card/card_types/Leader.h fsm/api/api_logic.h fsm/api/api_ui.h fsm/fsm.h widgets/Card_widget.h widgets/Main_window.h utils/Constants.h utils/database_helper.h utils/Debug.h utils/Enums.h utils/JsonParser.h utils/Utils.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp models/card/Card.cpp models/card/ColoredCard.cpp models/card/Attacker.cpp models/card/PlayableCard.cpp models/Deck.cpp models/Player.cpp models/LinkedList.cpp fsm/api/api_logic.cpp fsm/fsm.cpp models/card/card_types/Character.cpp models/card/card_types/Don.cpp models/card/card_types/Leader.cpp utils/database_helper.cpp utils/Debug.cpp utils/Enums.cpp utils/JsonParser.cpp widgets/Card_widget.cpp widgets/Main_window.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp models/card/Card.cpp models/card/ColoredCard.cpp models/card/Attacker.cpp models/card/PlayableCard.cpp models/Deck.cpp models/Player.cpp models/LinkedList.cpp fsm/api/api_logic.cpp fsm/fsm.cpp models/card/card_types/Character.cpp models/card/card_types/Don.cpp models/card/card_types/Leader.cpp utils/database_helper.cpp utils/Debug.cpp utils/Enums.cpp utils/JsonParser.cpp utils/Utils.cpp widgets/Card_widget.cpp widgets/Main_window.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -647,6 +650,13 @@ build/Enums.o: utils/Enums.cpp utils/Enums.h
 
 build/JsonParser.o: utils/JsonParser.cpp utils/JsonParser.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/JsonParser.o utils/JsonParser.cpp
+
+build/Utils.o: utils/Utils.cpp utils/Utils.h \
+		utils/Enums.h \
+		utils/Constants.h \
+		utils/JsonParser.h \
+		utils/Debug.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Utils.o utils/Utils.cpp
 
 build/Card_widget.o: widgets/Card_widget.cpp widgets/Card_widget.h \
 		models/card/Card.h \

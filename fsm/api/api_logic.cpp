@@ -40,7 +40,6 @@ Don* ApiLogic::attachDon(Don* don, Attacker* card)
 Card* ApiLogic::playCard(Player* player, Card* card, bool* isFromHand)
 {
     if(player->hasOnHand(card)){
-        Utils::CardInfo* info;
         bool isCharacter = (card->info(Enums::InfoAttribute::Type, Utils::LoadCard)).type == Enums::CardType::character;
         if(isCharacter){
             player->playCard(card);
@@ -74,6 +73,7 @@ bool ApiLogic::attackCard(Card* attacker, Card* defender)
         return false;
     }
     //bool result = defender->get
+    return true;
 }
 
 bool ApiLogic::attachDonToCard(Card* card, Don* don, Player* currentPlayer)

@@ -75,7 +75,8 @@ bool FSM::selectCardRequest(Card* selectedCard)
         return true;
     }
 
-    bool* isPlayedFromHand;
+    bool* isPlayedFromHand = (bool*)malloc(sizeof(bool));
+    *isPlayedFromHand = false;
 
     ApiLogic::playCard(_currentPlayer, selectedCard, isPlayedFromHand);
     _currentState = isPlayedFromHand ? Enums::State::SelectCard : Enums::State::SelectEnemyCard;
@@ -117,6 +118,8 @@ bool FSM::selectEnemyCardRequest(Card* selectedCard, Card* selectedEnemyCard)
     if (dynamic_cast<Attacker*>(selectedCard) != NULL)
     {
     }
+    
+    selectedEnemyCard->getCardType();
 
     return false;
 }

@@ -60,9 +60,10 @@ void Player::playCard(Card *selectedCard)
         activeDon -= cost;
         int deactivated = 0;
         int lastAnalyzedDonPos = 0;
+        int donSize = donList.size();
         while (deactivated < cost)
         {
-            for (; lastAnalyzedDonPos < donList.size(); lastAnalyzedDonPos++)
+            for (; lastAnalyzedDonPos < donSize; lastAnalyzedDonPos++)
             {
                 if (donList[lastAnalyzedDonPos]->getStatus())
                 {

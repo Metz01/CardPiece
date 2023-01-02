@@ -33,10 +33,10 @@ namespace Enums{
 
 class EnumsHelper{
     public:
-        static const Enums::Colors getColor(int value);
-        static const std::string ToString(Enums::State state);
-        static const Enums::CardType getCardType(int value);
-        static const std::string getAttributeName(Enums::InfoAttribute type);
+        static Enums::Colors getColor(int value);
+        static std::string ToString(Enums::State state);
+        static Enums::CardType getCardType(int value);
+        static std::string getAttributeName(Enums::InfoAttribute type);
 };
 
 #endif

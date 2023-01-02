@@ -80,8 +80,3 @@ bool DatabaseHelper::isLeader(std::string cardCode){
         return false;
     }
 }
-
-
-void DatabaseHelper::testFunctions(){
-    std::cout << "test" << std::endl;
-}
