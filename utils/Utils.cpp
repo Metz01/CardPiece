@@ -1,6 +1,8 @@
 #include "Utils.h"
 
 Utils::CardInfo Utils::LoadCard(Enums::InfoAttribute attribute, QJsonObject rawInfo){
+
+    Debug::LogEnv("Utils::LoadCard");
         
     Debug::LogDebug("Loading card info " + EnumsHelper::getAttributeName(attribute));
     Utils::CardInfo *info = new CardInfo;

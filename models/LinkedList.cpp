@@ -19,7 +19,6 @@ LinkedList::~LinkedList()
 /// @brief add a card(cardCode) to the linked list
 void LinkedList::add(std::string cardCode)
 {
-    std::cout << "Adding card: " << cardCode << std::endl;
     Node *newNode = new Node;
     newNode->cardCode = cardCode;
     newNode->nextCard = NULL;
@@ -55,14 +54,13 @@ std::string LinkedList::popFirst()
 /// @brief print the linked list
 void LinkedList::print()
 {
+    Debug::LogEnv("LinkedList::print");
     Node *current = head;
-    Debug::LogDebug("----- Printing Deck: -----");
     while (current != NULL)
     {
         Debug::LogDebug(current->cardCode);
         current = current->nextCard;
     }
-    Debug::LogDebug("----- Deck Printed! -----");
 }
 
 /// @brief get the size of the linked list

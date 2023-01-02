@@ -22,6 +22,11 @@ void _setup()
   ApiLogic(p1, p2);
   FSM fms(p1);
   Card* card = FSM::drawCardRequest();
+  FSM::drawDonRequest();
+  bool done = FSM::selectCardRequest(card);
+  Card* card2 = FSM::drawCardRequest();
+  FSM::drawDonRequest();
+  FSM::selectCardRequest(card2);
   Utils::CardInfo info = card->info(Enums::InfoAttribute::Name, Utils::LoadCard);
   std::string name = info.name;
   

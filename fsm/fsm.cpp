@@ -14,6 +14,7 @@ FSM::FSM(Player *starterPlayer)
 
 Card *FSM::drawCardRequest()
 {
+    Debug::LogEnv("FSM::drawCardRequest");
 
     // Assert State
     if (_currentState != Enums::State::Draw)
@@ -28,13 +29,14 @@ Card *FSM::drawCardRequest()
     // Change State
     _currentState = Enums::State::DrawDon;
 
-    Debug::LogInfo("Drawed Card");
+    Debug::LogInfo("Drew Card");
 
     return card;
 }
 
 std::vector<Don *> FSM::drawDonRequest()
 {
+    Debug::LogEnv("FSM::drawDonRequest");
 
     // Assert State
     if (_currentState != Enums::State::DrawDon)
@@ -44,16 +46,20 @@ std::vector<Don *> FSM::drawDonRequest()
     }
 
     // Draw Don
-    std::vector<Don*> drawedDon = ApiLogic::drawDon(_currentPlayer, _turnsPlayed == 0 ? 1 : 2);
+    std::vector<Don*> drewDon = ApiLogic::drawDon(_currentPlayer, _turnsPlayed == 0 ? 1 : 2);
+
+    // Deattach and Activate all Don and Character
+    ApiLogic::setUpPlayer(_currentPlayer);
 
     // Change State
     _currentState = Enums::State::SelectCard;
 
-    return drawedDon;
+    return drewDon;
 }
 
 bool FSM::selectCardRequest(Card* selectedCard)
 {
+    Debug::LogEnv("FSM::selectCardRequest");
 
     // Assert State
     if (_currentState != Enums::State::SelectCard)
@@ -80,12 +86,15 @@ bool FSM::selectCardRequest(Card* selectedCard)
 
     ApiLogic::playCard(_currentPlayer, selectedCard, isPlayedFromHand);
     _currentState = isPlayedFromHand ? Enums::State::SelectCard : Enums::State::SelectEnemyCard;
+
+    Debug::LogDebug("This card was " + (std::string)(isPlayedFromHand ? " played by hand" : " an enemy that has been selected"));
     
     return true;
 }
 
 bool FSM::attachDonRequest(Card* selectedCard, Don* selectedDon)
 {
+    Debug::LogEnv("FSM::attachDonRequest");
 
     // Assert State
     if (_currentState != Enums::State::AttachDon)
@@ -102,6 +111,8 @@ bool FSM::attachDonRequest(Card* selectedCard, Don* selectedDon)
 
 bool FSM::selectEnemyCardRequest(Card* selectedCard, Card* selectedEnemyCard)
 {
+    Debug::LogEnv("FSM::selectEnemyCardRequest");
+
     // Assert State
     if (_currentState != Enums::State::SelectEnemyCard)
     {

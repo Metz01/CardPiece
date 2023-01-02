@@ -14,6 +14,7 @@ private:
 
 public:
     ApiLogic(Player *p1, Player *p2);
+    static bool setUpPlayer(Player *player);
     static Card *drawCard(Player *player);
     static std::vector<Don *> drawDon(Player *player, int amount);
     static Player* whoseCard(Card* card);

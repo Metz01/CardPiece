@@ -26,6 +26,7 @@ public:
     Card *drawCard();
     void printDeck() const;
     std::vector<Don *> drawDon(int numberOfDon);
+    bool activeAllDon();
     void playCard(Card *selectedCard);
     bool hasCard(Card *card);
     bool hasOnHand(Card *card);

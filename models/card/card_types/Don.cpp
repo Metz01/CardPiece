@@ -30,6 +30,10 @@ void Don::deattachCard()
     _attachedCard = NULL;
 }
 
+void Don::active(){
+    this->_active = true;
+}
+
 int Don::getAttackIncrement()
 {
     return attackIncrement;

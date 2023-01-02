@@ -25,7 +25,7 @@ DatabaseHelper::DatabaseHelper() {
     if (parseError.error != QJsonParseError::NoError) {
         qWarning() << "Parse error at" << parseError.offset << ":" << parseError.errorString();
     }else{
-        std::cout << "Database loaded" << "\n";
+        Debug::LogDebug("Database loaded");
         //ts << database.toJson(QJsonDocument::Compact); //write in console the database
     }
 }
@@ -41,6 +41,8 @@ QJsonObject DatabaseHelper::getCardInfo(std::string cardCode){
 /// @return istanciated card
 
 Card* DatabaseHelper::selectJSonCard(std::string cardCode){
+
+    Debug::LogEnv("DatabaseHelper::selectJSonCard");
     
     QJsonObject cardInfoJson = getCardInfo(cardCode);
     QJsonValue type = cardInfoJson.value(QString("type"));

@@ -9,6 +9,7 @@ namespace Debug{
     void LogWarning(std::string text);
     void LogInfo(std::string text);
     void LogDebug(std::string text);
+    void LogEnv(std::string text);
 }
 
 #endif

@@ -10,18 +10,27 @@ ApiLogic::ApiLogic(Player *p1, Player *p2)
     player2 = p2;
 }
 
+bool ApiLogic::setUpPlayer(Player *player)
+{   
+    Debug::LogEnv("ApiLogic::setUpPlayer");
+    return player->activeAllDon();
+}
+
 Card *ApiLogic::drawCard(Player *player)
 {
+    Debug::LogEnv("ApiLogic::drawCard");
     return player->drawCard();
 }
 
 std::vector<Don *> ApiLogic::drawDon(Player *player, int amount)
 {
+    Debug::LogEnv("ApiLogic::drawDon");
     return player->drawDon(amount);
 }
 
 Player* ApiLogic::whoseCard(Card* card)
 {
+    Debug::LogEnv("ApiLogic::whoseCard");
     if (player1->hasCard(card))
         return player1;
     else if (player2->hasCard(card))
@@ -33,13 +42,16 @@ Player* ApiLogic::whoseCard(Card* card)
 
 Don* ApiLogic::attachDon(Don* don, Attacker* card)
 {
+    Debug::LogEnv("ApiLogic::attachDon");
     don->attachCard(card);
     return don;
 }
 
 Card* ApiLogic::playCard(Player* player, Card* card, bool* isFromHand)
 {
+    Debug::LogEnv("ApiLogic::playCard");
     if(player->hasOnHand(card)){
+        Debug::LogInfo("ApiLogic::playCard Card On Hand");
         bool isCharacter = (card->info(Enums::InfoAttribute::Type, Utils::LoadCard)).type == Enums::CardType::character;
         if(isCharacter){
             player->playCard(card);
@@ -59,6 +71,7 @@ Card* ApiLogic::playCard(Player* player, Card* card, bool* isFromHand)
 
 bool ApiLogic::attackCard(Card* attacker, Card* defender)
 {
+    Debug::LogEnv("ApiLogic::attackCard");
     if (defender->getStatus() && defender->getCardType() != Enums::CardType::leader){
         Debug::LogError("Tried to attack a non rested card");
         return false;
@@ -78,6 +91,7 @@ bool ApiLogic::attackCard(Card* attacker, Card* defender)
 
 bool ApiLogic::attachDonToCard(Card* card, Don* don, Player* currentPlayer)
 {
+    Debug::LogEnv("ApiLogic::attachDonToCard");
     if (don->getAttachedCard() != NULL)
     {
         Debug::LogError("Tried to Attach a Don, but the don is already attached");
