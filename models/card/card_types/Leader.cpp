@@ -20,9 +20,9 @@ Leader::~Leader()
 }
 
 
-bool Leader::info(Enums::InfoAttribute attribute, Utils::CardInfo* info, bool onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo, Utils::CardInfo* info)) const{
+Utils::CardInfo Leader::info(Enums::InfoAttribute attribute, Utils::CardInfo onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo)) const{
     QJsonObject rawData = DatabaseHelper::getCardInfo(this->_code);
-    return onGetAttribute(attribute, rawData, info);
+    return onGetAttribute(attribute, rawData);
 }
 
 std::string* Leader::lead() const{

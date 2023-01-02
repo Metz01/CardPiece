@@ -12,7 +12,7 @@ class PlayableCard: virtual public ColoredCard{
         PlayableCard(QJsonObject Json, std::string cardCode);
         PlayableCard(int);
         virtual ~PlayableCard();
-        virtual bool info(Enums::InfoAttribute attribute, Utils::CardInfo*, bool onGetAttribute(Enums::InfoAttribute, QJsonObject,Utils::CardInfo*)) const = 0;
+        virtual Utils::CardInfo info(Enums::InfoAttribute attribute, Utils::CardInfo onGetAttribute(Enums::InfoAttribute, QJsonObject)) const = 0;
         virtual Enums::CardType getCardType() const = 0;
 };
 

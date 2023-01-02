@@ -40,7 +40,7 @@ Attacker *Don::getAttachedCard()
     return _attachedCard;
 }
 
-bool Don::info(Enums::InfoAttribute attribute,Utils::CardInfo* info, bool onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo, Utils::CardInfo* info)) const{
+Utils::CardInfo Don::info(Enums::InfoAttribute attribute, Utils::CardInfo onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo )) const{
     throw "Don::info() not used";
 }
 

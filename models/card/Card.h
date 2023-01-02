@@ -22,7 +22,7 @@ public:
     virtual ~Card();
     std::string getArtPath();
     std::string getName();
-    virtual bool info(Enums::InfoAttribute attribute, Utils::CardInfo*, bool onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo, Utils::CardInfo*)) const = 0;
+    virtual Utils::CardInfo info(Enums::InfoAttribute attribute, Utils::CardInfo onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo)) const = 0;
     virtual Enums::CardType getCardType() const = 0;
     bool getStatus() const;
     void restCard();

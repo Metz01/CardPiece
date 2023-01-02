@@ -16,7 +16,7 @@ class ColoredCard: public Card
         ColoredCard(QJsonObject Json, std::string cardCode);
         ColoredCard();
         virtual ~ColoredCard();
-        virtual bool info(Enums::InfoAttribute attribute, Utils::CardInfo*, bool onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo, Utils::CardInfo*)) const = 0;
+        virtual Utils::CardInfo info(Enums::InfoAttribute attribute, Utils::CardInfo onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo)) const = 0;
         std::string getCode() const;
         virtual Enums::CardType getCardType() const = 0;
 };  

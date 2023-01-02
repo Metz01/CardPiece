@@ -21,7 +21,7 @@ public:
     void deattachCard();
     int getAttackIncrement();
     Attacker *getAttachedCard();
-    bool info(Enums::InfoAttribute attribute, Utils::CardInfo*, bool onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo, Utils::CardInfo* info)) const;
+    Utils::CardInfo info(Enums::InfoAttribute attribute, Utils::CardInfo onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo)) const;
     Enums::CardType getCardType() const;
 };
 

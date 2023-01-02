@@ -30,9 +30,10 @@ namespace Utils{
         // }
     };
 
-    static bool LoadCard(Enums::InfoAttribute attribute, QJsonObject rawInfo, CardInfo* info){
+    static CardInfo LoadCard(Enums::InfoAttribute attribute, QJsonObject rawInfo){
         
         Debug::LogDebug("Loading card info " + EnumsHelper::getAttributeName(attribute));
+        CardInfo *info = new CardInfo;
         switch (attribute){
         case Enums::InfoAttribute::ArtPath:
             info->artPath = JsonParser::jsonKeytoString(rawInfo, JSON_ARTPATH);
@@ -65,10 +66,10 @@ namespace Utils{
         default:
             std::string errorMessage = std::string("Attribute ") + std::to_string((int)attribute) + std::string(" not implemented on Utils.LoadCard");
             Debug::LogError(errorMessage);
-            return false;
+            // return false;
         }
         Debug::LogDebug("Card info loaded");
-        return true;
+        return *info;
     }
 
 };

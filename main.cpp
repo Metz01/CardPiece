@@ -23,9 +23,8 @@ void _setup()
   ApiLogic(p1, p2);
   FSM fms(p1);
   Card* card = FSM::drawCardRequest();
-  Utils::CardInfo *info = new Utils::CardInfo();
-  card->info(Enums::InfoAttribute::Name, info, Utils::LoadCard);
-  std::string name = info->name;
+  Utils::CardInfo info = card->info(Enums::InfoAttribute::Name, Utils::LoadCard);
+  std::string name = info.name;
   // std::cout << "drawed card: " << name << std::endl;
   Debug::LogDebug("Card Drew");
   

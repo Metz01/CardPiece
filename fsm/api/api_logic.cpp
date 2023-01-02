@@ -41,8 +41,7 @@ Card* ApiLogic::playCard(Player* player, Card* card, bool* isFromHand)
 {
     if(player->hasOnHand(card)){
         Utils::CardInfo* info;
-        card->info(Enums::InfoAttribute::Type, info, Utils::LoadCard);
-        bool isCharacter = info->type == Enums::CardType::character;
+        bool isCharacter = (card->info(Enums::InfoAttribute::Type, Utils::LoadCard)).type == Enums::CardType::character;
         if(isCharacter){
             player->playCard(card);
             // _currentState = Enums::State::SelectCard;

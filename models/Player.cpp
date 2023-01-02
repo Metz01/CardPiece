@@ -50,12 +50,12 @@ std::vector<Don *> Player::drawDon(int numberOfDon = 2)
 
 void Player::playCard(Card *selectedCard)
 {
-    Utils::CardInfo* info;
-    if(!selectedCard->info(Enums::Cost, info, Utils::LoadCard)){
+    Utils::CardInfo info = selectedCard->info(Enums::Cost, Utils::LoadCard);
+    /* if(info == nullptr){
         Debug::LogError("Failed to get Info");
         return;
-    }
-    int cost = info->cost;
+    } */
+    int cost = info.cost;
     if(activeDon >= cost){
         activeDon -= cost;
         int deactivated = 0;
