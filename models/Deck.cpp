@@ -41,6 +41,7 @@ std::string Deck::drawCard()
 {
     return cards->popFirst();
 }
+
 /// @brief print the deck
 void Deck::printDeck() const
 {

@@ -1,5 +1,6 @@
 #include <string>
 #include "Character.h"
+#include "../../../utils/database_helper.h"
 
 Character::Character(std::string name, std::string artPath, std::string effect, std::string code, Enums::Colors color, int attack, int cost):
      ColoredCard(name, artPath, effect, code, color),
@@ -15,7 +16,11 @@ Character::~Character()
 {
 }
 
-std::string* Character::info() const{
-    std::string *c = new std::string("Otama");
-    return c;
+bool Character::info(Enums::InfoAttribute attribute, Utils::CardInfo* info, bool onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo, Utils::CardInfo* info)) const{
+    QJsonObject rawData = DatabaseHelper::getCardInfo(this->_code);
+    return onGetAttribute(attribute, rawData, info);
+}
+
+Enums::CardType Character::getCardType() const{
+    return Enums::CardType::character;
 }

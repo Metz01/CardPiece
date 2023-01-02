@@ -1,4 +1,5 @@
 #include "LinkedList.h"
+#include "../utils/Debug.h"
 
 
 /// @brief constructor for the linked list, create a new empty linked list
@@ -38,6 +39,7 @@ void LinkedList::add(std::string cardCode)
 /// @brief remove the firs card(cardCode) from the linked list
 std::string LinkedList::popFirst()
 {
+    Debug::LogDebug("LinkedList::popFirst called");
     Node *current = head;
     if (current == NULL){
         std::cerr << "ERROR: LinkedList::popFirst() - NO CARDS IN DECK" << std::endl;

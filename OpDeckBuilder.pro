@@ -8,11 +8,12 @@ TEMPLATE = app
 TARGET = main
 INCLUDEPATH += .
 QT += widgets
+QT += core
 
 #Input
 SOURCES+= main.cpp
 SOURCES+= models/card/Card.cpp models/card/ColoredCard.cpp models/card/Attacker.cpp models/card/PlayableCard.cpp models/Deck.cpp models/Player.cpp models/LinkedList.cpp
-SOURCES+= fsm/*.cpp
+SOURCES+= fsm/api/*.cpp fsm/*.cpp 
 SOURCES+= models/card/card_types/*.cpp
 SOURCES+= utils/*.cpp
 SOURCES+= widgets/Card_widget.cpp widgets/Main_Window.cpp

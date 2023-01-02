@@ -87,7 +87,9 @@
         "qstring": "cpp",
         "qcoreapplication": "cpp",
         "qtextstream": "cpp",
-        "*.def": "cpp"
+        "*.def": "cpp",
+        "qlabel": "cpp",
+        "qabstractanimation": "cpp"
     },
     "cSpell.words": [
         "endregion"

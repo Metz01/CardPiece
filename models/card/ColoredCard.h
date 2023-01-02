@@ -1,8 +1,8 @@
 #ifndef COLORED_H
 #define COLORED_H
 #include <string>
-#include "Card.h"
 #include <QJsonObject>
+#include "Card.h"
 #include "../../utils/Enums.h"
 
 class ColoredCard: public Card 
@@ -16,9 +16,9 @@ class ColoredCard: public Card
         ColoredCard(QJsonObject Json, std::string cardCode);
         ColoredCard();
         virtual ~ColoredCard();
-        virtual std::string* info() const = 0;
+        virtual bool info(Enums::InfoAttribute attribute, Utils::CardInfo*, bool onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo, Utils::CardInfo*)) const = 0;
         std::string getCode() const;
-
-};
+        virtual Enums::CardType getCardType() const = 0;
+};  
 
 #endif

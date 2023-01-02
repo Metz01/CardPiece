@@ -1,11 +1,10 @@
 #ifndef PLAYABLE_H
 #define PLAYABLE_H
 #include <string>
-#include "ColoredCard.h"
 #include <QJsonObject>
+#include "ColoredCard.h"
 
-class PlayableCard: virtual public ColoredCard
-{
+class PlayableCard: virtual public ColoredCard{
     private:
         int _cost;
     public:
@@ -13,7 +12,8 @@ class PlayableCard: virtual public ColoredCard
         PlayableCard(QJsonObject Json, std::string cardCode);
         PlayableCard(int);
         virtual ~PlayableCard();
-        virtual std::string* info() const = 0;
+        virtual bool info(Enums::InfoAttribute attribute, Utils::CardInfo*, bool onGetAttribute(Enums::InfoAttribute, QJsonObject,Utils::CardInfo*)) const = 0;
+        virtual Enums::CardType getCardType() const = 0;
 };
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef __DATABASE_HELPER_H__
 #define __DATABASE_HELPER_H__
 
-#include <string.h>
+#include <string>
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -18,19 +18,19 @@
 #include <QTextStream>
 #include <QDebug>
 
-
 #include "../models/card/card_types/CardTypes.h"
 
-class DatabaseHelper{
-    private:
-        
-    public: 
-        static QJsonDocument database;
-        DatabaseHelper();
-        /* ~DatabaseHelper(); */
-        static Card* selectJSonCard(std::string cardCode);
-        static void testFunctions();
-        static bool isLeader(std::string cardCode);
+class DatabaseHelper
+{
+private:
+public:
+    static QJsonDocument database;
+    DatabaseHelper();
+    /* ~DatabaseHelper(); */
+    static QJsonObject getCardInfo(std::string cardCode);
+    static Card *selectJSonCard(std::string cardCode);
+    static void testFunctions();
+    static bool isLeader(std::string cardCode);
 };
 
 #endif

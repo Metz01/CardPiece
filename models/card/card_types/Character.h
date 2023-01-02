@@ -13,7 +13,8 @@ public:
     Character(std::string, std::string, std::string, std::string, Enums::Colors, int, int);
     Character(QJsonObject Json, std::string cardCode);
     ~Character();
-    virtual std::string* info() const;
+    bool info(Enums::InfoAttribute attribute, Utils::CardInfo* info, bool onGetAttribute(Enums::InfoAttribute, QJsonObject, Utils::CardInfo*)) const;
+    Enums::CardType getCardType() const;
 };
 
 #endif

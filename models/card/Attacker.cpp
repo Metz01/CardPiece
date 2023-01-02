@@ -17,4 +17,14 @@ Attacker::~Attacker()
 {
 }
 
+void Attacker::buffAttack(int buff)
+{
+    _attack += buff;
+}
+
+int Attacker::getAttack() const
+{
+    return _attack;
+}
+
 /* std::string* Attacker::info(){} */

@@ -1,11 +1,16 @@
 #include <string>
 #include "Don.h"
 
-Don::Don(std::string name, std::string artPath, std::string effect): Card(name, artPath, effect){
+Don::Don(std::string name, std::string artPath, std::string effect) : Card(name, artPath, effect)
+{
 }
 
-Don::Don(QJsonObject Json) : Card(Json){
-    
+Don::Don() : Card()
+{
+}
+
+Don::Don(QJsonObject Json) : Card(Json)
+{
 }
 
 Don::~Don()
@@ -13,14 +18,15 @@ Don::~Don()
     delete _attachedCard;
 }
 
-
 void Don::attachCard(Attacker *card)
 {
     _attachedCard = card;
+    _attachedCard->buffAttack(attackIncrement);
 }
 
-void Don::deattachCard(){
-    //TODO: remove buff to the attached card
+void Don::deattachCard()
+{
+    // TODO: remove buff to the attached card
     _attachedCard = NULL;
 }
 
@@ -29,9 +35,17 @@ int Don::getAttackIncrement()
     return attackIncrement;
 }
 
+Attacker *Don::getAttachedCard()
+{
+    return _attachedCard;
+}
+
+bool Don::info(Enums::InfoAttribute attribute,Utils::CardInfo* info, bool onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo, Utils::CardInfo* info)) const{
+    throw "Don::info() not used";
+}
 
 
-std::string* Don::info(){
-    std::string *c = new std::string("DON!");
-    return c;
+Enums::CardType Don::getCardType() const
+{
+    return Enums::CardType::don;
 }

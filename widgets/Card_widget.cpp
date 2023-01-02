@@ -15,5 +15,5 @@ CardWidget::CardWidget(Card *card, QWidget* parent): QWidget(parent), _card(card
 }
 
 std::string CardWidget::getInfo(){
-    return *(*_card).info();
+    return "";
 }

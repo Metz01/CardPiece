@@ -30,16 +30,19 @@ DatabaseHelper::DatabaseHelper() {
     }
 }
 
+QJsonObject DatabaseHelper::getCardInfo(std::string cardCode){
+    QJsonObject jsonObj = database.object();
+    QJsonObject cardInfoJson = JsonParser::jsonKeytoJsonObject(jsonObj, cardCode);
+    return cardInfoJson;
+}
+
 /// @brief from the json file, select the card with the given cardCode and initialize it
 /// @param cardCode code of the card to be selected
 /// @return istanciated card
 
 Card* DatabaseHelper::selectJSonCard(std::string cardCode){
-    std::cout << "Selecting card" << "\n";
-    QTextStream ts(stdout);
-    QJsonObject jsonObj = database.object();
-    QJsonObject cardInfoJson = JsonParser::jsonKeytoJsonObject(jsonObj, cardCode);
-
+    
+    QJsonObject cardInfoJson = getCardInfo(cardCode);
     QJsonValue type = cardInfoJson.value(QString("type"));
 
     int cardType = (type.toString().toInt());
@@ -47,7 +50,6 @@ Card* DatabaseHelper::selectJSonCard(std::string cardCode){
     switch (cardType)
     {
     case Enums::leader:
-        std::cout << "Leader created" << "\n";
         return new Leader(cardInfoJson, cardCode);
         break;
     case Enums::character:
