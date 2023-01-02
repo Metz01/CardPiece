@@ -30,6 +30,9 @@ public:
     void playCard(Card *selectedCard);
     bool hasCard(Card *card);
     bool hasOnHand(Card *card);
+    bool hasOnGround(Card *card);
+    bool loseLife(int amount);
+    bool killCard(Card *card);
 };
 
 #endif // PLAYER_H

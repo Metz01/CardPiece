@@ -126,9 +126,13 @@ bool FSM::selectEnemyCardRequest(Card* selectedCard, Card* selectedEnemyCard)
         return false;
     }
 
-    if (dynamic_cast<Attacker*>(selectedCard) != NULL)
+    if (selectedCard->getCardType() != Enums::CardType::character && selectedCard->getCardType() != Enums::CardType::leader)
     {
+        Debug::LogError("Tried to Select an Enemy Card, but the card is not a character or a leader");
+        return false;
     }
+
+    ApiLogic::attackCard(selectedCard, selectedEnemyCard, _currentPlayer);
     
     selectedEnemyCard->getCardType();
 

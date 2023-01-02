@@ -23,7 +23,7 @@ std::string Card::getArtPath() { return _artPath; }
 
 std::string Card::getName() { return _name; }
 
-bool Card::getStatus() const{
+bool Card::isActive() const{
     return _active;
 }
 

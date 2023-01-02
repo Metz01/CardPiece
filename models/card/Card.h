@@ -24,7 +24,7 @@ public:
     std::string getName();
     virtual Utils::CardInfo info(Enums::InfoAttribute attribute, Utils::CardInfo onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo)) const = 0;
     virtual Enums::CardType getCardType() const = 0;
-    bool getStatus() const;
+    bool isActive() const;
     void restCard();
 };
 

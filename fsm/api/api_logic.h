@@ -20,8 +20,10 @@ public:
     static Player* whoseCard(Card* card);
     static Don* attachDon(Don* don, Attacker* card);
     static Card* playCard(Player* player, Card* card, bool* isFromHand);
-    static bool attackCard(Card* attacker, Card* defender);
-    static bool attachDonToCard(Card* card, Don* don, Player* player);
+    static bool attackCard(Card* attacker, Card* defender, Player* currentPlayer);
+    static bool battlePhase(Card* attacker, Card* defender, Player* currentPlayer);
+    static bool attachDonToCard(Card* card, Don* don, Player* currentPlayer);
+    static Player* getOpponent(Player* currentPlayer);
     // static void selectCard();
     // static void useCard();
     // static void selectEnemyCard();

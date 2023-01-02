@@ -80,7 +80,7 @@ void Player::playCard(Card *selectedCard)
         {
             for (; lastAnalyzedDonPos < donSize; lastAnalyzedDonPos++)
             {
-                if (donList[lastAnalyzedDonPos]->getStatus())
+                if (donList[lastAnalyzedDonPos]->isActive())
                 {
                     donList[lastAnalyzedDonPos]->restCard();
                     deactivated++;
@@ -122,3 +122,29 @@ bool Player::hasOnHand(Card *card)
     return false;
 }
 
+bool Player::hasOnGround(Card *card)
+{
+    Debug::LogEnv("Player::hasOnGround");
+    if (std::find(ground.begin(), ground.end(), card) != ground.end())
+        return true;
+    return false;
+}
+
+bool Player::loseLife(int amount)
+{
+    Debug::LogEnv("Player::loseLife");
+    life -= amount;
+    return true;
+}
+
+bool Player::killCard(Card *card)
+{
+    Debug::LogEnv("Player::killCard");
+    if (std::find(ground.begin(), ground.end(), card) != ground.end())
+    {
+        ground.erase(std::remove(ground.begin(), ground.end(), card), ground.end());
+        graveyard.push_back(card);
+        return true;
+    }
+    return false;
+}

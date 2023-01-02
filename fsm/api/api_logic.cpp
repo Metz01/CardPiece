@@ -1,5 +1,6 @@
 #include "api_logic.h"
 #include "../../utils/Debug.h"
+#include "battle.h"
 
 Player *ApiLogic::player1 = NULL;
 Player *ApiLogic::player2 = NULL;
@@ -69,10 +70,10 @@ Card* ApiLogic::playCard(Player* player, Card* card, bool* isFromHand)
     return card;
 }
 
-bool ApiLogic::attackCard(Card* attacker, Card* defender)
+bool ApiLogic::attackCard(Card* attacker, Card* defender, Player* currentPlayer)
 {
     Debug::LogEnv("ApiLogic::attackCard");
-    if (defender->getStatus() && defender->getCardType() != Enums::CardType::leader){
+    if (defender->isActive() && defender->getCardType() != Enums::CardType::leader){
         Debug::LogError("Tried to attack a non rested card");
         return false;
     }
@@ -81,10 +82,13 @@ bool ApiLogic::attackCard(Card* attacker, Card* defender)
         Debug::LogError("Tried to attack a card from the same player");
         return false;
     }
-    if (whoseCard(defender)->hasOnHand(defender)){
-        Debug::LogError("Tried to attack a card from the hand");
+    if (!whoseCard(defender)->hasOnGround(defender)){
+        Debug::LogError("Tried to attack a card not on the ground");
         return false;
     }
+
+    Battle::attackCard(attacker, defender, getOpponent(currentPlayer));
+
     //bool result = defender->get
     return true;
 }
@@ -120,4 +124,12 @@ bool ApiLogic::attachDonToCard(Card* card, Don* don, Player* currentPlayer)
     attachDon(don, attackerSelected);
 
     return true;
+}
+
+Player* ApiLogic::getOpponent(Player* currentPlayer)
+{
+    if (currentPlayer == player1)
+        return player2;
+    else
+        return player1;
 }
