@@ -21,6 +21,7 @@ public:
     static bool selectCardRequest(Card* selectedCard);
     static bool attachDonRequest(Card* selectedCard, Don* selectedDon);
     static bool selectEnemyCardRequest(Card* selectedCard, Card* selectedEnemyCard);
+    static bool endTurnRequest();
 };
 
 #endif

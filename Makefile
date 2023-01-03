@@ -61,6 +61,7 @@ SOURCES       = main.cpp \
 		models/Player.cpp \
 		models/LinkedList.cpp \
 		fsm/api/api_logic.cpp \
+		fsm/api/battle.cpp \
 		fsm/fsm.cpp \
 		models/card/card_types/Character.cpp \
 		models/card/card_types/Don.cpp \
@@ -83,6 +84,7 @@ OBJECTS       = build/main.o \
 		build/Player.o \
 		build/LinkedList.o \
 		build/api_logic.o \
+		build/battle.o \
 		build/fsm.o \
 		build/Character.o \
 		build/Don.o \
@@ -175,6 +177,7 @@ DIST          = /usr/lib/qt6/mkspecs/features/spec_pre.prf \
 		models/card/card_types/Leader.h \
 		fsm/api/api_logic.h \
 		fsm/api/api_ui.h \
+		fsm/api/battle.h \
 		fsm/fsm.h \
 		widgets/Card_widget.h \
 		widgets/Main_window.h \
@@ -192,6 +195,7 @@ DIST          = /usr/lib/qt6/mkspecs/features/spec_pre.prf \
 		models/Player.cpp \
 		models/LinkedList.cpp \
 		fsm/api/api_logic.cpp \
+		fsm/api/battle.cpp \
 		fsm/fsm.cpp \
 		models/card/card_types/Character.cpp \
 		models/card/card_types/Don.cpp \
@@ -371,8 +375,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt6/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents models/card/Card.h models/card/ColoredCard.h models/card/Attacker.h models/card/PlayableCard.h models/Deck.h models/Player.h models/LinkedList.h models/card/card_types/CardTypes.h models/card/card_types/Character.h models/card/card_types/Don.h models/card/card_types/Leader.h fsm/api/api_logic.h fsm/api/api_ui.h fsm/fsm.h widgets/Card_widget.h widgets/Main_window.h utils/Constants.h utils/database_helper.h utils/Debug.h utils/Enums.h utils/JsonParser.h utils/Utils.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp models/card/Card.cpp models/card/ColoredCard.cpp models/card/Attacker.cpp models/card/PlayableCard.cpp models/Deck.cpp models/Player.cpp models/LinkedList.cpp fsm/api/api_logic.cpp fsm/fsm.cpp models/card/card_types/Character.cpp models/card/card_types/Don.cpp models/card/card_types/Leader.cpp utils/database_helper.cpp utils/Debug.cpp utils/Enums.cpp utils/JsonParser.cpp utils/Utils.cpp widgets/Card_widget.cpp widgets/Main_window.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents models/card/Card.h models/card/ColoredCard.h models/card/Attacker.h models/card/PlayableCard.h models/Deck.h models/Player.h models/LinkedList.h models/card/card_types/CardTypes.h models/card/card_types/Character.h models/card/card_types/Don.h models/card/card_types/Leader.h fsm/api/api_logic.h fsm/api/api_ui.h fsm/api/battle.h fsm/fsm.h widgets/Card_widget.h widgets/Main_window.h utils/Constants.h utils/database_helper.h utils/Debug.h utils/Enums.h utils/JsonParser.h utils/Utils.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp models/card/Card.cpp models/card/ColoredCard.cpp models/card/Attacker.cpp models/card/PlayableCard.cpp models/Deck.cpp models/Player.cpp models/LinkedList.cpp fsm/api/api_logic.cpp fsm/api/battle.cpp fsm/fsm.cpp models/card/card_types/Character.cpp models/card/card_types/Don.cpp models/card/card_types/Leader.cpp utils/database_helper.cpp utils/Debug.cpp utils/Enums.cpp utils/JsonParser.cpp utils/Utils.cpp widgets/Card_widget.cpp widgets/Main_window.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -445,16 +449,16 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
-build/main.o: main.cpp widgets/Main_window.h \
+build/main.o: main.cpp utils/Utils.h \
+		utils/Enums.h \
+		utils/Constants.h \
+		utils/JsonParser.h \
+		utils/Debug.h \
+		widgets/Main_window.h \
 		models/card/card_types/Leader.h \
 		models/card/Attacker.h \
 		models/card/ColoredCard.h \
 		models/card/Card.h \
-		utils/JsonParser.h \
-		utils/Constants.h \
-		utils/Enums.h \
-		utils/Utils.h \
-		utils/Debug.h \
 		utils/database_helper.h \
 		models/card/card_types/CardTypes.h \
 		models/card/card_types/Character.h \
@@ -562,8 +566,29 @@ build/api_logic.o: fsm/api/api_logic.cpp fsm/api/api_logic.h \
 		models/card/ColoredCard.h \
 		models/card/PlayableCard.h \
 		models/card/card_types/Leader.h \
-		models/card/card_types/Don.h
+		models/card/card_types/Don.h \
+		fsm/api/battle.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/api_logic.o fsm/api/api_logic.cpp
+
+build/battle.o: fsm/api/battle.cpp fsm/api/battle.h \
+		models/Player.h \
+		models/Deck.h \
+		models/LinkedList.h \
+		utils/Constants.h \
+		utils/database_helper.h \
+		models/card/card_types/CardTypes.h \
+		models/card/Card.h \
+		utils/JsonParser.h \
+		utils/Enums.h \
+		utils/Utils.h \
+		utils/Debug.h \
+		models/card/card_types/Character.h \
+		models/card/Attacker.h \
+		models/card/ColoredCard.h \
+		models/card/PlayableCard.h \
+		models/card/card_types/Leader.h \
+		models/card/card_types/Don.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/battle.o fsm/api/battle.cpp
 
 build/fsm.o: fsm/fsm.cpp fsm/fsm.h \
 		utils/Enums.h \

@@ -85,7 +85,7 @@ bool FSM::selectCardRequest(Card* selectedCard)
     *isPlayedFromHand = false;
 
     ApiLogic::playCard(_currentPlayer, selectedCard, isPlayedFromHand);
-    _currentState = isPlayedFromHand ? Enums::State::SelectCard : Enums::State::SelectEnemyCard;
+    _currentState = *isPlayedFromHand ? Enums::State::SelectCard : Enums::State::SelectEnemyCard;
 
     Debug::LogDebug("This card was " + (std::string)(isPlayedFromHand ? " played by hand" : " an enemy that has been selected"));
     
@@ -120,21 +120,44 @@ bool FSM::selectEnemyCardRequest(Card* selectedCard, Card* selectedEnemyCard)
         return false;
     }
 
-    if (ApiLogic::whoseCard(selectedCard) == _currentPlayer)
+    if (ApiLogic::whoseCard(selectedEnemyCard) == _currentPlayer)
     {
         Debug::LogError("Tried to Select an Enemy Card, but the card is yours");
         return false;
     }
 
-    if (selectedCard->getCardType() != Enums::CardType::character && selectedCard->getCardType() != Enums::CardType::leader)
+    if (selectedEnemyCard->getCardType() != Enums::CardType::character && selectedEnemyCard->getCardType() != Enums::CardType::leader)
     {
         Debug::LogError("Tried to Select an Enemy Card, but the card is not a character or a leader");
         return false;
     }
 
     ApiLogic::attackCard(selectedCard, selectedEnemyCard, _currentPlayer);
-    
-    selectedEnemyCard->getCardType();
+
+    _currentState = Enums::State::SelectCard;
 
     return false;
+}
+
+bool FSM::endTurnRequest()
+{
+    Debug::LogEnv("FSM::endTurnRequest");
+
+    // Assert State
+    if (_currentState != Enums::State::SelectCard)
+    {
+        Debug::LogError("Tried to End the Turn, but the state is: " + EnumsHelper::ToString(_currentState));
+        return false;
+    }
+
+    // Change State
+    _currentState = Enums::State::Draw;
+
+    // Change Player
+    _currentPlayer = ApiLogic::getOpponent(_currentPlayer);
+
+    // Increment Turns
+    _turnsPlayed++;
+
+    return true;
 }

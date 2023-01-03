@@ -11,6 +11,7 @@ class Player
 {
 private:
     Deck deck;
+    LinkedList lifeCards;
     std::vector<Card *> hand;
     std::vector<Card *> graveyard;
     std::vector<Card *> ground;
@@ -33,6 +34,10 @@ public:
     bool hasOnGround(Card *card);
     bool loseLife(int amount);
     bool killCard(Card *card);
+    void print() const;
+    Leader *getLeader() const;
+    bool useDon();
+    std::vector<Don*> getDonList() const;
 };
 
 #endif // PLAYER_H

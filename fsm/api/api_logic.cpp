@@ -41,10 +41,11 @@ Player* ApiLogic::whoseCard(Card* card)
 
 }
 
-Don* ApiLogic::attachDon(Don* don, Attacker* card)
+Don* ApiLogic::attachDon(Don* don, Attacker* card, Player* currentPlayer)
 {
     Debug::LogEnv("ApiLogic::attachDon");
     don->attachCard(card);
+    currentPlayer->useDon();
     return don;
 }
 
@@ -54,6 +55,7 @@ Card* ApiLogic::playCard(Player* player, Card* card, bool* isFromHand)
     if(player->hasOnHand(card)){
         Debug::LogInfo("ApiLogic::playCard Card On Hand");
         bool isCharacter = (card->info(Enums::InfoAttribute::Type, Utils::LoadCard)).type == Enums::CardType::character;
+        Debug::LogInfo("ApiLogic::playCard isCharacter: " + std::to_string(isCharacter));
         if(isCharacter){
             player->playCard(card);
             // _currentState = Enums::State::SelectCard;
@@ -87,7 +89,7 @@ bool ApiLogic::attackCard(Card* attacker, Card* defender, Player* currentPlayer)
         return false;
     }
 
-    Battle::attackCard(attacker, defender, getOpponent(currentPlayer));
+    Battle::attackCard(attacker, defender, currentPlayer, getOpponent(currentPlayer));
 
     //bool result = defender->get
     return true;
@@ -108,11 +110,6 @@ bool ApiLogic::attachDonToCard(Card* card, Don* don, Player* currentPlayer)
         return false;
     }
 
-    if(!currentPlayer->hasOnHand(don))
-    {
-        Debug::LogError("Tried to Attach a Don, but the don is not on your hand");
-        return false;
-    }
     Attacker* attackerSelected = dynamic_cast<Attacker*>(card);
     
     if (attackerSelected == NULL)
@@ -121,7 +118,7 @@ bool ApiLogic::attachDonToCard(Card* card, Don* don, Player* currentPlayer)
         return false;
     }
 
-    attachDon(don, attackerSelected);
+    attachDon(don, attackerSelected, currentPlayer);
 
     return true;
 }

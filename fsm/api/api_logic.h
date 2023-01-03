@@ -18,7 +18,7 @@ public:
     static Card *drawCard(Player *player);
     static std::vector<Don *> drawDon(Player *player, int amount);
     static Player* whoseCard(Card* card);
-    static Don* attachDon(Don* don, Attacker* card);
+    static Don* attachDon(Don* don, Attacker* card, Player* currentPlayer);
     static Card* playCard(Player* player, Card* card, bool* isFromHand);
     static bool attackCard(Card* attacker, Card* defender, Player* currentPlayer);
     static bool battlePhase(Card* attacker, Card* defender, Player* currentPlayer);

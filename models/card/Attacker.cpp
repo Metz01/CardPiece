@@ -19,7 +19,9 @@ Attacker::~Attacker()
 
 void Attacker::buffAttack(int buff)
 {
+    Debug::LogEnv("Attacker::buffAttack");
     _attack += buff;
+    Debug::LogDebug("Current buffed attack amouts to: " + std::to_string(_attack));
 }
 
 int Attacker::getAttack() const

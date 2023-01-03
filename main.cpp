@@ -23,10 +23,23 @@ void _setup()
   FSM fms(p1);
   Card* card = FSM::drawCardRequest();
   FSM::drawDonRequest();
-  bool done = FSM::selectCardRequest(card);
+  FSM::selectCardRequest(card);
+  p1->print();
+  FSM::endTurnRequest();
+  Debug::LogDebug("********* End Turn **********");
+
   Card* card2 = FSM::drawCardRequest();
-  FSM::drawDonRequest();
+  std::vector<Don*> don = FSM::drawDonRequest();
   FSM::selectCardRequest(card2);
+  FSM::selectCardRequest(don[0]);
+  FSM::attachDonRequest(card2, don[0]);
+  FSM::selectCardRequest(card2);
+  FSM::selectEnemyCardRequest(card2, p1->getLeader());
+  p1->print();
+  p2->print();
+  FSM::endTurnRequest();
+  Debug::LogDebug("********* End Turn **********");
+  
   Utils::CardInfo info = card->info(Enums::InfoAttribute::Name, Utils::LoadCard);
   std::string name = info.name;
   

@@ -21,7 +21,7 @@ public:
     ~LinkedList();
     void add(std::string cardCode);
     std::string popFirst();
-    void print();
+    void print() const;
     int getSize();
     std::string getCardCode(int index);
     void remove(std::string cardCode);

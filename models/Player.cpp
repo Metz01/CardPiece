@@ -11,6 +11,10 @@ Player::Player(std::string path, std::string name) : deck(Deck(path)), hand(std:
     this->activeDon = 0;
     this->leader = dynamic_cast<Leader *>(DatabaseHelper::selectJSonCard(getLeaderCodeFromDeck()));
     this->life = leader->getLife();
+    for(int i = 0; i < this->life; i++){
+        lifeCards.add(this->deck.drawCard());
+    }
+
 }
 
 /// @brief get the leader code from the deck and remove it from the deck
@@ -65,53 +69,43 @@ void Player::playCard(Card *selectedCard)
 {
     Debug::LogEnv("Player::playCard");
     Utils::CardInfo info = selectedCard->info(Enums::Cost, Utils::LoadCard);
-    /* if(info == nullptr){
-        Debug::LogError("Failed to get Info");
-        return;
-    } */
     Debug::LogDebug("Cost: " + std::to_string(info.cost) + " | ActiveDon: " + std::to_string(activeDon));
     int cost = info.cost;
-    if(activeDon >= cost){
-        activeDon -= cost;
-        int deactivated = 0;
-        int lastAnalyzedDonPos = 0;
-        int donSize = donList.size();
-        while (deactivated < cost)
-        {
-            for (; lastAnalyzedDonPos < donSize; lastAnalyzedDonPos++)
-            {
-                if (donList[lastAnalyzedDonPos]->isActive())
-                {
-                    donList[lastAnalyzedDonPos]->restCard();
-                    deactivated++;
-                    break;
-                }
-            }
-        }
-        
-        std::remove(hand.begin(), hand.end(), selectedCard);
-        ground.push_back(selectedCard);
-    }else{
+    if(activeDon < cost){
         Debug::LogError("Not enough don to play this card");
+        return;
     }
+    activeDon -= cost;
+    int deactivated = 0;
+    int lastAnalyzedDonPos = 0;
+    int donSize = donList.size();
+    while (deactivated < cost)
+    {
+        for (; lastAnalyzedDonPos < donSize; lastAnalyzedDonPos++)
+        {
+            if (!donList[lastAnalyzedDonPos]->isActive()) continue;
+            
+            donList[lastAnalyzedDonPos]->restCard();
+            deactivated++;
+            break;
+        }
+    }
+
+    //remove selected card from hand
+    hand.erase(std::remove(hand.begin(), hand.end(), selectedCard), hand.end());
+    ground.push_back(selectedCard);
     Debug::LogDebug("played card | ActiveDon: " + std::to_string(activeDon));
-    
 }
 
 bool Player::hasCard(Card *card)
 {
     Debug::LogEnv("Player::print");
-    if (std::find(hand.begin(), hand.end(), card) != hand.end())
-        return true;
-    if (std::find(ground.begin(), ground.end(), card) != ground.end())
-        return true;
-    if (std::find(graveyard.begin(), graveyard.end(), card) != graveyard.end())
-        return true;
-    if (std::find(donList.begin(), donList.end(), card) != donList.end())
-        return true;
+    if (std::find(hand.begin(), hand.end(), card) != hand.end())                    return true;
+    if (std::find(ground.begin(), ground.end(), card) != ground.end())              return true;
+    if (std::find(graveyard.begin(), graveyard.end(), card) != graveyard.end())     return true;
+    if (std::find(donList.begin(), donList.end(), card) != donList.end())           return true;
     if(card == leader) return true;
     return false;
-
 }
 
 bool Player::hasOnHand(Card *card)
@@ -125,7 +119,7 @@ bool Player::hasOnHand(Card *card)
 bool Player::hasOnGround(Card *card)
 {
     Debug::LogEnv("Player::hasOnGround");
-    if (std::find(ground.begin(), ground.end(), card) != ground.end())
+    if (card == this->leader || std::find(ground.begin(), ground.end(), card) != ground.end())
         return true;
     return false;
 }
@@ -134,6 +128,11 @@ bool Player::loseLife(int amount)
 {
     Debug::LogEnv("Player::loseLife");
     life -= amount;
+    if(life < 0) return false;
+    for(int i = 0; i < amount; i++){
+        Card* card = DatabaseHelper::selectJSonCard(lifeCards.popFirst());
+        hand.push_back(card);
+    }
     return true;
 }
 
@@ -147,4 +146,52 @@ bool Player::killCard(Card *card)
         return true;
     }
     return false;
+}
+
+//print all info of player
+void Player::print() const
+{
+    Debug::LogEnv("Player::print");
+    Debug::LogDebug("Player: " + _name);
+    Debug::LogDebug("Leader: " + leader->getName());
+    Debug::LogDebug("Life: " + std::to_string(life));
+    Debug::LogDebug("Don: " + std::to_string(don));
+    Debug::LogDebug("ActiveDon: " + std::to_string(activeDon));
+    Debug::LogDebug("* Hand: ");
+    for (Card *card : hand)
+    {
+        Debug::LogDebug(card->getName());
+    }
+    Debug::LogDebug("* Ground: ");
+    for (Card *card : ground)
+    {
+        Debug::LogDebug(card->getName());
+    }
+    Debug::LogDebug("* Graveyard: ");
+    for (Card *card : graveyard)
+    {
+        Debug::LogDebug(card->getName());
+    }
+    Debug::LogDebug("* DonList: ");
+    for (Don *don : donList)
+    {
+        Debug::LogDebug(don->getName());
+    }
+    lifeCards.print();
+}
+
+Leader *Player::getLeader() const
+{
+    return leader;
+}
+
+bool Player::useDon(){
+    if(activeDon <= 0) return false;
+
+    activeDon--;
+    return true;
+}
+
+std::vector<Don*> Player::getDonList() const{
+    return this->donList;
 }

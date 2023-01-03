@@ -22,11 +22,12 @@ void Don::attachCard(Attacker *card)
 {
     _attachedCard = card;
     _attachedCard->buffAttack(attackIncrement);
+    this->restCard();
 }
 
 void Don::deattachCard()
 {
-    // TODO: remove buff to the attached card
+    _attachedCard->buffAttack(-attackIncrement);
     _attachedCard = NULL;
 }
 

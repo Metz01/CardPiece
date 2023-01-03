@@ -52,7 +52,7 @@ std::string LinkedList::popFirst()
 }
 
 /// @brief print the linked list
-void LinkedList::print()
+void LinkedList::print() const
 {
     Debug::LogEnv("LinkedList::print");
     Node *current = head;
