@@ -34,20 +34,24 @@ void _setup()
   FSM::selectCardRequest(don[0]);
   FSM::attachDonRequest(card2, don[0]);
   FSM::selectCardRequest(card2);
-  FSM::selectEnemyCardRequest(card2, p1->getLeader());
+  FSM::selectEnemyCardRequest(card2, card);
   p1->print();
   p2->print();
-  FSM::endTurnRequest();
+  FSM::endTurnRequest(); 
   Debug::LogDebug("********* End Turn **********");
-  
+  Card* card3 = FSM::drawCardRequest();
+  FSM::drawDonRequest();
+  FSM::selectCardRequest(card);
+  p1->print();
+  p2->print();
   Utils::CardInfo info = card->info(Enums::InfoAttribute::Name, Utils::LoadCard);
   std::string name = info.name;
   
-  p1->printDeck();
 }
 
-void _testFunctions()
+void _testFunctions(int i)
 {
+  Debug::LogDebug("Test function");
   return;
 }
 

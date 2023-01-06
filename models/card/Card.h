@@ -15,6 +15,7 @@ protected:
     std::string _name;
     std::string _effect; // TODO: make effect class
     bool _active;
+    
 public:
     Card(std::string name, std::string artPath, std::string effect);
     Card(QJsonObject Json);

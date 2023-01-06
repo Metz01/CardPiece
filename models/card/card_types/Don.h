@@ -9,7 +9,7 @@
 class Don : public Card
 {
 private:
-    Attacker *_attachedCard;
+    Attacker *_attachedCard = NULL;
     int const attackIncrement = 1000;
 
 public:
