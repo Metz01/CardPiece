@@ -17,6 +17,7 @@ class Attacker: virtual public ColoredCard
         virtual Enums::CardType getCardType() const = 0;
         int getAttack() const;
         void buffAttack(int);
+        Utils::CardInfo getCardInfo(Enums::InfoAttribute attribute) const override;
 };
 
 

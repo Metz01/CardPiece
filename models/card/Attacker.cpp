@@ -30,3 +30,29 @@ int Attacker::getAttack() const
 }
 
 /* std::string* Attacker::info(){} */
+
+Utils::CardInfo Attacker::getCardInfo(Enums::InfoAttribute attribute) const{
+    Debug::LogEnv("Attacker::getCardInfo");
+    Utils::info i = info();
+    switch (attribute)
+    {
+    case Enums::InfoAttribute::Name:
+        return Utils::CardInfo(info(_name), Enums::InfoAttribute::Name);
+    case Enums::InfoAttribute::TYPE:
+        return Utils::CardInfo(Utils::info{type}, Enums::InfoAttribute::TYPE);
+    case Enums::InfoAttribute::ATTACK:
+        return Utils::CardInfo(Utils::info{attack}, Enums::InfoAttribute::ATTACK);
+    case Enums::InfoAttribute::COST:
+        return Utils::CardInfo(Utils::info{cost}, Enums::InfoAttribute::COST);
+    case Enums::InfoAttribute::EFFECT:
+        return Utils::CardInfo(Utils::info{effect}, Enums::InfoAttribute::EFFECT);
+    case Enums::InfoAttribute::COLOR:
+        return Utils::CardInfo(Utils::info{color}, Enums::InfoAttribute::COLOR);
+    case Enums::InfoAttribute::ARTPATH:
+        return Utils::CardInfo(Utils::info{artPath}, Enums::InfoAttribute::ARTPATH);
+    case Enums::InfoAttribute::LIFE:
+        return Utils::CardInfo(Utils::info{life}, Enums::InfoAttribute::LIFE);
+    default:
+        return Utils::CardInfo(Utils::info{""}, Enums::InfoAttribute::NONE);
+    }
+}

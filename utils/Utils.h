@@ -9,19 +9,27 @@
 #include "Debug.h"
 
 namespace Utils{
-
+    union info{
+        std::string name;
+        Enums::CardType type;
+        int attack;
+        int cost;
+        std::string effect;
+        Enums::Colors color;
+        std::string artPath;
+        int life;
+        info() {}       // Explicit constructor definition
+        ~info() { };    // Explicit destructor definition
+    };
 
     class CardInfo{
         public:
-            std::string name;
-            Enums::CardType type;
-            int attack;
-            int cost;
-            std::string effect;
-            Enums::Colors color;
-            std::string artPath;
-            int life;
 
+            info value;
+
+            Enums::InfoAttribute attribute;
+
+            CardInfo(info value, Enums::InfoAttribute attribute);
         // Non dovrebbe servire dato che non ci sono puntatori
         // ~CardInfo(){
         //     delete &name;
@@ -31,6 +39,9 @@ namespace Utils{
     };
 
     CardInfo LoadCard(Enums::InfoAttribute attribute, QJsonObject rawInfo);
+
+    std::string GetCardName(QJsonObject rawInfo);
+    
 };
 
 #endif

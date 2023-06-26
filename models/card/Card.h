@@ -27,6 +27,7 @@ public:
     virtual Enums::CardType getCardType() const = 0;
     bool isActive() const;
     void restCard();
+    virtual Utils::CardInfo getCardInfo(Enums::InfoAttribute attribute) const = 0;
 };
 
 
