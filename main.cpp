@@ -49,7 +49,7 @@ void _setup()
   
 }
 
-void _testFunctions(int i)
+void _testFunctions()
 {
   Debug::LogDebug("Test function");
   return;
@@ -60,9 +60,9 @@ int main(int argc, char *argv[])
   QApplication app(argc, argv);
   _setup();
   _testFunctions();
-  /* Main_window *mw = new Main_window();
+  Main_window *mw = new Main_window();
   mw->resize(1920, 1080);
-  mw->show(); */
+  mw->show(); 
 
   return app.exec();
 }
