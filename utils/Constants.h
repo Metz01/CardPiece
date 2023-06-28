@@ -2,7 +2,8 @@
 #define CONSTANTS_H
 
 // Percorso per il Database
-#define JSON_PATH "assets/cardDB.json"
+#define JSON_PATH "./assets/cardDB.json"
+#define DECK1_PATH "./assets/deck/deck1.txt"
 
 // Proprietà del Database
 #define JSON_NAME std::string("name")

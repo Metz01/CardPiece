@@ -1,6 +1,7 @@
-<!DOCTYPE RCC>
-<RCC version="1.0">
-<qresource>
-    <file>assets/OP01-006.png</file>
-</qresource>
+<RCC>
+    <qresource prefix="/">
+        <file>assets/OP01-006.png</file>
+        <file>assets/cardDB.json</file>
+        <file>assets/deck/deck1.txt</file>
+    </qresource>
 </RCC>

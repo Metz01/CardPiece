@@ -11,12 +11,13 @@
 #include "./utils/Debug.h"
 #include "./fsm/fsm.h"
 #include "./fsm/api/api_logic.h"
+#include "./utils/Constants.h"
 
 void _setup()
 {
   DatabaseHelper();
-  Player *p1 = new Player("./assets/deck/deck1.txt", "Alex");
-  Player *p2 = new Player("./assets/deck/deck1.txt", "Mark");
+  Player *p1 = new Player(DECK1_PATH, "Alex");
+  Player *p2 = new Player(DECK1_PATH, "Mark");
 
 
   ApiLogic(p1, p2);
@@ -60,9 +61,9 @@ int main(int argc, char *argv[])
   QApplication app(argc, argv);
   _setup();
   _testFunctions();
-  /* Main_window *mw = new Main_window();
+  Main_window *mw = new Main_window();
   mw->resize(1920, 1080);
-  mw->show(); */
+  mw->show();
 
   return app.exec();
 }

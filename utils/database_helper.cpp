@@ -1,6 +1,8 @@
 #include "database_helper.h"
 #include "Constants.h"
 
+#include <QtDebug>
+
 
 QJsonDocument DatabaseHelper::database = (QJsonDocument());
 
@@ -16,11 +18,10 @@ DatabaseHelper::DatabaseHelper() {
     
     // Read Json File
     QFile fin(JSON_PATH);
-    fin.open(QIODevice::ReadWrite);
+    fin.open(QIODevice::ReadOnly);
     QByteArray ba2 = fin.readAll();
     fin.close();
-    database = QJsonDocument::fromJson(ba2, &parseError);
-    
+    database = QJsonDocument::fromJson(ba2, &parseError);    
     // Assert Json Syntax
     if (parseError.error != QJsonParseError::NoError) {
         qWarning() << "Parse error at" << parseError.offset << ":" << parseError.errorString();
@@ -31,8 +32,12 @@ DatabaseHelper::DatabaseHelper() {
 }
 
 QJsonObject DatabaseHelper::getCardInfo(std::string cardCode){
+    Debug::LogDebug(cardCode);
     QJsonObject jsonObj = database.object();
     QJsonObject cardInfoJson = JsonParser::jsonKeytoJsonObject(jsonObj, cardCode);
+    QJsonDocument doc(jsonObj);
+//    QString jsonString = doc.toJson(QJsonDocument::Indented);
+//    qDebug() << jsonString.toStdString().c_str();
     return cardInfoJson;
 }
 
