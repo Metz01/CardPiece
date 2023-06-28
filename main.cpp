@@ -49,7 +49,7 @@ void _setup()
   
 }
 
-void _testFunctions(int i)
+void _testFunctions()
 {
   Debug::LogDebug("Test function");
   return;
