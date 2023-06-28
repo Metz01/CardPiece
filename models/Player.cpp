@@ -68,9 +68,8 @@ bool Player::activeAllDon(){
 void Player::playCard(Card *selectedCard)
 {
     Debug::LogEnv("Player::playCard");
-    Utils::CardInfo info = selectedCard->info(Enums::Cost, Utils::LoadCard);
-    Debug::LogDebug("Cost: " + std::to_string(info.cost) + " | ActiveDon: " + std::to_string(activeDon));
-    int cost = info.cost;
+    int cost = selectedCard->getCardInfo(Enums::InfoAttribute::Cost).value.cost;
+    Debug::LogDebug("Cost: " + std::to_string(cost) + " | ActiveDon: " + std::to_string(activeDon));
     if(activeDon < cost){
         Debug::LogError("Not enough don to play this card");
         return;

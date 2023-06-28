@@ -21,12 +21,12 @@ public:
     Card(QJsonObject Json);
     Card();
     virtual ~Card();
-    std::string getArtPath();
-    std::string getName();
-    virtual Utils::CardInfo info(Enums::InfoAttribute attribute, Utils::CardInfo onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo)) const = 0;
+    std::string getArtPath() const;
+    std::string getName() const;
     virtual Enums::CardType getCardType() const = 0;
     bool isActive() const;
     void restCard();
+    std::string getEffect() const;
     virtual Utils::CardInfo getCardInfo(Enums::InfoAttribute attribute) const = 0;
 };
 

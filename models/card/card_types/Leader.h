@@ -13,9 +13,9 @@ public:
     Leader(QJsonObject Json, std::string cardCode);
     ~Leader();
     int getLife() const;
-    Utils::CardInfo info(Enums::InfoAttribute attribute, Utils::CardInfo onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo)) const;
     std::string* lead() const;
     Enums::CardType getCardType() const;
+    Utils::CardInfo getCardInfo(Enums::InfoAttribute attribute) const override;
 };
 
 #endif

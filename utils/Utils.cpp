@@ -1,34 +1,86 @@
 #include "Utils.h"
 
-Utils::CardInfo::CardInfo(Utils::info value, Enums::InfoAttribute attribute){
-    switch (attribute)
+Utils::CardInfo::CardInfo(Enums::InfoAttribute attribut, Character const* card){
+    attribute = attribut;
+    switch (attribut)
     {
-    case Enums::InfoAttribute::Name:
-        this->value.name = value.name;
+    case Enums::Name:
+        std::strcpy(value.name, card->getName().c_str());
         break;
-    case Enums::InfoAttribute::Type:
-        this->value.type = value.type;
+    case Enums::Type:
+        value.type = card->getCardType();
         break;
-    case Enums::InfoAttribute::Attack:
-        this->value.attack = value.attack;
+    case Enums::Attack:
+        value.attack = card->getAttack();
         break;
-    case Enums::InfoAttribute::Cost:
-        this->value.cost = value.cost;
+    case Enums::Cost:
+        value.cost = card->getCost();
         break;
-    case Enums::InfoAttribute::Effect:
-        this->value.effect = value.effect;
+    case Enums::Effect:
+        std::strcpy(value.effect, card->getEffect().c_str());
         break;
-    case Enums::InfoAttribute::Color:
-        this->value.color = value.color;
+    case Enums::Color:
+        value.color = card->getColor();
         break;
-    case Enums::InfoAttribute::ArtPath:
-        this->value.artPath = value.artPath;
-        break;
-    case Enums::InfoAttribute::Life:
-        this->value.life = value.life;
+    case Enums::ArtPath:
+        std::strcpy(value.artPath, card->getArtPath().c_str());
         break;
     default:
         break;
     }
-    this->attribute = attribute;
+}
+
+Utils::CardInfo::CardInfo(Enums::InfoAttribute attribut, Don const* card){
+    attribute = attribut;
+    switch (attribut)
+    {
+    case Enums::Name:
+        std::strcpy(value.name, card->getName().c_str());
+        break;
+    case Enums::Type:
+        value.type = card->getCardType();
+        break;
+    case Enums::Effect:
+        std::strcpy(value.effect, card->getEffect().c_str());
+        break;
+    case Enums::ArtPath:
+        std::strcpy(value.artPath, card->getArtPath().c_str());
+        break;
+    default:
+        break;
+    }
+}
+
+Utils::CardInfo::CardInfo(Enums::InfoAttribute attribut, Leader const* card){
+    attribute = attribut;
+    switch (attribut)
+    {
+    case Enums::Name:
+        std::strcpy(value.name, card->getName().c_str());
+        break;
+    case Enums::Type:
+        value.type = card->getCardType();
+        break;
+    case Enums::Attack:
+        value.attack = card->getAttack();
+        break;
+    case Enums::Effect:
+        std::strcpy(value.effect, card->getEffect().c_str());
+        break;
+    case Enums::Color:
+        value.color = card->getColor();
+        break;
+    case Enums::ArtPath:
+        std::strcpy(value.artPath, card->getArtPath().c_str());
+        break;
+    case Enums::Life:
+        value.life = card->getLife();
+        break;
+    default:
+        break;
+    }
+}
+
+Utils::CardInfo::~CardInfo(){
+    
 }

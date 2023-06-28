@@ -7,38 +7,34 @@
 #include "Constants.h"
 #include "JsonParser.h"
 #include "Debug.h"
+#include "../models/card/card_types/CardTypes.h"
 
 namespace Utils{
-    union info{
-        std::string name;
-        Enums::CardType type;
-        int attack;
-        int cost;
-        std::string effect;
-        Enums::Colors color;
-        std::string artPath;
-        int life;
-        info() {}       // Explicit constructor definition
-        ~info() { };    // Explicit destructor definition
-    };
 
+    
     class CardInfo{
         public:
 
-            info value;
+            union Value {
+                char name[50];
+                Enums::CardType type;
+                int attack;
+                int cost;
+                char effect[100];
+                Enums::Colors color;
+                char artPath[100];
+                int life;
+            } value;
+    
 
             Enums::InfoAttribute attribute;
 
-            CardInfo(info value, Enums::InfoAttribute attribute);
-        // Non dovrebbe servire dato che non ci sono puntatori
-        // ~CardInfo(){
-        //     delete &name;
-        //     delete &effect;
-        //     Debug::LogDebug("Destroying CardInfo");
-        // }
-    };
+            CardInfo(Enums::InfoAttribute attribute, Character const* card);
+            CardInfo(Enums::InfoAttribute attribute, Don const* card);
+            CardInfo(Enums::InfoAttribute attribute, Leader const* card);
 
-    CardInfo LoadCard(Enums::InfoAttribute attribute, QJsonObject rawInfo);
+            ~CardInfo();
+    };
 
     std::string GetCardName(QJsonObject rawInfo);
     

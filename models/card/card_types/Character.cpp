@@ -16,11 +16,10 @@ Character::~Character()
 {
 }
 
-Utils::CardInfo Character::info(Enums::InfoAttribute attribute, Utils::CardInfo onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo)) const{
-    QJsonObject rawData = DatabaseHelper::getCardInfo(this->_code);
-    return onGetAttribute(attribute, rawData);
-}
-
 Enums::CardType Character::getCardType() const{
     return Enums::CardType::character;
+}
+
+Utils::CardInfo Character::getCardInfo(Enums::InfoAttribute attribute) const{
+    return Utils::CardInfo(attribute, this);
 }

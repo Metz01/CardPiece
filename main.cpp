@@ -44,8 +44,8 @@ void _setup()
   FSM::selectCardRequest(card);
   p1->print();
   p2->print();
-  Utils::CardInfo info = card->info(Enums::InfoAttribute::Name, Utils::LoadCard);
-  std::string name = info.name;
+  std::string info = card->getCardInfo(Enums::InfoAttribute::Name).value.name;
+  Debug::LogDebug("Card name: " + info);
   
 }
 
