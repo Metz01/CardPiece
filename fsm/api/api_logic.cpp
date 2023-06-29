@@ -54,7 +54,7 @@ Card* ApiLogic::playCard(Player* player, Card* card, bool* isFromHand)
     Debug::LogEnv("ApiLogic::playCard");
     if(player->hasOnHand(card)){
         Debug::LogInfo("ApiLogic::playCard Card On Hand");
-        bool isCharacter = (card->getCardInfo(Enums::InfoAttribute::Type).value.type) == Enums::CardType::character;
+        bool isCharacter = (card->getCardInfo(Enums::InfoAttribute::Type)->value.type) == Enums::CardType::character;
         Debug::LogInfo("ApiLogic::playCard isCharacter: " + std::to_string(isCharacter));
         if(isCharacter){
             player->playCard(card);

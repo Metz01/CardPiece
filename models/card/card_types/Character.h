@@ -3,6 +3,7 @@
 #include <string>
 #include "../Attacker.h"
 #include "../PlayableCard.h"
+#include "../../../utils/Utils.h"
 #include <QJsonObject>
 
 class Character: public Attacker, public PlayableCard
@@ -14,7 +15,7 @@ public:
     Character(QJsonObject Json, std::string cardCode);
     ~Character();
     Enums::CardType getCardType() const;
-    Utils::CardInfo getCardInfo(Enums::InfoAttribute attribute) const;
+    Utils::CardInfo* getCardInfo(Enums::InfoAttribute attribute) const;
 };
 
 #endif

@@ -7,9 +7,9 @@
 #include "../../utils/Enums.h"
 #include "../../utils/Utils.h"
 
-
 class Card
 {
+
 protected:
     std::string _artPath;
     std::string _name;
@@ -27,7 +27,7 @@ public:
     bool isActive() const;
     void restCard();
     std::string getEffect() const;
-    virtual Utils::CardInfo getCardInfo(Enums::InfoAttribute attribute) const = 0;
+    virtual Utils::CardInfo* getCardInfo(Enums::InfoAttribute attribute) const = 0;
 };
 
 

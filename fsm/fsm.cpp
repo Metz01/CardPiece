@@ -155,7 +155,7 @@ bool FSM::endTurnRequest()
 
     // Change Player
     _currentPlayer = ApiLogic::getOpponent(_currentPlayer);
-
+    
     // Increment Turns
     _turnsPlayed++;
 

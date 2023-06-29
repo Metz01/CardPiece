@@ -31,8 +31,12 @@ void _setup()
   Card* card2 = FSM::drawCardRequest();
   std::vector<Don*> don = FSM::drawDonRequest();
   FSM::selectCardRequest(card2);
+  int info = card2->getCardInfo(Enums::InfoAttribute::Attack)->value.attack;
+  Debug::LogError("Card attack befor don: " + std::to_string(info));
   FSM::selectCardRequest(don[0]);
   FSM::attachDonRequest(card2, don[0]);
+  info = card2->getCardInfo(Enums::InfoAttribute::Attack)->value.attack;
+  Debug::LogError("Card attack after don: " + std::to_string(info));
   FSM::selectCardRequest(card2);
   FSM::selectEnemyCardRequest(card2, card);
   p1->print();
@@ -41,11 +45,14 @@ void _setup()
   Debug::LogDebug("********* End Turn **********");
   Card* card3 = FSM::drawCardRequest();
   FSM::drawDonRequest();
-  FSM::selectCardRequest(card);
   p1->print();
   p2->print();
-  std::string info = card->getCardInfo(Enums::InfoAttribute::Name).value.name;
-  Debug::LogDebug("Card name: " + info);
+  FSM::endTurnRequest(); 
+  Debug::LogDebug("********* End Turn **********");
+  Card* card4 = FSM::drawCardRequest();
+  FSM::drawDonRequest();
+  int att = (dynamic_cast<Character*>(card2))->getAttack();
+  Debug::LogDebug("Card attack after reset: " + std::to_string(att));
   
 }
 

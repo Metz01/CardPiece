@@ -7,12 +7,13 @@
 #include "Constants.h"
 #include "JsonParser.h"
 #include "Debug.h"
-#include "../models/card/card_types/CardTypes.h"
 
+class Character;
+class Don;
+class Leader;
 namespace Utils{
-
-    
     class CardInfo{
+        
         public:
 
             union Value {

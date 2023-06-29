@@ -33,6 +33,6 @@ Enums::CardType Leader::getCardType() const{
     return Enums::CardType::leader;
 }
 
-Utils::CardInfo Leader::getCardInfo(Enums::InfoAttribute attribute) const{
-    return Utils::CardInfo(attribute, this);
+Utils::CardInfo* Leader::getCardInfo(Enums::InfoAttribute attribute) const{
+    return new Utils::CardInfo(attribute, this);
 }

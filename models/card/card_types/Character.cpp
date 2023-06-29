@@ -20,6 +20,7 @@ Enums::CardType Character::getCardType() const{
     return Enums::CardType::character;
 }
 
-Utils::CardInfo Character::getCardInfo(Enums::InfoAttribute attribute) const{
-    return Utils::CardInfo(attribute, this);
+Utils::CardInfo* Character::getCardInfo(Enums::InfoAttribute attribute) const{
+    Debug::LogDebug("Character::getCardInfo" + std::to_string(attribute));
+    return new Utils::CardInfo(attribute, this);
 }

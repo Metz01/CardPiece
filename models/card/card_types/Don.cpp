@@ -47,8 +47,9 @@ Attacker *Don::getAttachedCard()
     return _attachedCard;
 }
 
-Utils::CardInfo Don::getCardInfo(Enums::InfoAttribute attribute) const{
-    return Utils::CardInfo(attribute, this);
+Utils::CardInfo* Don::getCardInfo(Enums::InfoAttribute attribute) const{
+    Debug::LogDebug("Don::getCardInfo" + std::to_string(attribute));
+    return new Utils::CardInfo(attribute, this);
 }
 
 Enums::CardType Don::getCardType() const

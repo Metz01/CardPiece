@@ -1,4 +1,6 @@
 #include "Utils.h"
+#include "../models/card/card_types/CardTypes.h"
+
 
 Utils::CardInfo::CardInfo(Enums::InfoAttribute attribut, Character const* card){
     attribute = attribut;

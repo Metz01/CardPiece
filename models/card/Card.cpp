@@ -2,6 +2,7 @@
 #include <string>
 #include "Card.h"
 
+
 Card::Card(std::string name, std::string artPath, std::string effect) : 
     _artPath(artPath), 
     _name(name), 

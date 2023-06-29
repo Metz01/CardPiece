@@ -2,6 +2,7 @@
 #define LEADER_H
 #include <string>
 #include "../Attacker.h"
+#include "../../../utils/Utils.h"
 #include <QJsonValue>
 
 class Leader: public Attacker
@@ -15,7 +16,7 @@ public:
     int getLife() const;
     std::string* lead() const;
     Enums::CardType getCardType() const;
-    Utils::CardInfo getCardInfo(Enums::InfoAttribute attribute) const override;
+    Utils::CardInfo* getCardInfo(Enums::InfoAttribute attribute) const override;
 };
 
 #endif

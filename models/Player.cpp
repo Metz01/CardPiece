@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "card/Card.h"
 #include "../utils/Debug.h"
+#include "../utils/Utils.h"
 
 /// @brief constructor for the player class, it will create a deck and set the leader from the deck
 /// @param path path to the deck file
@@ -68,7 +69,7 @@ bool Player::activeAllDon(){
 void Player::playCard(Card *selectedCard)
 {
     Debug::LogEnv("Player::playCard");
-    int cost = selectedCard->getCardInfo(Enums::InfoAttribute::Cost).value.cost;
+    int cost = selectedCard->getCardInfo(Enums::InfoAttribute::Cost)->value.cost;
     Debug::LogDebug("Cost: " + std::to_string(cost) + " | ActiveDon: " + std::to_string(activeDon));
     if(activeDon < cost){
         Debug::LogError("Not enough don to play this card");
