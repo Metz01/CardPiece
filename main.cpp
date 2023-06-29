@@ -11,6 +11,7 @@
 #include "./utils/Debug.h"
 #include "./fsm/fsm.h"
 #include "./fsm/api/api_logic.h"
+#include "./utils/Save.h"
 
 void _setup()
 {
@@ -53,7 +54,12 @@ void _setup()
   FSM::drawDonRequest();
   int att = (dynamic_cast<Character*>(card2))->getAttack();
   Debug::LogDebug("Card attack after reset: " + std::to_string(att));
-  
+  p1->print();
+  Save* s = new Save("./assets/saves/", "test1");
+  s->saveGame(p1,p2);
+  Save* r = new Save("./assets/saves/", "test1");
+  Player* p3 = r->loadPlayer1();
+  p3->print();
 }
 
 void _testFunctions()

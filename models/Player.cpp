@@ -15,7 +15,38 @@ Player::Player(std::string path, std::string name) : deck(Deck(path)), hand(std:
     for(int i = 0; i < this->life; i++){
         lifeCards.add(this->deck.drawCard());
     }
+}
 
+/// @brief constructor for the player class, it will create a deck and set the leader from the deck
+/// @param name name of the player
+/// @param life life of the player
+/// @param leaderCode code of the leader
+/// @param donNumber number of dons
+/// @param handCode codes of the cards in the hand
+/// @param groundCode codes of the cards in the ground
+/// @param graveCode codes of the cards in the graveyard
+/// @param deckCodes codes of the cards in the deck
+Player::Player(std::string name, int life, std::string leaderCode, int donNumber, std::vector<std::string> handCode, std::vector<std::string> groundCode, std::vector<std::string> graveCode, std::vector<std::string> deckCodes) :
+    deck(Deck(deckCodes)), hand(std::vector<Card *>()), graveyard(std::vector<Card *>()), ground(std::vector<Card *>()), _name(name), don(donNumber), life(life)
+{
+    this->activeDon = donNumber;
+    this->leader = dynamic_cast<Leader *>(DatabaseHelper::selectJSonCard(leaderCode));
+    for (std::string code : handCode)
+    {
+        hand.push_back(DatabaseHelper::selectJSonCard(code));
+    }
+    for (std::string code : groundCode)
+    {
+        ground.push_back(DatabaseHelper::selectJSonCard(code));
+    }
+    for (std::string code : graveCode)
+    {
+        graveyard.push_back(DatabaseHelper::selectJSonCard(code));
+    }
+    for(int i = 0; i < this->don; i++){
+        Don* don = new Don();
+        donList.push_back(don);
+    }
 }
 
 /// @brief get the leader code from the deck and remove it from the deck
@@ -192,6 +223,30 @@ bool Player::useDon(){
     return true;
 }
 
+std::string Player::getName() const{
+    return this->_name;
+}
+
+int Player::getLife() const{
+    return this->life;
+}
+
 std::vector<Don*> Player::getDonList() const{
     return this->donList;
+}
+
+std::vector<Card*> Player::getHand() const{
+    return this->hand;
+}
+
+std::vector<Card*> Player::getGround() const{
+    return this->ground;
+}
+
+std::vector<Card*> Player::getGraveyard() const{
+    return this->graveyard;
+}
+
+std::vector<std::string> Player::getDeckCodes() const{
+    return this->deck.getDeckCodes();
 }

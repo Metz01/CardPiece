@@ -27,6 +27,9 @@ Utils::CardInfo::CardInfo(Enums::InfoAttribute attribut, Character const* card){
     case Enums::ArtPath:
         std::strcpy(value.artPath, card->getArtPath().c_str());
         break;
+    case Enums::Code:
+        std::strcpy(value.code, card->getCode().c_str());
+        break;
     default:
         break;
     }
@@ -77,6 +80,9 @@ Utils::CardInfo::CardInfo(Enums::InfoAttribute attribut, Leader const* card){
         break;
     case Enums::Life:
         value.life = card->getLife();
+        break;
+    case Enums::Code:
+        std::strcpy(value.code, card->getCode().c_str());
         break;
     default:
         break;

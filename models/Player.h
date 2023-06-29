@@ -23,6 +23,8 @@ private:
     int life;
 public:
     Player(std::string path, std::string name);
+    Player(std::string name, int life, std::string leaderCode, int donNumber, std::vector<std::string> handCode, 
+    std::vector<std::string> groundCode, std::vector<std::string> graveCode, std::vector<std::string> deckCodes);
     std::string getLeaderCodeFromDeck() const;
     Card *drawCard();
     void printDeck() const;
@@ -37,7 +39,14 @@ public:
     void print() const;
     Leader *getLeader() const;
     bool useDon();
+    std::string getName() const;
+    int getLife() const;
     std::vector<Don*> getDonList() const;
+    std::vector<Card*> getHand() const;
+    std::vector<Card*> getGraveyard() const;
+    std::vector<Card*> getGround() const;
+    std::vector<std::string> getDeckCodes() const;
+
 };
 
 #endif // PLAYER_H

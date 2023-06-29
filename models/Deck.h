@@ -13,9 +13,11 @@ private:
     LinkedList *cards;
 public:
     Deck(std::string path);
+    Deck(std::vector<std::string> deckCodes);
     ~Deck();
     std::string findLeader() const;
     std::string drawCard();
+    std::vector<std::string> getDeckCodes() const;
     void printDeck() const;
 };
 

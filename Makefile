@@ -52,8 +52,7 @@ OBJECTS_DIR   = build/
 
 ####### Files
 
-SOURCES       = main.cpp \
-		models/card/Card.cpp \
+SOURCES       = models/card/Card.cpp \
 		models/card/ColoredCard.cpp \
 		models/card/Attacker.cpp \
 		models/card/PlayableCard.cpp \
@@ -70,13 +69,14 @@ SOURCES       = main.cpp \
 		utils/Debug.cpp \
 		utils/Enums.cpp \
 		utils/JsonParser.cpp \
+		utils/Save.cpp \
 		utils/Utils.cpp \
+		main.cpp \
 		widgets/Card_widget.cpp \
 		widgets/Main_window.cpp qrc_resources.cpp \
 		moc_Card_widget.cpp \
 		moc_Main_window.cpp
-OBJECTS       = build/main.o \
-		build/Card.o \
+OBJECTS       = build/Card.o \
 		build/ColoredCard.o \
 		build/Attacker.o \
 		build/PlayableCard.o \
@@ -93,7 +93,9 @@ OBJECTS       = build/main.o \
 		build/Debug.o \
 		build/Enums.o \
 		build/JsonParser.o \
+		build/Save.o \
 		build/Utils.o \
+		build/main.o \
 		build/Card_widget.o \
 		build/Main_window.o \
 		build/qrc_resources.o \
@@ -311,8 +313,8 @@ DIST          = /usr/lib/qt6/mkspecs/features/spec_pre.prf \
 		utils/Debug.h \
 		utils/Enums.h \
 		utils/JsonParser.h \
-		utils/Utils.h main.cpp \
-		models/card/Card.cpp \
+		utils/Save.h \
+		utils/Utils.h models/card/Card.cpp \
 		models/card/ColoredCard.cpp \
 		models/card/Attacker.cpp \
 		models/card/PlayableCard.cpp \
@@ -329,7 +331,9 @@ DIST          = /usr/lib/qt6/mkspecs/features/spec_pre.prf \
 		utils/Debug.cpp \
 		utils/Enums.cpp \
 		utils/JsonParser.cpp \
+		utils/Save.cpp \
 		utils/Utils.cpp \
+		main.cpp \
 		widgets/Card_widget.cpp \
 		widgets/Main_window.cpp
 QMAKE_TARGET  = main
@@ -750,8 +754,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt6/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents models/card/Card.h models/card/ColoredCard.h models/card/Attacker.h models/card/PlayableCard.h models/Deck.h models/Player.h models/LinkedList.h models/card/card_types/CardTypes.h models/card/card_types/Character.h models/card/card_types/Don.h models/card/card_types/Leader.h fsm/api/api_logic.h fsm/api/api_ui.h fsm/api/battle.h fsm/fsm.h widgets/Card_widget.h widgets/Main_window.h utils/Constants.h utils/database_helper.h utils/Debug.h utils/Enums.h utils/JsonParser.h utils/Utils.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp models/card/Card.cpp models/card/ColoredCard.cpp models/card/Attacker.cpp models/card/PlayableCard.cpp models/Deck.cpp models/Player.cpp models/LinkedList.cpp fsm/api/api_logic.cpp fsm/api/battle.cpp fsm/fsm.cpp models/card/card_types/Character.cpp models/card/card_types/Don.cpp models/card/card_types/Leader.cpp utils/database_helper.cpp utils/Debug.cpp utils/Enums.cpp utils/JsonParser.cpp utils/Utils.cpp widgets/Card_widget.cpp widgets/Main_window.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents models/card/Card.h models/card/ColoredCard.h models/card/Attacker.h models/card/PlayableCard.h models/Deck.h models/Player.h models/LinkedList.h models/card/card_types/CardTypes.h models/card/card_types/Character.h models/card/card_types/Don.h models/card/card_types/Leader.h fsm/api/api_logic.h fsm/api/api_ui.h fsm/api/battle.h fsm/fsm.h widgets/Card_widget.h widgets/Main_window.h utils/Constants.h utils/database_helper.h utils/Debug.h utils/Enums.h utils/JsonParser.h utils/Save.h utils/Utils.h $(DISTDIR)/
+	$(COPY_FILE) --parents models/card/Card.cpp models/card/ColoredCard.cpp models/card/Attacker.cpp models/card/PlayableCard.cpp models/Deck.cpp models/Player.cpp models/LinkedList.cpp fsm/api/api_logic.cpp fsm/api/battle.cpp fsm/fsm.cpp models/card/card_types/Character.cpp models/card/card_types/Don.cpp models/card/card_types/Leader.cpp utils/database_helper.cpp utils/Debug.cpp utils/Enums.cpp utils/JsonParser.cpp utils/Save.cpp utils/Utils.cpp main.cpp widgets/Card_widget.cpp widgets/Main_window.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -799,13 +803,6 @@ moc_Card_widget.cpp: widgets/Card_widget.h \
 		utils/Enums.h \
 		utils/Utils.h \
 		utils/Debug.h \
-		models/card/card_types/CardTypes.h \
-		models/card/card_types/Character.h \
-		models/card/Attacker.h \
-		models/card/ColoredCard.h \
-		models/card/PlayableCard.h \
-		models/card/card_types/Leader.h \
-		models/card/card_types/Don.h \
 		moc_predefs.h \
 		/usr/lib/qt6/moc
 	/usr/lib/qt6/moc $(DEFINES) --include /home/metz/it/projects/cpp/qt/OPDeckBuilder/OpDeckBuilder/moc_predefs.h -I/usr/lib/qt6/mkspecs/linux-g++ -I/home/metz/it/projects/cpp/qt/OPDeckBuilder/OpDeckBuilder -I/home/metz/it/projects/cpp/qt/OPDeckBuilder/OpDeckBuilder -I/usr/include/qt6 -I/usr/include/qt6/QtWidgets -I/usr/include/qt6/QtGui -I/usr/include/qt6/QtCore -I/usr/include/c++/12.2.0 -I/usr/include/c++/12.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/12.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/12.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/12.2.0/include-fixed -I/usr/include widgets/Card_widget.h -o moc_Card_widget.cpp
@@ -831,41 +828,12 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
-build/main.o: main.cpp utils/Utils.h \
-		utils/Enums.h \
-		utils/Constants.h \
-		utils/JsonParser.h \
-		utils/Debug.h \
-		models/card/card_types/CardTypes.h \
-		models/card/Card.h \
-		models/card/card_types/Character.h \
-		models/card/Attacker.h \
-		models/card/ColoredCard.h \
-		models/card/PlayableCard.h \
-		models/card/card_types/Leader.h \
-		models/card/card_types/Don.h \
-		widgets/Main_window.h \
-		utils/database_helper.h \
-		models/Player.h \
-		models/Deck.h \
-		models/LinkedList.h \
-		fsm/fsm.h \
-		fsm/api/api_logic.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/main.o main.cpp
-
 build/Card.o: models/card/Card.cpp models/card/Card.h \
 		utils/JsonParser.h \
 		utils/Constants.h \
 		utils/Enums.h \
 		utils/Utils.h \
-		utils/Debug.h \
-		models/card/card_types/CardTypes.h \
-		models/card/card_types/Character.h \
-		models/card/Attacker.h \
-		models/card/ColoredCard.h \
-		models/card/PlayableCard.h \
-		models/card/card_types/Leader.h \
-		models/card/card_types/Don.h
+		utils/Debug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Card.o models/card/Card.cpp
 
 build/ColoredCard.o: models/card/ColoredCard.cpp models/card/ColoredCard.h \
@@ -874,13 +842,7 @@ build/ColoredCard.o: models/card/ColoredCard.cpp models/card/ColoredCard.h \
 		utils/Constants.h \
 		utils/Enums.h \
 		utils/Utils.h \
-		utils/Debug.h \
-		models/card/card_types/CardTypes.h \
-		models/card/card_types/Character.h \
-		models/card/Attacker.h \
-		models/card/PlayableCard.h \
-		models/card/card_types/Leader.h \
-		models/card/card_types/Don.h
+		utils/Debug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/ColoredCard.o models/card/ColoredCard.cpp
 
 build/Attacker.o: models/card/Attacker.cpp models/card/Attacker.h \
@@ -890,12 +852,7 @@ build/Attacker.o: models/card/Attacker.cpp models/card/Attacker.h \
 		utils/Constants.h \
 		utils/Enums.h \
 		utils/Utils.h \
-		utils/Debug.h \
-		models/card/card_types/CardTypes.h \
-		models/card/card_types/Character.h \
-		models/card/PlayableCard.h \
-		models/card/card_types/Leader.h \
-		models/card/card_types/Don.h
+		utils/Debug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Attacker.o models/card/Attacker.cpp
 
 build/PlayableCard.o: models/card/PlayableCard.cpp models/card/PlayableCard.h \
@@ -905,12 +862,7 @@ build/PlayableCard.o: models/card/PlayableCard.cpp models/card/PlayableCard.h \
 		utils/Constants.h \
 		utils/Enums.h \
 		utils/Utils.h \
-		utils/Debug.h \
-		models/card/card_types/CardTypes.h \
-		models/card/card_types/Character.h \
-		models/card/Attacker.h \
-		models/card/card_types/Leader.h \
-		models/card/card_types/Don.h
+		utils/Debug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/PlayableCard.o models/card/PlayableCard.cpp
 
 build/Deck.o: models/Deck.cpp models/Deck.h \
@@ -1004,6 +956,10 @@ build/fsm.o: fsm/fsm.cpp fsm/fsm.h \
 		utils/Constants.h \
 		utils/Utils.h \
 		utils/Debug.h \
+		models/Player.h \
+		models/Deck.h \
+		models/LinkedList.h \
+		utils/database_helper.h \
 		models/card/card_types/CardTypes.h \
 		models/card/card_types/Character.h \
 		models/card/Attacker.h \
@@ -1011,10 +967,6 @@ build/fsm.o: fsm/fsm.cpp fsm/fsm.h \
 		models/card/PlayableCard.h \
 		models/card/card_types/Leader.h \
 		models/card/card_types/Don.h \
-		models/Player.h \
-		models/Deck.h \
-		models/LinkedList.h \
-		utils/database_helper.h \
 		fsm/api/api_logic.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/fsm.o fsm/fsm.cpp
 
@@ -1027,26 +979,22 @@ build/Character.o: models/card/card_types/Character.cpp models/card/card_types/C
 		utils/Enums.h \
 		utils/Utils.h \
 		utils/Debug.h \
+		models/card/PlayableCard.h \
+		utils/database_helper.h \
 		models/card/card_types/CardTypes.h \
 		models/card/card_types/Leader.h \
-		models/card/card_types/Don.h \
-		models/card/PlayableCard.h \
-		utils/database_helper.h
+		models/card/card_types/Don.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Character.o models/card/card_types/Character.cpp
 
 build/Don.o: models/card/card_types/Don.cpp models/card/card_types/Don.h \
+		utils/Utils.h \
+		utils/Enums.h \
+		utils/Constants.h \
+		utils/JsonParser.h \
+		utils/Debug.h \
 		models/card/Attacker.h \
 		models/card/ColoredCard.h \
-		models/card/Card.h \
-		utils/JsonParser.h \
-		utils/Constants.h \
-		utils/Enums.h \
-		utils/Utils.h \
-		utils/Debug.h \
-		models/card/card_types/CardTypes.h \
-		models/card/card_types/Character.h \
-		models/card/PlayableCard.h \
-		models/card/card_types/Leader.h
+		models/card/Card.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Don.o models/card/card_types/Don.cpp
 
 build/Leader.o: models/card/card_types/Leader.cpp models/card/card_types/Leader.h \
@@ -1058,11 +1006,11 @@ build/Leader.o: models/card/card_types/Leader.cpp models/card/card_types/Leader.
 		utils/Enums.h \
 		utils/Utils.h \
 		utils/Debug.h \
+		utils/database_helper.h \
 		models/card/card_types/CardTypes.h \
 		models/card/card_types/Character.h \
 		models/card/PlayableCard.h \
-		models/card/card_types/Don.h \
-		utils/database_helper.h
+		models/card/card_types/Don.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Leader.o models/card/card_types/Leader.cpp
 
 build/database_helper.o: utils/database_helper.cpp utils/database_helper.h \
@@ -1090,6 +1038,26 @@ build/Enums.o: utils/Enums.cpp utils/Enums.h
 build/JsonParser.o: utils/JsonParser.cpp utils/JsonParser.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/JsonParser.o utils/JsonParser.cpp
 
+build/Save.o: utils/Save.cpp utils/Save.h \
+		models/Player.h \
+		models/Deck.h \
+		models/LinkedList.h \
+		utils/Constants.h \
+		utils/database_helper.h \
+		models/card/card_types/CardTypes.h \
+		models/card/Card.h \
+		utils/JsonParser.h \
+		utils/Enums.h \
+		utils/Utils.h \
+		utils/Debug.h \
+		models/card/card_types/Character.h \
+		models/card/Attacker.h \
+		models/card/ColoredCard.h \
+		models/card/PlayableCard.h \
+		models/card/card_types/Leader.h \
+		models/card/card_types/Don.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Save.o utils/Save.cpp
+
 build/Utils.o: utils/Utils.cpp utils/Utils.h \
 		utils/Enums.h \
 		utils/Constants.h \
@@ -1105,20 +1073,36 @@ build/Utils.o: utils/Utils.cpp utils/Utils.h \
 		models/card/card_types/Don.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Utils.o utils/Utils.cpp
 
+build/main.o: main.cpp utils/Utils.h \
+		utils/Enums.h \
+		utils/Constants.h \
+		utils/JsonParser.h \
+		utils/Debug.h \
+		widgets/Main_window.h \
+		models/card/card_types/Leader.h \
+		models/card/Attacker.h \
+		models/card/ColoredCard.h \
+		models/card/Card.h \
+		utils/database_helper.h \
+		models/card/card_types/CardTypes.h \
+		models/card/card_types/Character.h \
+		models/card/PlayableCard.h \
+		models/card/card_types/Don.h \
+		models/Player.h \
+		models/Deck.h \
+		models/LinkedList.h \
+		fsm/fsm.h \
+		fsm/api/api_logic.h \
+		utils/Save.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/main.o main.cpp
+
 build/Card_widget.o: widgets/Card_widget.cpp widgets/Card_widget.h \
 		models/card/Card.h \
 		utils/JsonParser.h \
 		utils/Constants.h \
 		utils/Enums.h \
 		utils/Utils.h \
-		utils/Debug.h \
-		models/card/card_types/CardTypes.h \
-		models/card/card_types/Character.h \
-		models/card/Attacker.h \
-		models/card/ColoredCard.h \
-		models/card/PlayableCard.h \
-		models/card/card_types/Leader.h \
-		models/card/card_types/Don.h
+		utils/Debug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Card_widget.o widgets/Card_widget.cpp
 
 build/Main_window.o: widgets/Main_window.cpp widgets/Main_window.h \
@@ -1131,10 +1115,6 @@ build/Main_window.o: widgets/Main_window.cpp widgets/Main_window.h \
 		utils/Enums.h \
 		utils/Utils.h \
 		utils/Debug.h \
-		models/card/card_types/CardTypes.h \
-		models/card/card_types/Character.h \
-		models/card/PlayableCard.h \
-		models/card/card_types/Don.h \
 		widgets/Card_widget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Main_window.o widgets/Main_window.cpp
 

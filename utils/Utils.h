@@ -25,6 +25,7 @@ namespace Utils{
                 Enums::Colors color;
                 char artPath[100];
                 int life;
+                char code[30];
             } value;
     
 

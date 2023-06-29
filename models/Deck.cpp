@@ -14,6 +14,15 @@ Deck::Deck(std::string path) : cards(new LinkedList()){
     file.close();
 }
 
+/// @brief constructor for the deck class, it will add the cards to the linked list
+/// @param deckCodes codes of the cards in the deck
+Deck::Deck(std::vector<std::string> deckCodes) : cards(new LinkedList()){
+    for (std::string code : deckCodes)
+    {
+        cards->add(code);
+    }
+}
+
 /// @brief find the leader in the deck and remove it from the deck
 /// @return the code of the leader in the deck
 std::string Deck::findLeader() const
@@ -46,4 +55,15 @@ std::string Deck::drawCard()
 void Deck::printDeck() const
 {
     cards->print();
+}
+
+/// @brief get the deck codes
+/// @return vector of deck codes
+std::vector<std::string> Deck::getDeckCodes() const
+{
+    std::vector<std::string> deckCodes;
+    for (int i = 0; i < cards->getSize(); i++){
+        deckCodes.push_back(cards->getCardCode(i));
+    }
+    return deckCodes;
 }
