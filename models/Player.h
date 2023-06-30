@@ -46,6 +46,7 @@ public:
     std::vector<Card*> getGraveyard() const;
     std::vector<Card*> getGround() const;
     std::vector<std::string> getDeckCodes() const;
+    bool resetCard();
 
 };
 

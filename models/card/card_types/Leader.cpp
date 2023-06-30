@@ -4,8 +4,8 @@
 #include "../../../utils/database_helper.h"
 
 
-Leader::Leader(std::string name, std::string artPath, std::string effect, std::string code, Enums::Colors color, int attack, int life):
-     ColoredCard(name, artPath, effect, code, color), 
+Leader::Leader(std::string name, std::string artPath, std::string code, Enums::Colors color, int attack, int life):
+     ColoredCard(name, artPath, code, color), 
      Attacker(attack), 
      _life(life) {}
 

@@ -13,11 +13,10 @@ class Card
 protected:
     std::string _artPath;
     std::string _name;
-    std::string _effect; // TODO: make effect class
     bool _active;
     
 public:
-    Card(std::string name, std::string artPath, std::string effect);
+    Card(std::string name, std::string artPath);
     Card(QJsonObject Json);
     Card();
     virtual ~Card();
@@ -26,7 +25,6 @@ public:
     virtual Enums::CardType getCardType() const = 0;
     bool isActive() const;
     void restCard();
-    std::string getEffect() const;
     virtual Utils::CardInfo* getCardInfo(Enums::InfoAttribute attribute) const = 0;
 };
 

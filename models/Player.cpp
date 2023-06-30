@@ -250,3 +250,10 @@ std::vector<Card*> Player::getGraveyard() const{
 std::vector<std::string> Player::getDeckCodes() const{
     return this->deck.getDeckCodes();
 }
+
+bool Player::resetCard(){
+    for(Card* card: this->ground){
+        dynamic_cast<Attacker*>(card)->resetAttack();
+    }
+    this->leader->resetAttack();
+}

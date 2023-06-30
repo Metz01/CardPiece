@@ -1,7 +1,7 @@
 #include <string>
 #include "Don.h"
 
-Don::Don(std::string name, std::string artPath, std::string effect) : Card(name, artPath, effect)
+Don::Don(std::string name, std::string artPath) : Card(name, artPath)
 {
 }
 

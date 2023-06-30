@@ -2,8 +2,8 @@
 #include "Character.h"
 #include "../../../utils/database_helper.h"
 
-Character::Character(std::string name, std::string artPath, std::string effect, std::string code, Enums::Colors color, int attack, int cost):
-     ColoredCard(name, artPath, effect, code, color),
+Character::Character(std::string name, std::string artPath, std::string code, Enums::Colors color, int attack, int cost):
+     ColoredCard(name, artPath, code, color),
      Attacker(attack), 
      PlayableCard(cost){}
 

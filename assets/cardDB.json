@@ -1,13 +1,10 @@
 {
-    "OP020060":{
+    "OP010060":{
         "name": "Otama",
         "attack": "1000",
         "cost": "1",
         "type": "2",
-        "effect": {
-            "description": "Lorem Ipsum",
-            "buff": "200"
-        },
+        "buff": "200",
         "colorData":{
             "color": "2",
             "cardData": {
@@ -17,19 +14,31 @@
         }
     },
 
-    "OP020020":{
+    "OP010020":{
         "name": "Law",
         "attack": "1000",
         "life": "1",
         "type": "1",
-        "effect": {
-            "description": "Lorem Ipsum",
-            "buff": "200"
-        },
+        "buff": "200",
         "colorData":{
             "color": "2",
             "cardData": {
                 "name": "Law",
+                "artPath": "..."
+            }
+        }
+    },
+
+    "OP010030":{
+        "name": "Event",
+        "attack": "1000",
+        "cost": "1",
+        "type": "3",
+        "buff": "2000",
+        "colorData":{
+            "color": "2",
+            "cardData": {
+                "name": "Oama",
                 "artPath": "..."
             }
         }

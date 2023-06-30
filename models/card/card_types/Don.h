@@ -16,7 +16,7 @@ private:
 public:
     Don();
     Don(QJsonObject Json);
-    Don(std::string, std::string, std::string);
+    Don(std::string, std::string);
     ~Don();
     void attachCard(Attacker *);
     void deattachCard();

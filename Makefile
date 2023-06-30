@@ -64,6 +64,7 @@ SOURCES       = models/card/Card.cpp \
 		fsm/fsm.cpp \
 		models/card/card_types/Character.cpp \
 		models/card/card_types/Don.cpp \
+		models/card/card_types/Event.cpp \
 		models/card/card_types/Leader.cpp \
 		utils/database_helper.cpp \
 		utils/Debug.cpp \
@@ -88,6 +89,7 @@ OBJECTS       = build/Card.o \
 		build/fsm.o \
 		build/Character.o \
 		build/Don.o \
+		build/Event.o \
 		build/Leader.o \
 		build/database_helper.o \
 		build/Debug.o \
@@ -301,6 +303,7 @@ DIST          = /usr/lib/qt6/mkspecs/features/spec_pre.prf \
 		models/card/card_types/CardTypes.h \
 		models/card/card_types/Character.h \
 		models/card/card_types/Don.h \
+		models/card/card_types/Event.h \
 		models/card/card_types/Leader.h \
 		fsm/api/api_logic.h \
 		fsm/api/api_ui.h \
@@ -326,6 +329,7 @@ DIST          = /usr/lib/qt6/mkspecs/features/spec_pre.prf \
 		fsm/fsm.cpp \
 		models/card/card_types/Character.cpp \
 		models/card/card_types/Don.cpp \
+		models/card/card_types/Event.cpp \
 		models/card/card_types/Leader.cpp \
 		utils/database_helper.cpp \
 		utils/Debug.cpp \
@@ -754,8 +758,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt6/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents models/card/Card.h models/card/ColoredCard.h models/card/Attacker.h models/card/PlayableCard.h models/Deck.h models/Player.h models/LinkedList.h models/card/card_types/CardTypes.h models/card/card_types/Character.h models/card/card_types/Don.h models/card/card_types/Leader.h fsm/api/api_logic.h fsm/api/api_ui.h fsm/api/battle.h fsm/fsm.h widgets/Card_widget.h widgets/Main_window.h utils/Constants.h utils/database_helper.h utils/Debug.h utils/Enums.h utils/JsonParser.h utils/Save.h utils/Utils.h $(DISTDIR)/
-	$(COPY_FILE) --parents models/card/Card.cpp models/card/ColoredCard.cpp models/card/Attacker.cpp models/card/PlayableCard.cpp models/Deck.cpp models/Player.cpp models/LinkedList.cpp fsm/api/api_logic.cpp fsm/api/battle.cpp fsm/fsm.cpp models/card/card_types/Character.cpp models/card/card_types/Don.cpp models/card/card_types/Leader.cpp utils/database_helper.cpp utils/Debug.cpp utils/Enums.cpp utils/JsonParser.cpp utils/Save.cpp utils/Utils.cpp main.cpp widgets/Card_widget.cpp widgets/Main_window.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents models/card/Card.h models/card/ColoredCard.h models/card/Attacker.h models/card/PlayableCard.h models/Deck.h models/Player.h models/LinkedList.h models/card/card_types/CardTypes.h models/card/card_types/Character.h models/card/card_types/Don.h models/card/card_types/Event.h models/card/card_types/Leader.h fsm/api/api_logic.h fsm/api/api_ui.h fsm/api/battle.h fsm/fsm.h widgets/Card_widget.h widgets/Main_window.h utils/Constants.h utils/database_helper.h utils/Debug.h utils/Enums.h utils/JsonParser.h utils/Save.h utils/Utils.h $(DISTDIR)/
+	$(COPY_FILE) --parents models/card/Card.cpp models/card/ColoredCard.cpp models/card/Attacker.cpp models/card/PlayableCard.cpp models/Deck.cpp models/Player.cpp models/LinkedList.cpp fsm/api/api_logic.cpp fsm/api/battle.cpp fsm/fsm.cpp models/card/card_types/Character.cpp models/card/card_types/Don.cpp models/card/card_types/Event.cpp models/card/card_types/Leader.cpp utils/database_helper.cpp utils/Debug.cpp utils/Enums.cpp utils/JsonParser.cpp utils/Save.cpp utils/Utils.cpp main.cpp widgets/Card_widget.cpp widgets/Main_window.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -880,7 +884,8 @@ build/Deck.o: models/Deck.cpp models/Deck.h \
 		models/card/ColoredCard.h \
 		models/card/PlayableCard.h \
 		models/card/card_types/Leader.h \
-		models/card/card_types/Don.h
+		models/card/card_types/Don.h \
+		models/card/card_types/Event.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Deck.o models/Deck.cpp
 
 build/Player.o: models/Player.cpp models/Player.h \
@@ -899,7 +904,8 @@ build/Player.o: models/Player.cpp models/Player.h \
 		models/card/ColoredCard.h \
 		models/card/PlayableCard.h \
 		models/card/card_types/Leader.h \
-		models/card/card_types/Don.h
+		models/card/card_types/Don.h \
+		models/card/card_types/Event.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Player.o models/Player.cpp
 
 build/LinkedList.o: models/LinkedList.cpp models/LinkedList.h \
@@ -925,6 +931,8 @@ build/api_logic.o: fsm/api/api_logic.cpp fsm/api/api_logic.h \
 		models/card/PlayableCard.h \
 		models/card/card_types/Leader.h \
 		models/card/card_types/Don.h \
+		models/card/card_types/Event.h \
+		utils/Save.h \
 		fsm/api/battle.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/api_logic.o fsm/api/api_logic.cpp
 
@@ -946,7 +954,9 @@ build/battle.o: fsm/api/battle.cpp fsm/api/battle.h \
 		models/card/PlayableCard.h \
 		models/card/card_types/Leader.h \
 		models/card/card_types/Don.h \
-		fsm/api/api_logic.h
+		models/card/card_types/Event.h \
+		fsm/api/api_logic.h \
+		utils/Save.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/battle.o fsm/api/battle.cpp
 
 build/fsm.o: fsm/fsm.cpp fsm/fsm.h \
@@ -967,7 +977,9 @@ build/fsm.o: fsm/fsm.cpp fsm/fsm.h \
 		models/card/PlayableCard.h \
 		models/card/card_types/Leader.h \
 		models/card/card_types/Don.h \
-		fsm/api/api_logic.h
+		models/card/card_types/Event.h \
+		fsm/api/api_logic.h \
+		utils/Save.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/fsm.o fsm/fsm.cpp
 
 build/Character.o: models/card/card_types/Character.cpp models/card/card_types/Character.h \
@@ -983,7 +995,8 @@ build/Character.o: models/card/card_types/Character.cpp models/card/card_types/C
 		utils/database_helper.h \
 		models/card/card_types/CardTypes.h \
 		models/card/card_types/Leader.h \
-		models/card/card_types/Don.h
+		models/card/card_types/Don.h \
+		models/card/card_types/Event.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Character.o models/card/card_types/Character.cpp
 
 build/Don.o: models/card/card_types/Don.cpp models/card/card_types/Don.h \
@@ -996,6 +1009,17 @@ build/Don.o: models/card/card_types/Don.cpp models/card/card_types/Don.h \
 		models/card/ColoredCard.h \
 		models/card/Card.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Don.o models/card/card_types/Don.cpp
+
+build/Event.o: models/card/card_types/Event.cpp models/card/card_types/Event.h \
+		models/card/PlayableCard.h \
+		models/card/ColoredCard.h \
+		models/card/Card.h \
+		utils/JsonParser.h \
+		utils/Constants.h \
+		utils/Enums.h \
+		utils/Utils.h \
+		utils/Debug.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Event.o models/card/card_types/Event.cpp
 
 build/Leader.o: models/card/card_types/Leader.cpp models/card/card_types/Leader.h \
 		models/card/Attacker.h \
@@ -1010,7 +1034,8 @@ build/Leader.o: models/card/card_types/Leader.cpp models/card/card_types/Leader.
 		models/card/card_types/CardTypes.h \
 		models/card/card_types/Character.h \
 		models/card/PlayableCard.h \
-		models/card/card_types/Don.h
+		models/card/card_types/Don.h \
+		models/card/card_types/Event.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Leader.o models/card/card_types/Leader.cpp
 
 build/database_helper.o: utils/database_helper.cpp utils/database_helper.h \
@@ -1026,7 +1051,8 @@ build/database_helper.o: utils/database_helper.cpp utils/database_helper.h \
 		models/card/ColoredCard.h \
 		models/card/PlayableCard.h \
 		models/card/card_types/Leader.h \
-		models/card/card_types/Don.h
+		models/card/card_types/Don.h \
+		models/card/card_types/Event.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/database_helper.o utils/database_helper.cpp
 
 build/Debug.o: utils/Debug.cpp utils/Debug.h
@@ -1055,7 +1081,8 @@ build/Save.o: utils/Save.cpp utils/Save.h \
 		models/card/ColoredCard.h \
 		models/card/PlayableCard.h \
 		models/card/card_types/Leader.h \
-		models/card/card_types/Don.h
+		models/card/card_types/Don.h \
+		models/card/card_types/Event.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Save.o utils/Save.cpp
 
 build/Utils.o: utils/Utils.cpp utils/Utils.h \
@@ -1070,7 +1097,8 @@ build/Utils.o: utils/Utils.cpp utils/Utils.h \
 		models/card/ColoredCard.h \
 		models/card/PlayableCard.h \
 		models/card/card_types/Leader.h \
-		models/card/card_types/Don.h
+		models/card/card_types/Don.h \
+		models/card/card_types/Event.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Utils.o utils/Utils.cpp
 
 build/main.o: main.cpp utils/Utils.h \
@@ -1088,6 +1116,7 @@ build/main.o: main.cpp utils/Utils.h \
 		models/card/card_types/Character.h \
 		models/card/PlayableCard.h \
 		models/card/card_types/Don.h \
+		models/card/card_types/Event.h \
 		models/Player.h \
 		models/Deck.h \
 		models/LinkedList.h \

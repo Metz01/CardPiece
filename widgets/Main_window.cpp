@@ -7,9 +7,9 @@
 Main_window::Main_window()
 {
     window = new QWidget();
-    Leader *l = new Leader("Otama", "OP01-006", "+2000", "OP01-006", Enums::red, 0, 1);
+    Leader *l = new Leader("Otama", "OP01-006", "OP01-006", Enums::red, 0, 1);
     Card* card = l;
-    Leader *t = new Leader("Otama", "OP01-006", "+2000", "OP01-006", Enums::red, 0, 1);
+    Leader *t = new Leader("Otama", "OP01-006", "OP01-006", Enums::red, 0, 1);
     Card* card2 = t;
     hand =  new QHBoxLayout( window );
     hand->setAlignment(Qt::AlignLeft | Qt::AlignTop );
@@ -33,7 +33,7 @@ Main_window::~Main_window()
 
 void Main_window::refresh()
 {
-    Leader *t = new Leader("Otama", "OP01-006", "+2000", "OP01-006", Enums::red, 0, 1);
+    Leader *t = new Leader("Otama", "OP01-006", "OP01-006", Enums::red, 0, 1);
     Card* card2 = t;
     CardWidget *c2 = new CardWidget(card2);
     hand->addWidget(c2);

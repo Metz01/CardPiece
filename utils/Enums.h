@@ -28,7 +28,8 @@ namespace Enums{
         Color=6,
         ArtPath=7,
         Life=8,
-        Code=9
+        Code=9,
+        Buff=10
     };
 }
 

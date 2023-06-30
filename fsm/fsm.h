@@ -13,6 +13,7 @@ private:
     static Enums::State _currentState;
     static Player *_currentPlayer;
     static int _turnsPlayed;
+    static Card *_buffedCard;
 
 public:
     FSM(Player *starterPlayer);
@@ -21,6 +22,7 @@ public:
     static bool selectCardRequest(Card* selectedCard);
     static bool attachDonRequest(Card* selectedCard, Don* selectedDon);
     static bool selectEnemyCardRequest(Card* selectedCard, Card* selectedEnemyCard);
+    static bool useCardRequest(Card* cardToUse, Card* cardToUseOn);
     static bool endTurnRequest();
 };
 

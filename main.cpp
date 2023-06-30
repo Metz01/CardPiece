@@ -45,6 +45,7 @@ void _setup()
   FSM::endTurnRequest(); 
   Debug::LogDebug("********* End Turn **********");
   Card* card3 = FSM::drawCardRequest();
+  Debug::LogError(card3->getCardInfo(Enums::InfoAttribute::Name)->value.name);
   FSM::drawDonRequest();
   p1->print();
   p2->print();
@@ -58,6 +59,7 @@ void _setup()
   ApiLogic::saveGame(p1,p2,"./assets/saves/test1");
   Player* p3 = ApiLogic::loadPlayer("./assets/saves/test1", 2);
   p3->print();
+
 }
 
 void _testFunctions()
