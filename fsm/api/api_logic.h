@@ -5,6 +5,7 @@
 #include <vector>
 #include "../../models/Player.h"
 #include "../../utils/Enums.h"
+#include "../../utils/Save.h"
 
 class ApiLogic
 {
@@ -24,6 +25,8 @@ public:
     static bool battlePhase(Card* attacker, Card* defender, Player* currentPlayer);
     static bool attachDonToCard(Card* card, Don* don, Player* currentPlayer);
     static Player* getOpponent(Player* currentPlayer);
+    static bool saveGame(Player* player1, Player* player2, std::string path);
+    static Player* loadPlayer(std::string path, int playerNumber);
     // static void selectCard();
     // static void useCard();
     // static void selectEnemyCard();

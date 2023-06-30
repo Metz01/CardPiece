@@ -55,10 +55,8 @@ void _setup()
   int att = (dynamic_cast<Character*>(card2))->getAttack();
   Debug::LogDebug("Card attack after reset: " + std::to_string(att));
   p2->print();
-  Save* s = new Save("./assets/saves/", "test1");
-  s->saveGame(p1,p2);
-  Save* r = new Save("./assets/saves/", "test1");
-  Player* p3 = r->loadPlayer2();
+  ApiLogic::saveGame(p1,p2,"./assets/saves/test1");
+  Player* p3 = ApiLogic::loadPlayer("./assets/saves/test1", 2);
   p3->print();
 }
 

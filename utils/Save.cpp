@@ -3,14 +3,10 @@
 #include <fstream>
 #include <unistd.h>
 
-Save::Save(std::string path, std::string name): _path(path), _name(name)
-{
-}
-
-void Save::saveGame(Player *player1, Player *player2)
+void Save::saveGame(Player *player1, Player *player2, std::string path)
 {
     std::ofstream file;
-    file.open(_path + _name + ".txt");
+    file.open(path);
     
     file << player1->getName() << std::endl;
     file << "-Life-" << std::endl;
@@ -125,9 +121,9 @@ Player* Save::loadPlayer(std::vector<std::string> playerInfo){
     return nullptr;
 }
 
-Player* Save::loadPlayer1(){
+Player* Save::loadPlayer1(std::string _path){
     std::ifstream file;
-    file.open(_path + _name + ".txt");
+    file.open(_path);
     std::string line;
     std::vector<std::string> lines;
     while (std::getline(file, line) && line.compare("!-Player2-!") != 0)
@@ -138,9 +134,9 @@ Player* Save::loadPlayer1(){
     return loadPlayer(lines);
 }
 
-Player* Save::loadPlayer2(){
+Player* Save::loadPlayer2(std::string _path){
     std::ifstream file;
-    file.open(_path + _name + ".txt");
+    file.open(_path);
     std::string line;
     std::vector<std::string> lines;
     while (std::getline(file, line) && line.compare("!-Player2-!") != 0)
