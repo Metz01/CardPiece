@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 
 #include "../models/Player.h"
 #include "../models/Deck.h"

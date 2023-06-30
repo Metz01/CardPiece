@@ -54,11 +54,11 @@ void _setup()
   FSM::drawDonRequest();
   int att = (dynamic_cast<Character*>(card2))->getAttack();
   Debug::LogDebug("Card attack after reset: " + std::to_string(att));
-  p1->print();
+  p2->print();
   Save* s = new Save("./assets/saves/", "test1");
   s->saveGame(p1,p2);
   Save* r = new Save("./assets/saves/", "test1");
-  Player* p3 = r->loadPlayer1();
+  Player* p3 = r->loadPlayer2();
   p3->print();
 }
 
