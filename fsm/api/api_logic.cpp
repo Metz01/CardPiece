@@ -130,3 +130,24 @@ Player* ApiLogic::getOpponent(Player* currentPlayer)
     else
         return player1;
 }
+
+bool ApiLogic::saveGame(Player* player1, Player* player2, std::string path)
+{
+    Debug::LogEnv("ApiLogic::saveGame");
+    Save::saveGame(player1, player2, path);
+    return true;
+}
+
+Player* ApiLogic::loadPlayer(std::string path, int playerNumber)
+{
+    Debug::LogEnv("ApiLogic::loadPlayer");
+    switch (playerNumber){
+        case 1:
+            return Save::loadPlayer1(path);
+        case 2:
+            return Save::loadPlayer2(path);
+        default:
+            Debug::LogError("ApiLogic::loadPlayer - Invalid Player Number");
+            return NULL;
+    }
+}
