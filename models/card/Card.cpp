@@ -2,6 +2,7 @@
 #include <string>
 #include "Card.h"
 
+
 Card::Card(std::string name, std::string artPath, std::string effect) : 
     _artPath(artPath), 
     _name(name), 
@@ -19,9 +20,9 @@ Card::Card(){}
 Card::~Card(){}
 
 
-std::string Card::getArtPath() { return _artPath; }
+std::string Card::getArtPath() const { return _artPath; }
 
-std::string Card::getName() { return _name; }
+std::string Card::getName() const { return _name; }
 
 bool Card::isActive() const{
     return _active;
@@ -29,6 +30,10 @@ bool Card::isActive() const{
 
 void Card::restCard(){
     _active = 0;
+}
+
+std::string Card::getEffect() const{
+    return _effect;
 }
 
 /* std::string* Card::info() {} */

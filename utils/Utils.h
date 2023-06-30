@@ -8,29 +8,38 @@
 #include "JsonParser.h"
 #include "Debug.h"
 
+class Character;
+class Don;
+class Leader;
 namespace Utils{
-
-
     class CardInfo{
+        
         public:
-            std::string name;
-            Enums::CardType type;
-            int attack;
-            int cost;
-            std::string effect;
-            Enums::Colors color;
-            std::string artPath;
-            int life;
 
-        // Non dovrebbe servire dato che non ci sono puntatori
-        // ~CardInfo(){
-        //     delete &name;
-        //     delete &effect;
-        //     Debug::LogDebug("Destroying CardInfo");
-        // }
+            union Value {
+                char name[50];
+                Enums::CardType type;
+                int attack;
+                int cost;
+                char effect[100];
+                Enums::Colors color;
+                char artPath[100];
+                int life;
+                char code[30];
+            } value;
+    
+
+            Enums::InfoAttribute attribute;
+
+            CardInfo(Enums::InfoAttribute attribute, Character const* card);
+            CardInfo(Enums::InfoAttribute attribute, Don const* card);
+            CardInfo(Enums::InfoAttribute attribute, Leader const* card);
+
+            ~CardInfo();
     };
 
-    CardInfo LoadCard(Enums::InfoAttribute attribute, QJsonObject rawInfo);
+    std::string GetCardName(QJsonObject rawInfo);
+    
 };
 
 #endif

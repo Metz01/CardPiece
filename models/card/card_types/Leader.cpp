@@ -20,11 +20,6 @@ Leader::~Leader()
 }
 
 
-Utils::CardInfo Leader::info(Enums::InfoAttribute attribute, Utils::CardInfo onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo)) const{
-    QJsonObject rawData = DatabaseHelper::getCardInfo(this->_code);
-    return onGetAttribute(attribute, rawData);
-}
-
 std::string* Leader::lead() const{
     std::string *c = new std::string("Leader");
     return c;
@@ -36,4 +31,8 @@ int Leader::getLife() const{
 
 Enums::CardType Leader::getCardType() const{
     return Enums::CardType::leader;
+}
+
+Utils::CardInfo* Leader::getCardInfo(Enums::InfoAttribute attribute) const{
+    return new Utils::CardInfo(attribute, this);
 }

@@ -11,6 +11,7 @@
 #include "./utils/Debug.h"
 #include "./fsm/fsm.h"
 #include "./fsm/api/api_logic.h"
+#include "./utils/Save.h"
 
 void _setup()
 {
@@ -31,8 +32,12 @@ void _setup()
   Card* card2 = FSM::drawCardRequest();
   std::vector<Don*> don = FSM::drawDonRequest();
   FSM::selectCardRequest(card2);
+  int info = card2->getCardInfo(Enums::InfoAttribute::Attack)->value.attack;
+  Debug::LogError("Card attack befor don: " + std::to_string(info));
   FSM::selectCardRequest(don[0]);
   FSM::attachDonRequest(card2, don[0]);
+  info = card2->getCardInfo(Enums::InfoAttribute::Attack)->value.attack;
+  Debug::LogError("Card attack after don: " + std::to_string(info));
   FSM::selectCardRequest(card2);
   FSM::selectEnemyCardRequest(card2, card);
   p1->print();
@@ -41,15 +46,23 @@ void _setup()
   Debug::LogDebug("********* End Turn **********");
   Card* card3 = FSM::drawCardRequest();
   FSM::drawDonRequest();
-  FSM::selectCardRequest(card);
   p1->print();
   p2->print();
-  Utils::CardInfo info = card->info(Enums::InfoAttribute::Name, Utils::LoadCard);
-  std::string name = info.name;
-  
+  FSM::endTurnRequest(); 
+  Debug::LogDebug("********* End Turn **********");
+  Card* card4 = FSM::drawCardRequest();
+  FSM::drawDonRequest();
+  int att = (dynamic_cast<Character*>(card2))->getAttack();
+  Debug::LogDebug("Card attack after reset: " + std::to_string(att));
+  p2->print();
+  Save* s = new Save("./assets/saves/", "test1");
+  s->saveGame(p1,p2);
+  Save* r = new Save("./assets/saves/", "test1");
+  Player* p3 = r->loadPlayer2();
+  p3->print();
 }
 
-void _testFunctions(int i)
+void _testFunctions()
 {
   Debug::LogDebug("Test function");
   return;
@@ -60,9 +73,9 @@ int main(int argc, char *argv[])
   QApplication app(argc, argv);
   _setup();
   _testFunctions();
-  /* Main_window *mw = new Main_window();
+  Main_window *mw = new Main_window();
   mw->resize(1920, 1080);
-  mw->show(); */
+  mw->show(); 
 
   return app.exec();
 }

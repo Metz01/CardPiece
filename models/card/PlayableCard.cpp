@@ -16,4 +16,8 @@ PlayableCard::~PlayableCard()
 {
 }
 
+int PlayableCard::getCost() const{
+    return _cost;
+}
+
 /* std::string* PlayableCard::info(){} */

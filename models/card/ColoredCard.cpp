@@ -20,4 +20,9 @@ std::string ColoredCard::getCode() const
     return _code;
 }
 
+Enums::Colors ColoredCard::getColor() const
+{
+    return _color;
+}
+
 /* std::string* ColoredCard::info(){} */
