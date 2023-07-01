@@ -21,8 +21,10 @@ GameWindow::GameWindow(QWidget *parent)
     setCentralWidget(frame);
     frame->setFrameStyle(QFrame::Panel);
 
-    PlayerArea* player1Area = new PlayerArea();
-    PlayerArea* player2Area = new PlayerArea();
+
+
+    PlayerArea* player1Area = new PlayerArea(ApiLogic::getCardsOnHand(1), ApiLogic::getCardsOnGround(1), ApiLogic::getLeader(1));
+    PlayerArea* player2Area = new PlayerArea(ApiLogic::getCardsOnHand(2), ApiLogic::getCardsOnGround(2), ApiLogic::getLeader(2));
 
     QVBoxLayout* layout = new QVBoxLayout(frame);
     layout->addWidget(player1Area);

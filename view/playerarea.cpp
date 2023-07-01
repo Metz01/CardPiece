@@ -6,53 +6,22 @@
 #include <QHBoxLayout>
 #include "cardview.h"
 
-PlayerArea::PlayerArea(QWidget *parent)
-    : QWidget{parent}
+PlayerArea::PlayerArea(std::vector<Card*> hand, std::vector<Card*> ground, Leader* leader, QWidget *parent)
+    : QWidget(parent)
 {
-    const QSize CARD_SIZE = QSize(120,168);
-
     QHBoxLayout* mainLayout = new QHBoxLayout(this);
     mainLayout->setContentsMargins(10,10,10,10);
 
-    QVBoxLayout* leftLayout = new QVBoxLayout(this);
+    QVBoxLayout* leftLayout = new QVBoxLayout();
 
-    QHBoxLayout* topLeftLayout = new QHBoxLayout(this);
+    displayLeader(leader);
+    displayGround(ground);
+    displayHand(hand);
 
-    CardView* leader = new CardView("./assets/OP01-002.png", CARD_SIZE*2.0);
-    leader->setFixedSize(400,400);
-//    QPixmap leaderImage("./assets/OP01-002.png");
-//    QIcon leaderIcon(leaderImage);
-//    leader->setIcon(leaderIcon);
-//    leader->setIconSize(CARD_SIZE*1.5);
-    topLeftLayout->addWidget(leader);
+    fieldLayout->addLayout(groundLayout);
 
-    QHBoxLayout* fieldLayout = new QHBoxLayout(this);
-    for(int i = 0; i < 5; i++)
-    {
-        CardView* card = new CardView("./assets/EmptyCard.png", CARD_SIZE);
-//        QPixmap imageCard("./assets/EmptyCard.png");
-//        QIcon cardIcon(imageCard);
-//        card->setIcon(cardIcon);
-//        card->setIconSize(CARD_SIZE);
-//        card->setText(" ");
-        fieldLayout->addWidget(card);
-    }
-    topLeftLayout->addLayout(fieldLayout);
-
-    QHBoxLayout* bottomLeftLayout = new QHBoxLayout(this);
-    for(int i = 0; i < 7; i++)
-    {
-        CardView* card = new CardView("./assets/OP01-006.png", CARD_SIZE);
-//        QPixmap imageCard("./assets/OP01-006.png");
-//        QIcon cardIcon(imageCard);
-//        card->setIcon(cardIcon);
-//        card->setIconSize(CARD_SIZE);
-//        card->setText(" ");
-        bottomLeftLayout->addWidget(card);
-    }
-
-    leftLayout->addLayout(topLeftLayout);
-    leftLayout->addLayout(bottomLeftLayout);
+    leftLayout->addLayout(fieldLayout);
+    leftLayout->addLayout(handLayout);
 
     QPushButton* deck = new QPushButton();
     QPixmap imageDeck("./assets/CardBackRegular.png");
@@ -69,7 +38,7 @@ PlayerArea::PlayerArea(QWidget *parent)
     QIcon donDeckIcon(imageDonDeck);
     donDeck->setIcon(donDeckIcon);
     donDeck->setIconSize(CARD_SIZE);
-    QVBoxLayout* rightLayout = new QVBoxLayout(this);
+    QVBoxLayout* rightLayout = new QVBoxLayout();
     rightLayout->addWidget(deck);
     rightLayout->addWidget(graveyard);
     rightLayout->addWidget(donDeck);
@@ -78,12 +47,46 @@ PlayerArea::PlayerArea(QWidget *parent)
     QSpacerItem* horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     mainLayout->addSpacerItem(horizontalSpacer);
     mainLayout->addLayout(rightLayout);
+}
 
-    //    QPushButton* leader = new QPushButton();
+void PlayerArea::displayGround(std::vector<Card *> ground)
+{
+    clearLayouts(groundLayout);
 
-    //    QGridLayout* field = new QGridLayout(this);
-    //    //field->setFrameStyle(QFrame::Panel);
+    for(int i = 0; i < (int)ground.size(); i++)
+    {
+        CardView* cardView = new CardView(ground.at(i), CARD_SIZE);
+        groundLayout->addWidget(cardView);
+    }
+}
 
-    //    QHBoxLayout* hand = new QHBoxLayout(this);
-    //    //hand->setFrameStyle(QFrame::Panel);
+void PlayerArea::displayLeader(Leader *leader)
+{
+    CardView* cardView = new CardView(leader, CARD_SIZE*2.0);
+    leaderView = cardView;
+
+    cardView->setFixedSize(400,400);
+    fieldLayout->addWidget(cardView);
+}
+
+void PlayerArea::clearLayouts(QHBoxLayout *layout)
+{
+    while (QLayoutItem* item = layout->takeAt(0)) {
+        if (QWidget* widget = item->widget()) {
+            layout->removeWidget(widget);
+            widget->deleteLater();
+        }
+        delete item;
+    }
+}
+
+void PlayerArea::displayHand(std::vector<Card*> hand)
+{
+    clearLayouts(handLayout);
+
+    for(int i = 0; i < (int)hand.size(); i++)
+    {
+        CardView* cardView = new CardView(hand.at(i), CARD_SIZE);
+        handLayout->addWidget(cardView);
+    }
 }

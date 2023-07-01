@@ -12,6 +12,7 @@ private:
 public:
     Leader(std::string name, std::string artPath, std::string code, Enums::Colors color, int attack, int life);
     Leader(QJsonObject Json, std::string cardCode);
+    Leader();
     ~Leader();
     int getLife() const;
     std::string* lead() const;

@@ -15,6 +15,8 @@ Leader::Leader(QJsonObject Json, std::string cardCode) :
     _life(JsonParser::jsonKeytoInt(Json, JSON_LIFE)){
 }
 
+Leader::Leader(): ColoredCard(), Attacker(0){}
+
 Leader::~Leader()
 {
 }

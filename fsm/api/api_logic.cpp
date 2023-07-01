@@ -12,7 +12,7 @@ ApiLogic::ApiLogic(Player *p1, Player *p2)
 }
 
 bool ApiLogic::setUpPlayer(Player *player)
-{   
+{
     Debug::LogEnv("ApiLogic::setUpPlayer");
     return player->activeAllDon();
 }
@@ -68,7 +68,7 @@ Card* ApiLogic::playCard(Player* player, Card* card, bool* isFromHand)
         // _currentState = Enums::State::SelectEnemyCard;
         *isFromHand = false;
     }
-    
+
     return card;
 }
 
@@ -103,7 +103,7 @@ bool ApiLogic::attachDonToCard(Card* card, Don* don, Player* currentPlayer)
         Debug::LogError("Tried to Attach a Don, but the don is already attached");
         return false;
     }
-    
+
     if (whoseCard(card) != currentPlayer)
     {
         Debug::LogError("Tried to Attach a Don, but the card is not yours");
@@ -111,7 +111,7 @@ bool ApiLogic::attachDonToCard(Card* card, Don* don, Player* currentPlayer)
     }
 
     Attacker* attackerSelected = dynamic_cast<Attacker*>(card);
-    
+
     if (attackerSelected == NULL)
     {
         Debug::LogError("Tried to Attach a Don, but the selected card is not a character");
@@ -142,13 +142,13 @@ Player* ApiLogic::loadPlayer(std::string path, int playerNumber)
 {
     Debug::LogEnv("ApiLogic::loadPlayer");
     switch (playerNumber){
-        case 1:
-            return Save::loadPlayer1(path);
-        case 2:
-            return Save::loadPlayer2(path);
-        default:
-            Debug::LogError("ApiLogic::loadPlayer - Invalid Player Number");
-            return NULL;
+    case 1:
+        return Save::loadPlayer1(path);
+    case 2:
+        return Save::loadPlayer2(path);
+    default:
+        Debug::LogError("ApiLogic::loadPlayer - Invalid Player Number");
+        return NULL;
     }
 }
 
@@ -169,4 +169,44 @@ bool ApiLogic::resetBonusToCard(Player* currentPlayer){
     Debug::LogEnv("ApiLogic::resetCard");
     currentPlayer->resetCard();
     return true;
+}
+
+std::vector<Card *> ApiLogic::getCardsOnHand(int playerNumber)
+{
+    Debug::LogEnv("ApiLogic::getCardsOnHand");
+    switch (playerNumber) {
+    case 1:
+        return player1->getHand();
+        break;
+    default:
+        return player2->getHand();
+        break;
+    }
+
+}
+
+std::vector<Card *> ApiLogic::getCardsOnGround(int playerNumber)
+{
+    Debug::LogEnv("ApiLogic::getCardsOnGround");
+    switch (playerNumber) {
+    case 1:
+        return player1->getGround();
+        break;
+    default:
+        return player2->getGround();
+        break;
+    }
+}
+
+Leader* ApiLogic::getLeader(int playerNumber)
+{
+    Debug::LogEnv("ApiLogic::getLeader");
+    switch (playerNumber) {
+    case 1:
+        return player1->getLeader();
+        break;
+    default:
+        return player2->getLeader();
+        break;
+    }
 }

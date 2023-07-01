@@ -9,7 +9,7 @@
             "color": "2",
             "cardData": {
                 "name": "Otama",
-                "artPath": "..."
+                "artPath": "./assets/OP01-006.png"
             }
         }
     },
@@ -24,12 +24,12 @@
             "color": "2",
             "cardData": {
                 "name": "Law",
-                "artPath": "..."
+                "artPath": "./assets/OP01-002.png"
             }
         }
     },
 
-    "OP010030":{
+    "OP010300":{
         "name": "Event",
         "attack": "1000",
         "cost": "1",
@@ -38,8 +38,8 @@
         "colorData":{
             "color": "2",
             "cardData": {
-                "name": "Oama",
-                "artPath": "..."
+                "name": "Two Years",
+                "artPath": "./assets/OP01-030.png"
             }
         }
     }
