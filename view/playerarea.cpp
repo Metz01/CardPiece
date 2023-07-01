@@ -4,7 +4,9 @@
 #include <QFrame>
 #include <QGridLayout>
 #include <QHBoxLayout>
+#include <QLabel>
 #include "cardview.h"
+#include "./fsm/api/api_logic.h"
 
 PlayerArea::PlayerArea(std::vector<Card*> hand, std::vector<Card*> ground, Leader* leader, QWidget *parent)
     : QWidget(parent)
@@ -38,15 +40,21 @@ PlayerArea::PlayerArea(std::vector<Card*> hand, std::vector<Card*> ground, Leade
     QIcon donDeckIcon(imageDonDeck);
     donDeck->setIcon(donDeckIcon);
     donDeck->setIconSize(CARD_SIZE);
+    donText->setText("DON: 0");
     QVBoxLayout* rightLayout = new QVBoxLayout();
     rightLayout->addWidget(deck);
     rightLayout->addWidget(graveyard);
     rightLayout->addWidget(donDeck);
+    rightLayout->addWidget(donText);
+    rightLayout->setAlignment(Qt::AlignCenter);
 
     mainLayout->addLayout(leftLayout);
     QSpacerItem* horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     mainLayout->addSpacerItem(horizontalSpacer);
     mainLayout->addLayout(rightLayout);
+
+    // Connections
+    connect(deck, &QPushButton::clicked, this, &PlayerArea::deckButtonPressed);
 }
 
 void PlayerArea::displayGround(std::vector<Card *> ground)
@@ -78,6 +86,22 @@ void PlayerArea::clearLayouts(QHBoxLayout *layout)
         }
         delete item;
     }
+}
+
+void PlayerArea::deckButtonPressed()
+{
+    Card* newCard = FSM::drawCardRequest();
+    if(!newCard) return;
+    CardView* newCardView = new CardView(newCard, CARD_SIZE);
+    handLayout->addWidget(newCardView);
+}
+
+// USARE FSM PER SAPERE QUANTI DON ATTIVI HA IL CURRENTPLAYER
+void PlayerArea::donButtonPressed()
+{
+//    FSM::drawDonRequest();
+//    int dons = ApiLogic::getAvailableDon(1);
+//    donText->setText("DON: 0");
 }
 
 void PlayerArea::displayHand(std::vector<Card*> hand)

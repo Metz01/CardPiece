@@ -32,6 +32,7 @@ public:
     static std::vector<Card*> getCardsOnHand(int);
     static std::vector<Card*> getCardsOnGround(int);
     static Leader* getLeader(int);
+    static int getAvailableDon(int);
     // static void selectCard();
     // static void useCard();
     // static void selectEnemyCard();

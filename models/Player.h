@@ -42,11 +42,12 @@ public:
     bool useDon();
     std::string getName() const;
     int getLife() const;
-    std::vector<Don*> getDonList() const;
     std::vector<Card*> getHand() const;
     std::vector<Card*> getGraveyard() const;
+    std::vector<Don*> getDonList() const;
     std::vector<Card*> getGround() const;
     std::vector<std::string> getDeckCodes() const;
+    int getActiveDon() const;
     bool resetCard();
 
 };

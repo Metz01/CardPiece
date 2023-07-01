@@ -3,11 +3,13 @@
 
 #include <QWidget>
 #include <QHBoxLayout>
+#include <QLabel>
 
 #include <vector>
 #include "./models/card/Card.h"
 #include "./models/card/card_types/Leader.h"
 #include "./view/cardview.h"
+#include "./fsm/fsm.h"
 
 class PlayerArea : public QWidget
 {
@@ -32,6 +34,11 @@ private:
     QHBoxLayout* handLayout = new QHBoxLayout();
     QHBoxLayout* groundLayout = new QHBoxLayout();
     QHBoxLayout* fieldLayout = new QHBoxLayout();
+    QLabel* donText = new QLabel();
+
+public slots:
+    void deckButtonPressed();
+    void donButtonPressed();
 
 };
 

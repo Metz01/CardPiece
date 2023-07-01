@@ -243,10 +243,6 @@ int Player::getLife() const{
     return this->life;
 }
 
-std::vector<Don*> Player::getDonList() const{
-    return this->donList;
-}
-
 std::vector<Card*> Player::getHand() const{
     return this->hand;
 }
@@ -259,8 +255,23 @@ std::vector<Card*> Player::getGraveyard() const{
     return this->graveyard;
 }
 
+std::vector<Don *> Player::getDonList() const
+{
+    return this->donList;
+}
+
 std::vector<std::string> Player::getDeckCodes() const{
     return this->deck.getDeckCodes();
+}
+
+int Player::getActiveDon() const
+{
+    int activeDon = 0;
+    for(auto d: donList){
+        if(d->isActive())
+            activeDon ++;
+    }
+    return activeDon;
 }
 
 bool Player::resetCard(){

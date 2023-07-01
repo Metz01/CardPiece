@@ -210,3 +210,16 @@ Leader* ApiLogic::getLeader(int playerNumber)
         break;
     }
 }
+
+int ApiLogic::getAvailableDon(int playerNumber)
+{
+    Debug::LogEnv("ApiLogic::getAvailableDon");
+    switch (playerNumber) {
+    case 1:
+        return player1->getActiveDon();
+        break;
+    default:
+        return player2->getActiveDon();
+        break;
+    }
+}
