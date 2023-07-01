@@ -36,6 +36,7 @@ public:
     bool hasOnGround(Card *card);
     bool loseLife(int amount);
     bool killCard(Card *card);
+    bool discardCard(Card *card);
     void print() const;
     Leader *getLeader() const;
     bool useDon();

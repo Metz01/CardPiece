@@ -28,3 +28,4 @@ Utils::CardInfo* Event::getCardInfo(Enums::InfoAttribute attribute) const{
 int Event::getBuff() const{
     return _buff;
 }
+

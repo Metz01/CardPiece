@@ -30,4 +30,12 @@ void Card::restCard(){
     _active = 0;
 }
 
+void Card::setActive(){
+    _active = 1;
+}
+
+void Card::resetCard(){}
+
+
+
 /* std::string* Card::info() {} */

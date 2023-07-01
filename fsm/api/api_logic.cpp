@@ -152,13 +152,15 @@ Player* ApiLogic::loadPlayer(std::string path, int playerNumber)
     }
 }
 
-bool ApiLogic::useCardEffect(Card* cardToUse, Card* cardToUseOn)
+bool ApiLogic::useCardEffect(Card* cardToUse, Card* cardToUseOn, Player *currentPlayer)
 {
     Debug::LogEnv("ApiLogic::useCardEffect");
 
     int buff = cardToUse->getCardInfo(Enums::InfoAttribute::Buff)->value.buff;
 
     dynamic_cast<Attacker*>(cardToUseOn)->buffAttack(buff);
+
+    currentPlayer->discardCard(cardToUse);
 
     return true;
 }

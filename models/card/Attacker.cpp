@@ -21,7 +21,7 @@ void Attacker::buffAttack(int buff)
 {
     Debug::LogEnv("Attacker::buffAttack");
     _buffBonus += buff;
-    Debug::LogDebug("Current buffed attack amounts to: " + std::to_string(_attack));
+    Debug::LogDebug("Current buff amounts to: " + std::to_string(_buffBonus));
 }
 
 int Attacker::getAttack() const
@@ -29,8 +29,9 @@ int Attacker::getAttack() const
     return _attack + _buffBonus;
 }
 
-void Attacker::resetAttack()
+void Attacker::resetCard()
 {
+    Debug::LogEnv("Attacker::resetCardBuff");
     _buffBonus = 0;
 }
 

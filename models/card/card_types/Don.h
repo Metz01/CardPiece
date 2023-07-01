@@ -25,6 +25,7 @@ public:
     Attacker *getAttachedCard();
     Utils::CardInfo* getCardInfo(Enums::InfoAttribute attribute) const;
     Enums::CardType getCardType() const;
+    void resetCard();
 };
 
 #endif

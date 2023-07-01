@@ -27,7 +27,7 @@ public:
     static Player* getOpponent(Player* currentPlayer);
     static bool saveGame(Player* player1, Player* player2, std::string path);
     static Player* loadPlayer(std::string path, int playerNumber);
-    static bool useCardEffect(Card* cardToUse, Card* cardToUseOn);
+    static bool useCardEffect(Card* cardToUse, Card* cardToUseOn, Player* currentPlayer);
     static bool resetBonusToCard(Player* currentPlayer);
     // static void selectCard();
     // static void useCard();

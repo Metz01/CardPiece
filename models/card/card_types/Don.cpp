@@ -56,3 +56,7 @@ Enums::CardType Don::getCardType() const
 {
     return Enums::CardType::don;
 }
+
+void Don::resetCard(){
+    this->deattachCard();
+}

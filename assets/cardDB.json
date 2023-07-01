@@ -16,7 +16,7 @@
 
     "OP010020":{
         "name": "Law",
-        "attack": "1000",
+        "attack": "5000",
         "life": "1",
         "type": "1",
         "buff": "200",

@@ -6,6 +6,7 @@
 Enums::State FSM::_currentState = Enums::State::Draw;
 Player *FSM::_currentPlayer = NULL;
 int FSM::_turnsPlayed = 0;
+Card *FSM::_buffedCard = NULL;
 
 FSM::FSM(Player *starterPlayer)
 {
@@ -113,12 +114,16 @@ bool FSM::selectCardRequest(Card* selectedCard)
     {
         FSM::attachDonRequest(selectedCard, dynamic_cast<Don*>(_buffedCard));
     }
+    else if (_currentState == Enums::State::UseCard)
+    {
+        FSM::useCardRequest(_buffedCard, selectedCard);
+    }
     else
     {
         Debug::LogError("Tried to Select a Card, but the state is: " + EnumsHelper::ToString(_currentState));
         return false;
     }
-
+    return false;
     
 }
 
@@ -192,7 +197,7 @@ bool FSM::useCardRequest(Card* cardToUse, Card* cardToUseOn)
         return false;
     }
 
-    ApiLogic::useCardEffect(cardToUse, cardToUseOn);
+    ApiLogic::useCardEffect(cardToUse, cardToUseOn, _currentPlayer);
 
     _currentState = Enums::State::SelectCard;
 
@@ -212,12 +217,12 @@ bool FSM::endTurnRequest()
 
     // Change State
     _currentState = Enums::State::Draw;
-
-    // Change Player
-    _currentPlayer = ApiLogic::getOpponent(_currentPlayer);
-
+    
     //Reset bonus to cards
     ApiLogic::resetBonusToCard(_currentPlayer);
+
+    // Change Player
+    _currentPlayer = ApiLogic::getOpponent(_currentPlayer);    
     
     // Increment Turns
     _turnsPlayed++;
