@@ -3,8 +3,8 @@
 bool Battle::attackCard(Card* attacker, Card* defender, Player* currentPlayer, Player* enemyPlayer){
     Debug::LogEnv("ApiLogic::attackCard");
 
-    int attack = attacker->info(Enums::InfoAttribute::Attack, Utils::LoadCard).attack + buffCount(attacker, currentPlayer);
-    int defense = defender->info(Enums::InfoAttribute::Attack, Utils::LoadCard).attack + buffCount(defender, enemyPlayer);
+    int attack = attacker->getCardInfo(Enums::InfoAttribute::Attack)->value.attack + buffCount(attacker, currentPlayer);
+    int defense = defender->getCardInfo(Enums::InfoAttribute::Attack)->value.attack + buffCount(defender, enemyPlayer);
 
     Debug::LogDebug("Attack: " + std::to_string(attack) + " - Defense: " + std::to_string(defense));
 

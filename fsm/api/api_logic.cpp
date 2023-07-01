@@ -54,7 +54,7 @@ Card* ApiLogic::playCard(Player* player, Card* card, bool* isFromHand)
     Debug::LogEnv("ApiLogic::playCard");
     if(player->hasOnHand(card)){
         Debug::LogInfo("ApiLogic::playCard Card On Hand");
-        bool isCharacter = (card->info(Enums::InfoAttribute::Type, Utils::LoadCard)).type == Enums::CardType::character;
+        bool isCharacter = (card->getCardInfo(Enums::InfoAttribute::Type)->value.type) == Enums::CardType::character;
         Debug::LogInfo("ApiLogic::playCard isCharacter: " + std::to_string(isCharacter));
         if(isCharacter){
             player->playCard(card);
@@ -129,4 +129,44 @@ Player* ApiLogic::getOpponent(Player* currentPlayer)
         return player2;
     else
         return player1;
+}
+
+bool ApiLogic::saveGame(Player* player1, Player* player2, std::string path)
+{
+    Debug::LogEnv("ApiLogic::saveGame");
+    Save::saveGame(player1, player2, path);
+    return true;
+}
+
+Player* ApiLogic::loadPlayer(std::string path, int playerNumber)
+{
+    Debug::LogEnv("ApiLogic::loadPlayer");
+    switch (playerNumber){
+        case 1:
+            return Save::loadPlayer1(path);
+        case 2:
+            return Save::loadPlayer2(path);
+        default:
+            Debug::LogError("ApiLogic::loadPlayer - Invalid Player Number");
+            return NULL;
+    }
+}
+
+bool ApiLogic::useCardEffect(Card* cardToUse, Card* cardToUseOn, Player *currentPlayer)
+{
+    Debug::LogEnv("ApiLogic::useCardEffect");
+
+    int buff = cardToUse->getCardInfo(Enums::InfoAttribute::Buff)->value.buff;
+
+    dynamic_cast<Attacker*>(cardToUseOn)->buffAttack(buff);
+
+    currentPlayer->discardCard(cardToUse);
+
+    return true;
+}
+
+bool ApiLogic::resetBonusToCard(Player* currentPlayer){
+    Debug::LogEnv("ApiLogic::resetCard");
+    currentPlayer->resetCard();
+    return true;
 }

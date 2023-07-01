@@ -12,12 +12,12 @@ class ColoredCard: public Card
         Enums::Colors _color;
         
     public:
-        ColoredCard(std::string, std::string, std::string, std::string, Enums::Colors);
+        ColoredCard(std::string, std::string, std::string, Enums::Colors);
         ColoredCard(QJsonObject Json, std::string cardCode);
         ColoredCard();
         virtual ~ColoredCard();
-        virtual Utils::CardInfo info(Enums::InfoAttribute attribute, Utils::CardInfo onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo)) const = 0;
         std::string getCode() const;
+        Enums::Colors getColor() const;
         virtual Enums::CardType getCardType() const = 0;
 };  
 

@@ -89,7 +89,11 @@
         "qtextstream": "cpp",
         "*.def": "cpp",
         "qlabel": "cpp",
-        "qabstractanimation": "cpp"
+        "qabstractanimation": "cpp",
+        "charconv": "cpp",
+        "format": "cpp",
+        "span": "cpp",
+        "stdfloat": "cpp"
     },
     "cSpell.words": [
         "deattach",

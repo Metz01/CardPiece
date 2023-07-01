@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "card/Card.h"
 #include "../utils/Debug.h"
+#include "../utils/Utils.h"
 
 /// @brief constructor for the player class, it will create a deck and set the leader from the deck
 /// @param path path to the deck file
@@ -14,7 +15,38 @@ Player::Player(std::string path, std::string name) : deck(Deck(path)), hand(std:
     for(int i = 0; i < this->life; i++){
         lifeCards.add(this->deck.drawCard());
     }
+}
 
+/// @brief constructor for the player class, it will create a deck and set the leader from the deck
+/// @param name name of the player
+/// @param life life of the player
+/// @param leaderCode code of the leader
+/// @param donNumber number of dons
+/// @param handCode codes of the cards in the hand
+/// @param groundCode codes of the cards in the ground
+/// @param graveCode codes of the cards in the graveyard
+/// @param deckCodes codes of the cards in the deck
+Player::Player(std::string name, int life, std::string leaderCode, int donNumber, std::vector<std::string> handCode, std::vector<std::string> groundCode, std::vector<std::string> graveCode, std::vector<std::string> deckCodes) :
+    deck(Deck(deckCodes)), hand(std::vector<Card *>()), graveyard(std::vector<Card *>()), ground(std::vector<Card *>()),don(donNumber), _name(name),  life(life)
+{
+    this->activeDon = donNumber;
+    this->leader = dynamic_cast<Leader *>(DatabaseHelper::selectJSonCard(leaderCode));
+    for (std::string code : handCode)
+    {
+        hand.push_back(DatabaseHelper::selectJSonCard(code));
+    }
+    for (std::string code : groundCode)
+    {
+        ground.push_back(DatabaseHelper::selectJSonCard(code));
+    }
+    for (std::string code : graveCode)
+    {
+        graveyard.push_back(DatabaseHelper::selectJSonCard(code));
+    }
+    for(int i = 0; i < this->don; i++){
+        Don* don = new Don();
+        donList.push_back(don);
+    }
 }
 
 /// @brief get the leader code from the deck and remove it from the deck
@@ -68,9 +100,8 @@ bool Player::activeAllDon(){
 void Player::playCard(Card *selectedCard)
 {
     Debug::LogEnv("Player::playCard");
-    Utils::CardInfo info = selectedCard->info(Enums::Cost, Utils::LoadCard);
-    Debug::LogDebug("Cost: " + std::to_string(info.cost) + " | ActiveDon: " + std::to_string(activeDon));
-    int cost = info.cost;
+    int cost = selectedCard->getCardInfo(Enums::InfoAttribute::Cost)->value.cost;
+    Debug::LogDebug("Cost: " + std::to_string(cost) + " | ActiveDon: " + std::to_string(activeDon));
     if(activeDon < cost){
         Debug::LogError("Not enough don to play this card");
         return;
@@ -148,6 +179,18 @@ bool Player::killCard(Card *card)
     return false;
 }
 
+bool Player::discardCard(Card *card)
+{
+    Debug::LogEnv("Player::discardCard");
+    if (std::find(hand.begin(), hand.end(), card) != hand.end())
+    {
+        hand.erase(std::remove(hand.begin(), hand.end(), card), hand.end());
+        graveyard.push_back(card);
+        return true;
+    }
+    return false;
+}
+
 //print all info of player
 void Player::print() const
 {
@@ -192,6 +235,38 @@ bool Player::useDon(){
     return true;
 }
 
+std::string Player::getName() const{
+    return this->_name;
+}
+
+int Player::getLife() const{
+    return this->life;
+}
+
 std::vector<Don*> Player::getDonList() const{
     return this->donList;
+}
+
+std::vector<Card*> Player::getHand() const{
+    return this->hand;
+}
+
+std::vector<Card*> Player::getGround() const{
+    return this->ground;
+}
+
+std::vector<Card*> Player::getGraveyard() const{
+    return this->graveyard;
+}
+
+std::vector<std::string> Player::getDeckCodes() const{
+    return this->deck.getDeckCodes();
+}
+
+bool Player::resetCard(){
+    for(Card* card: this->ground){
+       card->resetCard();
+    }
+    this->leader->resetCard();
+    return true;
 }

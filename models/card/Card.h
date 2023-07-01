@@ -7,26 +7,27 @@
 #include "../../utils/Enums.h"
 #include "../../utils/Utils.h"
 
-
 class Card
 {
+
 protected:
     std::string _artPath;
     std::string _name;
-    std::string _effect; // TODO: make effect class
     bool _active;
     
 public:
-    Card(std::string name, std::string artPath, std::string effect);
+    Card(std::string name, std::string artPath);
     Card(QJsonObject Json);
     Card();
     virtual ~Card();
-    std::string getArtPath();
-    std::string getName();
-    virtual Utils::CardInfo info(Enums::InfoAttribute attribute, Utils::CardInfo onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo)) const = 0;
+    std::string getArtPath() const;
+    std::string getName() const;
     virtual Enums::CardType getCardType() const = 0;
     bool isActive() const;
     void restCard();
+    void setActive();
+    virtual Utils::CardInfo* getCardInfo(Enums::InfoAttribute attribute) const = 0;
+    virtual void resetCard();
 };
 
 

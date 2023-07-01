@@ -4,6 +4,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
+#include "../../../utils/Utils.h"
 #include "../Attacker.h"
 
 class Don : public Card
@@ -15,15 +16,16 @@ private:
 public:
     Don();
     Don(QJsonObject Json);
-    Don(std::string, std::string, std::string);
+    Don(std::string, std::string);
     ~Don();
     void attachCard(Attacker *);
     void deattachCard();
     void active();
     int getAttackIncrement();
     Attacker *getAttachedCard();
-    Utils::CardInfo info(Enums::InfoAttribute attribute, Utils::CardInfo onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo)) const;
+    Utils::CardInfo* getCardInfo(Enums::InfoAttribute attribute) const;
     Enums::CardType getCardType() const;
+    void resetCard();
 };
 
 #endif

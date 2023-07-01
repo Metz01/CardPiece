@@ -1,7 +1,7 @@
 #include <string>
 #include "Don.h"
 
-Don::Don(std::string name, std::string artPath, std::string effect) : Card(name, artPath, effect)
+Don::Don(std::string name, std::string artPath) : Card(name, artPath)
 {
 }
 
@@ -47,13 +47,16 @@ Attacker *Don::getAttachedCard()
     return _attachedCard;
 }
 
-Utils::CardInfo Don::info(Enums::InfoAttribute attribute, Utils::CardInfo onGetAttribute(Enums::InfoAttribute attribute, QJsonObject rawInfo )) const{
-    onGetAttribute(attribute, QJsonObject());
-    throw "Don::info() not used";
+Utils::CardInfo* Don::getCardInfo(Enums::InfoAttribute attribute) const{
+    Debug::LogDebug("Don::getCardInfo" + std::to_string(attribute));
+    return new Utils::CardInfo(attribute, this);
 }
-
 
 Enums::CardType Don::getCardType() const
 {
     return Enums::CardType::don;
+}
+
+void Don::resetCard(){
+    this->deattachCard();
 }

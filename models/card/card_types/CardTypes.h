@@ -4,6 +4,8 @@
 #include "../Card.h"
 #include "Character.h"
 #include "Leader.h"
+#include "Don.h"
+#include "Event.h"
 
 
 #endif

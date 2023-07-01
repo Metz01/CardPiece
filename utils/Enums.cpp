@@ -65,6 +65,7 @@ std::string EnumsHelper::getAttributeName(Enums::InfoAttribute type){
         case Enums::Color: return "Color";
         case Enums::ArtPath: return "ArtPath";
         case Enums::Life: return "Life";
+        case Enums::Code: return "Code";
         default:      return "[Unknown Attribute]";
     }
 }

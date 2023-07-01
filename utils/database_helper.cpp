@@ -34,6 +34,7 @@ DatabaseHelper::DatabaseHelper() {
 QJsonObject DatabaseHelper::getCardInfo(std::string cardCode){
     Debug::LogDebug(cardCode);
     QJsonObject jsonObj = database.object();
+
     QJsonObject cardInfoJson = JsonParser::jsonKeytoJsonObject(jsonObj, cardCode);
     QJsonDocument doc(jsonObj);
 //    QString jsonString = doc.toJson(QJsonDocument::Indented);
@@ -47,13 +48,14 @@ QJsonObject DatabaseHelper::getCardInfo(std::string cardCode){
 
 Card* DatabaseHelper::selectJSonCard(std::string cardCode){
 
-    Debug::LogEnv("DatabaseHelper::selectJSonCard");
+    Debug::LogEnv("DatabaseHelper::selectJSonCard " + cardCode);
     
     QJsonObject cardInfoJson = getCardInfo(cardCode);
     QJsonValue type = cardInfoJson.value(QString("type"));
 
     int cardType = (type.toString().toInt());
-
+    Debug::LogEnv("DatabaseHelper::selectJSonCard cardType: " + std::to_string(cardType));
+    Debug::LogEnv("DatabaseHelper::selectJSonCard cardName: " + JsonParser::jsonKeytoString(cardInfoJson, JSON_NAME));
     switch (cardType)
     {
     case Enums::leader:
@@ -63,8 +65,7 @@ Card* DatabaseHelper::selectJSonCard(std::string cardCode){
         return new Character(cardInfoJson, std::string(cardCode));
         break;
     case Enums::event:
-        return new Character(cardInfoJson, std::string(cardCode));
-        //return new Event(cardInfoJson);
+        return new Event(cardInfoJson, cardCode);
         break;
     case Enums::stage:
         return new Character(cardInfoJson, std::string(cardCode));

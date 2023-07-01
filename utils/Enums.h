@@ -27,7 +27,9 @@ namespace Enums{
         Effect=5,
         Color=6,
         ArtPath=7,
-        Life=8
+        Life=8,
+        Code=9,
+        Buff=10
     };
 }
 
