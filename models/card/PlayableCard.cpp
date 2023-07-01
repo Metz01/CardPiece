@@ -1,8 +1,8 @@
 #include <string>
 #include "PlayableCard.h"
 
-PlayableCard::PlayableCard(std::string name, std::string artPath, std::string effect, std::string code, Enums::Colors color, int cost):
-    ColoredCard(name, artPath, effect, code, color), 
+PlayableCard::PlayableCard(std::string name, std::string artPath, std::string code, Enums::Colors color, int cost):
+    ColoredCard(name, artPath, code, color), 
     _cost(cost) {}
 
 PlayableCard::PlayableCard(QJsonObject Json, std::string cardCode) : 

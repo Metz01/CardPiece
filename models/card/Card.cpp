@@ -3,16 +3,14 @@
 #include "Card.h"
 
 
-Card::Card(std::string name, std::string artPath, std::string effect) : 
+Card::Card(std::string name, std::string artPath) : 
     _artPath(artPath), 
     _name(name), 
-    _effect(effect),
     _active(0){};
 
 Card::Card(QJsonObject Json) : 
     _artPath(JsonParser::jsonKeytoString(Json, JSON_ARTPATH)), 
     _name(JsonParser::jsonKeytoString(Json, JSON_NAME)),
-    _effect(JsonParser::jsonKeytoString(Json, JSON_EFFECT)),
     _active(0){}
 
 Card::Card(){}
@@ -32,8 +30,12 @@ void Card::restCard(){
     _active = 0;
 }
 
-std::string Card::getEffect() const{
-    return _effect;
+void Card::setActive(){
+    _active = 1;
 }
+
+void Card::resetCard(){}
+
+
 
 /* std::string* Card::info() {} */

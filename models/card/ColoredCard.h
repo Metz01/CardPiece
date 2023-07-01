@@ -12,7 +12,7 @@ class ColoredCard: public Card
         Enums::Colors _color;
         
     public:
-        ColoredCard(std::string, std::string, std::string, std::string, Enums::Colors);
+        ColoredCard(std::string, std::string, std::string, Enums::Colors);
         ColoredCard(QJsonObject Json, std::string cardCode);
         ColoredCard();
         virtual ~ColoredCard();

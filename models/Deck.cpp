@@ -30,7 +30,9 @@ std::string Deck::findLeader() const
     std::string currentCard = "";
     for (int i = 0; i < cards->getSize(); i++){
         currentCard = cards->getCardCode(i);
+        Debug::LogEnv("Deck::findLeader currentCard: " + currentCard);
         if (DatabaseHelper::isLeader(currentCard)){
+            Debug::LogEnv("Deck::findLeader Found leader");
             cards->remove(currentCard);
             return currentCard;
         }

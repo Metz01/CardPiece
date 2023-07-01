@@ -40,24 +40,31 @@ void _setup()
   Debug::LogError("Card attack after don: " + std::to_string(info));
   FSM::selectCardRequest(card2);
   FSM::selectEnemyCardRequest(card2, card);
-  p1->print();
-  p2->print();
+  //p1->print();
+  //p2->print();
   FSM::endTurnRequest(); 
   Debug::LogDebug("********* End Turn **********");
   Card* card3 = FSM::drawCardRequest();
+  Debug::LogError(card3->getCardInfo(Enums::InfoAttribute::Name)->value.name);
   FSM::drawDonRequest();
-  p1->print();
-  p2->print();
+  //p1->print();
+  //p2->print();
   FSM::endTurnRequest(); 
   Debug::LogDebug("********* End Turn **********");
   Card* card4 = FSM::drawCardRequest();
   FSM::drawDonRequest();
-  int att = (dynamic_cast<Character*>(card2))->getAttack();
-  Debug::LogDebug("Card attack after reset: " + std::to_string(att));
   p2->print();
+  Leader* lead = p2->getLeader();
   ApiLogic::saveGame(p1,p2,"./assets/saves/test1");
-  Player* p3 = ApiLogic::loadPlayer("./assets/saves/test1", 2);
-  p3->print();
+  FSM::selectCardRequest(card4);
+  FSM::selectCardRequest(lead);
+  p2->print();
+  int att = lead->getCardInfo(Enums::InfoAttribute::Attack)->value.attack;
+  Debug::LogDebug("Card attack befor reset with buff: " + std::to_string(att));
+  FSM::endTurnRequest(); 
+  Debug::LogDebug("********* End Turn **********");
+  att = lead->getCardInfo(Enums::InfoAttribute::Attack)->value.attack;
+  Debug::LogDebug("Card attack after reset: " + std::to_string(att));
 }
 
 void _testFunctions()

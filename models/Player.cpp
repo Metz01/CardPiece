@@ -27,7 +27,7 @@ Player::Player(std::string path, std::string name) : deck(Deck(path)), hand(std:
 /// @param graveCode codes of the cards in the graveyard
 /// @param deckCodes codes of the cards in the deck
 Player::Player(std::string name, int life, std::string leaderCode, int donNumber, std::vector<std::string> handCode, std::vector<std::string> groundCode, std::vector<std::string> graveCode, std::vector<std::string> deckCodes) :
-    deck(Deck(deckCodes)), hand(std::vector<Card *>()), graveyard(std::vector<Card *>()), ground(std::vector<Card *>()), _name(name), don(donNumber), life(life)
+    deck(Deck(deckCodes)), hand(std::vector<Card *>()), graveyard(std::vector<Card *>()), ground(std::vector<Card *>()),don(donNumber), _name(name),  life(life)
 {
     this->activeDon = donNumber;
     this->leader = dynamic_cast<Leader *>(DatabaseHelper::selectJSonCard(leaderCode));
@@ -179,6 +179,18 @@ bool Player::killCard(Card *card)
     return false;
 }
 
+bool Player::discardCard(Card *card)
+{
+    Debug::LogEnv("Player::discardCard");
+    if (std::find(hand.begin(), hand.end(), card) != hand.end())
+    {
+        hand.erase(std::remove(hand.begin(), hand.end(), card), hand.end());
+        graveyard.push_back(card);
+        return true;
+    }
+    return false;
+}
+
 //print all info of player
 void Player::print() const
 {
@@ -249,4 +261,12 @@ std::vector<Card*> Player::getGraveyard() const{
 
 std::vector<std::string> Player::getDeckCodes() const{
     return this->deck.getDeckCodes();
+}
+
+bool Player::resetCard(){
+    for(Card* card: this->ground){
+       card->resetCard();
+    }
+    this->leader->resetCard();
+    return true;
 }

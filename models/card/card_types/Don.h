@@ -16,7 +16,7 @@ private:
 public:
     Don();
     Don(QJsonObject Json);
-    Don(std::string, std::string, std::string);
+    Don(std::string, std::string);
     ~Don();
     void attachCard(Attacker *);
     void deattachCard();
@@ -25,6 +25,7 @@ public:
     Attacker *getAttachedCard();
     Utils::CardInfo* getCardInfo(Enums::InfoAttribute attribute) const;
     Enums::CardType getCardType() const;
+    void resetCard();
 };
 
 #endif

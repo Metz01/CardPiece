@@ -11,6 +11,7 @@
 class Character;
 class Don;
 class Leader;
+class Event;
 namespace Utils{
     class CardInfo{
         
@@ -26,6 +27,7 @@ namespace Utils{
                 char artPath[100];
                 int life;
                 char code[30];
+                int buff;
             } value;
     
 
@@ -34,6 +36,7 @@ namespace Utils{
             CardInfo(Enums::InfoAttribute attribute, Character const* card);
             CardInfo(Enums::InfoAttribute attribute, Don const* card);
             CardInfo(Enums::InfoAttribute attribute, Leader const* card);
+            CardInfo(Enums::InfoAttribute attribute, Event const* card);
 
             ~CardInfo();
     };

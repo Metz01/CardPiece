@@ -1,7 +1,7 @@
 #include <string>
 #include "Don.h"
 
-Don::Don(std::string name, std::string artPath, std::string effect) : Card(name, artPath, effect)
+Don::Don(std::string name, std::string artPath) : Card(name, artPath)
 {
 }
 
@@ -55,4 +55,8 @@ Utils::CardInfo* Don::getCardInfo(Enums::InfoAttribute attribute) const{
 Enums::CardType Don::getCardType() const
 {
     return Enums::CardType::don;
+}
+
+void Don::resetCard(){
+    this->deattachCard();
 }
