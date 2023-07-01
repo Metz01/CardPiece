@@ -16,6 +16,7 @@ SOURCES += \
     models/card/card_types/Character.cpp \
     models/card/card_types/Don.cpp \
     models/card/card_types/Leader.cpp \
+    models/card/card_types/Event.cpp \
     utils/Debug.cpp \
     fsm/api/api_logic.cpp \
     fsm/api/battle.cpp \
@@ -30,6 +31,7 @@ SOURCES += \
     utils/database_helper.cpp \
     utils/Utils.cpp \
     utils/JsonParser.cpp \
+    utils/Save.cpp \
     utils/Enums.cpp \
     view/cardview.cpp \
     view/gamewindow.cpp \
@@ -43,6 +45,7 @@ HEADERS += \
     models/card/card_types/Don.h \
     models/card/card_types/Leader.h \
     models/card/card_types/CardTypes.h \
+    models/card/card_types/Event.h \
     utils/Debug.h \
     fsm/api/api_logic.h \
     fsm/api/battle.h \
@@ -60,6 +63,7 @@ HEADERS += \
     utils/JsonParser.h \
     utils/Enums.h \
     utils/Constants.h \
+    utils/Save.h \
     view/cardview.h \
     view/gamewindow.h \
     view/playerarea.h \
