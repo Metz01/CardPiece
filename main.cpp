@@ -1,5 +1,4 @@
 // Includes Qt header files
-#include <QApplication>
 #include <QLabel>
 #include <QHBoxLayout>
 #include "./utils/Utils.h"
@@ -12,6 +11,9 @@
 #include "./fsm/fsm.h"
 #include "./fsm/api/api_logic.h"
 #include "./utils/Constants.h"
+
+#include "gamewindow.h"
+#include <QApplication>
 
 void _setup()
 {
@@ -56,14 +58,23 @@ void _testFunctions()
   return;
 }
 
+//int main(int argc, char *argv[])
+//{
+//  QApplication app(argc, argv);
+//  _setup();
+//  _testFunctions();
+//  Main_window *mw = new Main_window();
+//  mw->resize(1920, 1080);
+//  mw->show();
+
+//  return app.exec();
+//}
+
 int main(int argc, char *argv[])
 {
-  QApplication app(argc, argv);
-  _setup();
-  _testFunctions();
-  Main_window *mw = new Main_window();
-  mw->resize(1920, 1080);
-  mw->show();
-
-  return app.exec();
+  QApplication a(argc, argv);
+  GameWindow w;
+  w.resize(1920,1080);
+  w.show();
+  return a.exec();
 }
