@@ -1,6 +1,7 @@
 // Includes Qt header files
 #include <QLabel>
 #include <QHBoxLayout>
+#include <QApplication>
 #include "./utils/Utils.h"
 #include "./widgets/Main_window.h"
 #include "./models/card/card_types/Leader.h"
@@ -12,8 +13,7 @@
 #include "./fsm/api/api_logic.h"
 #include "./utils/Constants.h"
 #include "./utils/Save.h"
-#include "gamewindow.h"
-#include <QApplication>
+#include "./view/gamewindow.h"
 
 
 void _setup()

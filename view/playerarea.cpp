@@ -75,7 +75,6 @@ PlayerArea::PlayerArea(QWidget *parent)
     rightLayout->addWidget(donDeck);
 
     mainLayout->addLayout(leftLayout);
-    mainLayout->addLayout(rightLayout);
     QSpacerItem* horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     mainLayout->addSpacerItem(horizontalSpacer);
     mainLayout->addLayout(rightLayout);
