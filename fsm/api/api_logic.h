@@ -29,10 +29,10 @@ public:
     static Player* loadPlayer(std::string path, int playerNumber);
     static bool useCardEffect(Card* cardToUse, Card* cardToUseOn, Player* currentPlayer);
     static bool resetBonusToCard(Player* currentPlayer);
-    static std::vector<Card*> getCardsOnHand(int);
-    static std::vector<Card*> getCardsOnGround(int);
-    static Leader* getLeader(int);
-    static int getAvailableDon(int);
+    static std::vector<Card*> getCardsOnHand(Player*);
+    static std::vector<Card*> getCardsOnGround(Player*);
+    static Leader* getLeader(Player*);
+    static int getAvailableDon(Player*);
     // static void selectCard();
     // static void useCard();
     // static void selectEnemyCard();

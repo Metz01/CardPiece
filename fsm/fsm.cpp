@@ -13,11 +13,17 @@ FSM::FSM(Player *starterPlayer)
     _currentPlayer = starterPlayer;
 }
 
-Card *FSM::drawCardRequest()
+Card *FSM::drawCardRequest(Player* playerRequesting)
 {
     Debug::LogEnv("FSM::drawCardRequest");
 
     // Assert State
+
+    if(playerRequesting != _currentPlayer){
+        Debug::LogError("Tried to Draw a card, but it's not your turn");
+        return NULL;
+    }
+
     if (_currentState != Enums::State::Draw)
     {
         Debug::LogError("Tried to Draw a card, but the state is: " + EnumsHelper::ToString(_currentState));
@@ -35,9 +41,14 @@ Card *FSM::drawCardRequest()
     return card;
 }
 
-std::vector<Don *> FSM::drawDonRequest()
+std::vector<Don *> FSM::drawDonRequest(Player* playerRequesting)
 {
     Debug::LogEnv("FSM::drawDonRequest");
+
+    if(playerRequesting != _currentPlayer){
+        Debug::LogError("Tried to Draw don, but it's not your turn");
+        return std::vector<Don *>();
+    }
 
     // Assert State
     if (_currentState != Enums::State::DrawDon)

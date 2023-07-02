@@ -8,8 +8,8 @@
 #include "cardview.h"
 #include "./fsm/api/api_logic.h"
 
-PlayerArea::PlayerArea(std::vector<Card*> hand, std::vector<Card*> ground, Leader* leader, QWidget *parent)
-    : QWidget(parent)
+PlayerArea::PlayerArea(Player* player, std::vector<Card*> hand, std::vector<Card*> ground, Leader* leader, QWidget *parent)
+    : QWidget(parent), player(player)
 {
     QHBoxLayout* mainLayout = new QHBoxLayout(this);
     mainLayout->setContentsMargins(10,10,10,10);
@@ -44,7 +44,7 @@ PlayerArea::PlayerArea(std::vector<Card*> hand, std::vector<Card*> ground, Leade
     QVBoxLayout* rightLayout = new QVBoxLayout();
     rightLayout->addWidget(deck);
     rightLayout->addWidget(graveyard);
-    rightLayout->addWidget(donDeck);
+    rightLayout->addWi_currentPlayerdget(donDeck);
     rightLayout->addWidget(donText);
     rightLayout->setAlignment(Qt::AlignCenter);
 
@@ -90,7 +90,7 @@ void PlayerArea::clearLayouts(QHBoxLayout *layout)
 
 void PlayerArea::deckButtonPressed()
 {
-    Card* newCard = FSM::drawCardRequest();
+    Card* newCard = FSM::drawCardRequest(player);
     if(!newCard) return;
     CardView* newCardView = new CardView(newCard, CARD_SIZE);
     handLayout->addWidget(newCardView);
@@ -99,9 +99,9 @@ void PlayerArea::deckButtonPressed()
 // USARE FSM PER SAPERE QUANTI DON ATTIVI HA IL CURRENTPLAYER
 void PlayerArea::donButtonPressed()
 {
-//    FSM::drawDonRequest();
-//    int dons = ApiLogic::getAvailableDon(1);
-//    donText->setText("DON: 0");
+    if(FSM::drawDonRequest(player).size() == 0) return;
+    int dons = ApiLogic::getAvailableDon(player);
+    donText->setText(std::to_string("DON: " + dons));
 }
 
 void PlayerArea::displayHand(std::vector<Card*> hand)

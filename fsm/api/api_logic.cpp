@@ -171,55 +171,27 @@ bool ApiLogic::resetBonusToCard(Player* currentPlayer){
     return true;
 }
 
-std::vector<Card *> ApiLogic::getCardsOnHand(int playerNumber)
+std::vector<Card *> ApiLogic::getCardsOnHand(Player* player)
 {
     Debug::LogEnv("ApiLogic::getCardsOnHand");
-    switch (playerNumber) {
-    case 1:
-        return player1->getHand();
-        break;
-    default:
-        return player2->getHand();
-        break;
-    }
+    return player->getHand();
 
 }
 
-std::vector<Card *> ApiLogic::getCardsOnGround(int playerNumber)
+std::vector<Card *> ApiLogic::getCardsOnGround(Player* player)
 {
     Debug::LogEnv("ApiLogic::getCardsOnGround");
-    switch (playerNumber) {
-    case 1:
-        return player1->getGround();
-        break;
-    default:
-        return player2->getGround();
-        break;
-    }
+    return player->getGround();
 }
 
-Leader* ApiLogic::getLeader(int playerNumber)
+Leader* ApiLogic::getLeader(Player* player)
 {
     Debug::LogEnv("ApiLogic::getLeader");
-    switch (playerNumber) {
-    case 1:
-        return player1->getLeader();
-        break;
-    default:
-        return player2->getLeader();
-        break;
-    }
+    return player->getLeader();
 }
 
-int ApiLogic::getAvailableDon(int playerNumber)
+int ApiLogic::getAvailableDon(Player* player)
 {
     Debug::LogEnv("ApiLogic::getAvailableDon");
-    switch (playerNumber) {
-    case 1:
-        return player1->getActiveDon();
-        break;
-    default:
-        return player2->getActiveDon();
-        break;
-    }
+    return player->getActiveDon();
 }

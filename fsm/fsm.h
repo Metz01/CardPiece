@@ -17,8 +17,8 @@ private:
 
 public:
     FSM(Player *starterPlayer);
-    static Card *drawCardRequest();
-    static std::vector<Don *> drawDonRequest();
+    static Card *drawCardRequest(Player* playerRequesting);
+    static std::vector<Don *> drawDonRequest(Player* playerRequesting);
     static bool selectCardRequest(Card* selectedCard);
     static bool attachDonRequest(Card* selectedCard, Don* selectedDon);
     static bool selectEnemyCardRequest(Card* selectedCard, Card* selectedEnemyCard);

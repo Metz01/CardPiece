@@ -16,11 +16,9 @@
 #include "./view/gamewindow.h"
 
 
-void _setup()
+void _setup(Player* p1, Player* p2)
 {
   DatabaseHelper();
-  Player *p1 = new Player(DECK1_PATH, "Alex");
-  Player *p2 = new Player(DECK1_PATH, "Mark");
 
 
   ApiLogic(p1, p2);
@@ -28,7 +26,6 @@ void _setup()
   Card* card = FSM::drawCardRequest();
   FSM::drawDonRequest();
   FSM::selectCardRequest(card);
-  p1->print();
   FSM::endTurnRequest();
   Debug::LogDebug("********* End Turn **********");
   Debug::LogInfo(card->getCardInfo(Enums::InfoAttribute::ArtPath)->value.artPath);
@@ -91,9 +88,11 @@ void _testFunctions()
 
 int main(int argc, char *argv[])
 {
-  _setup();
+  Player *p1 = new Player(DECK1_PATH, "Alex");
+  Player *p2 = new Player(DECK1_PATH, "Mark");
+  _setup(p1, p2);
   QApplication a(argc, argv);
-  GameWindow w;
+  GameWindow w(p1, p2);
   w.resize(1920,1080);
   w.show();
   return a.exec();

@@ -14,7 +14,7 @@ class GameWindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit GameWindow(QWidget *parent = nullptr);
+    explicit GameWindow(Player* player1 = nullptr, Player* player2 =  nullptr, QWidget *parent = nullptr);
 
 signals:
 

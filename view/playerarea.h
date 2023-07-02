@@ -15,7 +15,8 @@ class PlayerArea : public QWidget
 {
     Q_OBJECT
 public:
-    explicit PlayerArea(std::vector<Card*> hand = std::vector<Card*>(),
+    explicit PlayerArea(Player* player,
+                        std::vector<Card*> hand = std::vector<Card*>(),
                         std::vector<Card*> field = std::vector<Card*>(),
                         Leader* leader = new Leader(),
                         QWidget *parent = nullptr);
@@ -31,6 +32,7 @@ signals:
 
 private:
     CardView* leaderView;
+    Player* player;
     QHBoxLayout* handLayout = new QHBoxLayout();
     QHBoxLayout* groundLayout = new QHBoxLayout();
     QHBoxLayout* fieldLayout = new QHBoxLayout();

@@ -4,7 +4,7 @@
 #include <QVBoxLayout>
 #include "playerarea.h"
 
-GameWindow::GameWindow(QWidget *parent)
+GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
     : QMainWindow{parent}
 {
     QAction* save = new QAction("Save Game");
@@ -23,8 +23,8 @@ GameWindow::GameWindow(QWidget *parent)
 
 
 
-    PlayerArea* player1Area = new PlayerArea(ApiLogic::getCardsOnHand(1), ApiLogic::getCardsOnGround(1), ApiLogic::getLeader(1));
-    PlayerArea* player2Area = new PlayerArea(ApiLogic::getCardsOnHand(2), ApiLogic::getCardsOnGround(2), ApiLogic::getLeader(2));
+    PlayerArea* player1Area = new PlayerArea(player1, ApiLogic::getCardsOnHand(player1), ApiLogic::getCardsOnGround(player1), ApiLogic::getLeader(player1));
+    PlayerArea* player2Area = new PlayerArea(player2, ApiLogic::getCardsOnHand(player2), ApiLogic::getCardsOnGround(player2), ApiLogic::getLeader(player2));
 
     QVBoxLayout* layout = new QVBoxLayout(frame);
     layout->addWidget(player1Area);
