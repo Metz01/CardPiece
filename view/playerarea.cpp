@@ -5,6 +5,7 @@
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QString>
 #include "cardview.h"
 #include "./fsm/api/api_logic.h"
 
@@ -44,7 +45,7 @@ PlayerArea::PlayerArea(Player* player, std::vector<Card*> hand, std::vector<Card
     QVBoxLayout* rightLayout = new QVBoxLayout();
     rightLayout->addWidget(deck);
     rightLayout->addWidget(graveyard);
-    rightLayout->addWi_currentPlayerdget(donDeck);
+    rightLayout->addWidget(donDeck);
     rightLayout->addWidget(donText);
     rightLayout->setAlignment(Qt::AlignCenter);
 
@@ -101,7 +102,7 @@ void PlayerArea::donButtonPressed()
 {
     if(FSM::drawDonRequest(player).size() == 0) return;
     int dons = ApiLogic::getAvailableDon(player);
-    donText->setText(std::to_string("DON: " + dons));
+    donText->setText("Don" + QString::number(dons));
 }
 
 void PlayerArea::displayHand(std::vector<Card*> hand)
