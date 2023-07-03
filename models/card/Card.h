@@ -13,7 +13,7 @@ class Card
 protected:
     std::string _artPath;
     std::string _name;
-    bool _active;
+    bool _active = true;
     
 public:
     Card(std::string name, std::string artPath);

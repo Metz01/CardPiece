@@ -18,18 +18,15 @@
 
 void _setup(Player* p1, Player* p2)
 {
-  DatabaseHelper();
 
 
   ApiLogic(p1, p2);
   FSM fms(p1);
-  Card* card = FSM::drawCardRequest();
-  FSM::drawDonRequest();
-  FSM::selectCardRequest(card);
-  FSM::endTurnRequest();
+//  Card* card = FSM::drawCardRequest();
+//  FSM::drawDonRequest();
+//  FSM::selectCardRequest(card);
+//  FSM::endTurnRequest();
   Debug::LogDebug("********* End Turn **********");
-  Debug::LogInfo(card->getCardInfo(Enums::InfoAttribute::ArtPath)->value.artPath);
-
 //  Card* card2 = FSM::drawCardRequest();
 //  std::vector<Don*> don = FSM::drawDonRequest();
 //  FSM::selectCardRequest(card2);
@@ -88,6 +85,7 @@ void _testFunctions()
 
 int main(int argc, char *argv[])
 {
+  DatabaseHelper();
   Player *p1 = new Player(DECK1_PATH, "Alex");
   Player *p2 = new Player(DECK1_PATH, "Mark");
   _setup(p1, p2);
