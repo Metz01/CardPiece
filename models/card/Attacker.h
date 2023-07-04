@@ -18,6 +18,7 @@ class Attacker: virtual public ColoredCard
         int getAttack() const;
         void buffAttack(int);
         void resetCard();
+        void resetBuff();
         
 };
 

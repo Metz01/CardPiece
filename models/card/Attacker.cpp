@@ -29,11 +29,12 @@ int Attacker::getAttack() const
     return _attack + _buffBonus;
 }
 
-void Attacker::resetCard()
+void Attacker::resetBuff()
 {
     Debug::LogEnv("Attacker::resetCardBuff");
     _buffBonus = 0;
 }
+
 
 
 

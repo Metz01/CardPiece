@@ -2,7 +2,6 @@
 
 #include <QFrame>
 #include <QVBoxLayout>
-#include "playerarea.h"
 
 GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
     : QMainWindow{parent}
@@ -15,6 +14,9 @@ GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
     file->addAction(save);
     file->addAction(save_as);
     file->addSeparator();
+
+    QMenu* rules = menuBar()->addMenu("Rules");
+
     file->addAction(load);
 
     QFrame* frame = new QFrame(this);
@@ -23,17 +25,34 @@ GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
 
 
 
-    PlayerArea* player1Area = new PlayerArea(player1, ApiLogic::getCardsOnHand(player1), ApiLogic::getCardsOnGround(player1), ApiLogic::getLeader(player1));
-    PlayerArea* player2Area = new PlayerArea(player2, ApiLogic::getCardsOnHand(player2), ApiLogic::getCardsOnGround(player2), ApiLogic::getLeader(player2));
+    player1Area = new PlayerArea(player1, ApiLogic::getCardsOnHand(player1), ApiLogic::getCardsOnGround(player1), ApiLogic::getLeader(player1));
+    player2Area = new PlayerArea(player2, ApiLogic::getCardsOnHand(player2), ApiLogic::getCardsOnGround(player2), ApiLogic::getLeader(player2));
 
     QVBoxLayout* layout = new QVBoxLayout(frame);
     layout->addWidget(player1Area);
 
-    QFrame* line = new QFrame;
-    line->setFrameShape(QFrame::HLine);
-    line->setFrameShadow(QFrame::Sunken);
-    layout->addWidget(line);
+    QHBoxLayout* midLayout = new QHBoxLayout();
+    QFrame* lineA = new QFrame;
+    lineA->setFrameShape(QFrame::HLine);
+    lineA->setFrameShadow(QFrame::Sunken);
+    midLayout->addWidget(lineA);
+    QPushButton* endTurnButton = new QPushButton("END TURN");
+    midLayout->addWidget(endTurnButton);
+    QFrame* lineB = new QFrame;
+    lineB->setFrameShape(QFrame::HLine);
+    lineB->setFrameShadow(QFrame::Sunken);
+    midLayout->addWidget(lineB);
 
+    layout->addLayout(midLayout);
     layout->addWidget(player2Area);
     layout->setAlignment(Qt::AlignCenter);
+
+    connect(endTurnButton, &QPushButton::clicked, this, &GameWindow::endTurnButtonPressed);
+}
+
+void GameWindow::endTurnButtonPressed()
+{
+    FSM::endTurnRequest();
+    player1Area->updateGui();
+    player2Area->updateGui();
 }

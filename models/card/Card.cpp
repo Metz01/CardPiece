@@ -3,15 +3,15 @@
 #include "Card.h"
 
 
-Card::Card(std::string name, std::string artPath) : 
-    _artPath(artPath), 
-    _name(name), 
-    _active(0){};
+Card::Card(std::string name, std::string artPath) :
+    _artPath(artPath),
+    _name(name),
+    _active(1){};
 
 Card::Card(QJsonObject Json) : 
     _artPath(JsonParser::jsonKeytoString(Json, JSON_ARTPATH)), 
     _name(JsonParser::jsonKeytoString(Json, JSON_NAME)),
-    _active(0){}
+    _active(1){}
 
 Card::Card(){}
 
@@ -27,14 +27,17 @@ bool Card::isActive() const{
 }
 
 void Card::restCard(){
-    _active = 0;
+    Debug::LogEnv("Card::restCard");
+    _active = false;
 }
 
 void Card::setActive(){
-    _active = 1;
+    Debug::LogEnv("Card::activeCard");
+    _active = true;
 }
 
-void Card::resetCard(){}
+void Card::resetBuff(){
+}
 
 
 

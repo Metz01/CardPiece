@@ -9,6 +9,7 @@
 
 #include "./fsm/api/api_logic.h"
 #include "./models/Player.h"
+#include "playerarea.h"
 
 class GameWindow : public QMainWindow
 {
@@ -19,6 +20,9 @@ public:
 signals:
 
 private:
+    void endTurnButtonPressed();
+    PlayerArea* player1Area;
+    PlayerArea* player2Area;
 };
 
 #endif // GAMEWINDOW_H

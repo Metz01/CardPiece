@@ -14,6 +14,7 @@ ApiLogic::ApiLogic(Player *p1, Player *p2)
 bool ApiLogic::setUpPlayer(Player *player)
 {
     Debug::LogEnv("ApiLogic::setUpPlayer");
+    player->setAllCardActive();
     return player->activeAllDon();
 }
 
@@ -88,6 +89,11 @@ bool ApiLogic::attackCard(Card* attacker, Card* defender, Player* currentPlayer)
         Debug::LogError("Tried to attack a card not on the ground");
         return false;
     }
+    if(!attacker->isActive()){
+        Debug::LogInfo(std::to_string(attacker->isActive()));
+        Debug::LogError("Tried to attack with a rested card");
+        return false;
+    }
 
     Battle::attackCard(attacker, defender, currentPlayer, getOpponent(currentPlayer));
 
@@ -156,18 +162,14 @@ bool ApiLogic::useCardEffect(Card* cardToUse, Card* cardToUseOn, Player *current
 {
     Debug::LogEnv("ApiLogic::useCardEffect");
 
-    int buff = cardToUse->getCardInfo(Enums::InfoAttribute::Buff)->value.buff;
-
-    dynamic_cast<Attacker*>(cardToUseOn)->buffAttack(buff);
-
-    currentPlayer->discardCard(cardToUse);
+    currentPlayer->useCard(cardToUse, cardToUseOn);
 
     return true;
 }
 
 bool ApiLogic::resetBonusToCard(Player* currentPlayer){
     Debug::LogEnv("ApiLogic::resetCard");
-    currentPlayer->resetCard();
+    currentPlayer->resetBuffAllCards();
     return true;
 }
 

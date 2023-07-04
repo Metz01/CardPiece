@@ -21,12 +21,13 @@ public:
                         Leader* leader = new Leader(),
                         QWidget *parent = nullptr);
 
-    const QSize CARD_SIZE = QSize(120,168);
+    const QSize CARD_SIZE = QSize(50,70);
 
     void displayHand(std::vector<Card*> hand);
     void displayGround(std::vector<Card*> ground);
     void displayLeader(Leader* leader);
     void clearLayouts(QHBoxLayout* layout);
+    void updateGui();
 
 signals:
 
@@ -36,11 +37,13 @@ private:
     QHBoxLayout* handLayout = new QHBoxLayout();
     QHBoxLayout* groundLayout = new QHBoxLayout();
     QHBoxLayout* fieldLayout = new QHBoxLayout();
+    QHBoxLayout* leaderLayout = new QHBoxLayout();
     QLabel* donText = new QLabel();
 
 public slots:
     void deckButtonPressed();
     void donButtonPressed();
+    void cardButtonPressed(CardView*);
 
 };
 

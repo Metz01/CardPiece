@@ -84,6 +84,7 @@ std::vector<Don *> Player::drawDon(int numberOfDon = 2)
         addedDon.push_back(don);
         donList.push_back(don);
     }
+    activeDon = don;
     return addedDon;
 }
 
@@ -95,6 +96,37 @@ bool Player::activeAllDon(){
         d->deattachCard();
     }
     return true;
+}
+
+void Player::useCard(Card *cardToUse, Card *cardToUseOn){
+    Debug::LogEnv("Player::useCard");
+    int cost = cardToUse->getCardInfo(Enums::InfoAttribute::Cost)->value.cost;
+    Debug::LogDebug("Cost: " + std::to_string(cost) + " | ActiveDon: " + std::to_string(activeDon));
+    if(activeDon < cost){
+        Debug::LogError("Not enough don to use this card");
+        return;
+    }
+    activeDon -= cost;
+    int deactivated = 0;
+    int lastAnalyzedDonPos = 0;
+    int donSize = donList.size();
+    while (deactivated < cost)
+    {
+        for (; lastAnalyzedDonPos < donSize; lastAnalyzedDonPos++)
+        {
+            if (!donList[lastAnalyzedDonPos]->isActive()) continue;
+
+            donList[lastAnalyzedDonPos]->restCard();
+            deactivated++;
+            break;
+        }
+    }
+
+    int buff = cardToUse->getCardInfo(Enums::InfoAttribute::Buff)->value.buff;
+
+    dynamic_cast<Attacker*>(cardToUseOn)->buffAttack(buff);
+
+    discardCard(cardToUse);
 }
 
 void Player::playCard(Card *selectedCard)
@@ -266,18 +298,29 @@ std::vector<std::string> Player::getDeckCodes() const{
 
 int Player::getActiveDon() const
 {
-    int activeDon = 0;
-    for(auto d: donList){
-        if(d->isActive())
-            activeDon ++;
-    }
     return activeDon;
+    //int activeDon = 0;
+    //for(auto d: donList){
+    //    if(d->isActive())
+    //        activeDon ++;
+    //}
+    //return activeDon;
 }
 
-bool Player::resetCard(){
+bool Player::resetBuffAllCards()
+{
     for(Card* card: this->ground){
-       card->resetCard();
+       card->resetBuff();
     }
-    this->leader->resetCard();
+    this->leader->resetBuff();
+    return true;
+}
+
+bool Player::setAllCardActive()
+{
+    for(Card* card: this->ground){
+       card->setActive();
+    }
+    this->leader->setActive();
     return true;
 }

@@ -21,7 +21,9 @@ PlayerArea::PlayerArea(Player* player, std::vector<Card*> hand, std::vector<Card
     displayGround(ground);
     displayHand(hand);
 
+    fieldLayout->addLayout(leaderLayout);
     fieldLayout->addLayout(groundLayout);
+    fieldLayout->setAlignment(Qt::AlignLeft);
 
     leftLayout->addLayout(fieldLayout);
     leftLayout->addLayout(handLayout);
@@ -41,7 +43,7 @@ PlayerArea::PlayerArea(Player* player, std::vector<Card*> hand, std::vector<Card
     QIcon donDeckIcon(imageDonDeck);
     donDeck->setIcon(donDeckIcon);
     donDeck->setIconSize(CARD_SIZE);
-    donText->setText("DON: 0");
+    donText->setText("ACTIVE DON : 0");
     QVBoxLayout* rightLayout = new QVBoxLayout();
     rightLayout->addWidget(deck);
     rightLayout->addWidget(graveyard);
@@ -56,6 +58,7 @@ PlayerArea::PlayerArea(Player* player, std::vector<Card*> hand, std::vector<Card
 
     // Connections
     connect(deck, &QPushButton::clicked, this, &PlayerArea::deckButtonPressed);
+    connect(donDeck, &QPushButton::clicked, this, &PlayerArea::donButtonPressed);
 }
 
 void PlayerArea::displayGround(std::vector<Card *> ground)
@@ -66,16 +69,28 @@ void PlayerArea::displayGround(std::vector<Card *> ground)
     {
         CardView* cardView = new CardView(ground.at(i), CARD_SIZE);
         groundLayout->addWidget(cardView);
+        connect(cardView, &QPushButton::clicked, this, [cardView, this](){PlayerArea::cardButtonPressed(cardView);});
     }
 }
 
 void PlayerArea::displayLeader(Leader *leader)
 {
-    CardView* cardView = new CardView(leader, CARD_SIZE*2.0);
-    leaderView = cardView;
+//    if(fieldLayout->isEmpty())
+//    {
+//        fieldLayout->addWidget(cardView);
+//    }
+//    else {
+//        QLayoutItem *item = fieldLayout->takeAt(0);
+//        QWidget* oldWidget = item->widget();
+//        fieldLayout->replaceWidget(oldWidget, cardView);
+//    }
 
-    cardView->setFixedSize(400,400);
-    fieldLayout->addWidget(cardView);
+    clearLayouts(leaderLayout);
+    CardView* cardView = new CardView(leader, CARD_SIZE*1.7);
+    leaderView = cardView;
+    cardView->setFixedSize(170,170);
+    leaderLayout->addWidget(cardView);
+    connect(cardView, &QPushButton::clicked, this, [cardView, this](){PlayerArea::cardButtonPressed(cardView);});
 }
 
 void PlayerArea::clearLayouts(QHBoxLayout *layout)
@@ -89,12 +104,20 @@ void PlayerArea::clearLayouts(QHBoxLayout *layout)
     }
 }
 
+void PlayerArea::updateGui()
+{
+    displayLeader(player->getLeader());
+    displayGround(player->getGround());
+    displayHand(player->getHand());
+}
+
 void PlayerArea::deckButtonPressed()
 {
     Card* newCard = FSM::drawCardRequest(player);
     if(!newCard) return;
     CardView* newCardView = new CardView(newCard, CARD_SIZE);
     handLayout->addWidget(newCardView);
+    connect(newCardView, &QPushButton::clicked, this, [newCardView, this](){PlayerArea::cardButtonPressed(newCardView);});
 }
 
 // USARE FSM PER SAPERE QUANTI DON ATTIVI HA IL CURRENTPLAYER
@@ -102,7 +125,7 @@ void PlayerArea::donButtonPressed()
 {
     if(FSM::drawDonRequest(player).size() == 0) return;
     int dons = ApiLogic::getAvailableDon(player);
-    donText->setText("Don" + QString::number(dons));
+    donText->setText("ACTIVE DON : " + QString::number(dons));
 }
 
 void PlayerArea::displayHand(std::vector<Card*> hand)
@@ -113,5 +136,19 @@ void PlayerArea::displayHand(std::vector<Card*> hand)
     {
         CardView* cardView = new CardView(hand.at(i), CARD_SIZE);
         handLayout->addWidget(cardView);
+        std::cout << "Display Hand"<< std::endl;
+        connect(cardView, &QPushButton::clicked, this, [cardView, this](){PlayerArea::cardButtonPressed(cardView);});
+
     }
+}
+
+void PlayerArea::cardButtonPressed(CardView* cardview)
+{
+    std::cout << "Button pressed"<< std::endl;
+    FSM::selectCardRequest(cardview->getCard());
+    PlayerArea::displayLeader(player->getLeader());
+    PlayerArea::displayGround(player->getGround());
+    PlayerArea::displayHand(player->getHand());
+    int dons = ApiLogic::getAvailableDon(player);
+    donText->setText("ACTIVE DON : " + QString::number(dons));
 }

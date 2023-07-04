@@ -33,8 +33,8 @@ SOURCES += \
     utils/JsonParser.cpp \
     utils/Save.cpp \
     utils/Enums.cpp \
-    view/cardview.cpp \
     view/gamewindow.cpp \
+    view/cardview.cpp \
     view/playerarea.cpp \
     widgets/Card_widget.cpp \
     widgets/Main_Window.cpp \
@@ -64,8 +64,8 @@ HEADERS += \
     utils/Enums.h \
     utils/Constants.h \
     utils/Save.h \
-    view/cardview.h \
     view/gamewindow.h \
+    view/cardview.h \
     view/playerarea.h \
     widgets/Card_widget.h \
     widgets/Main_Window.h

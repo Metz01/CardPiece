@@ -31,6 +31,7 @@ public:
     std::vector<Don *> drawDon(int numberOfDon);
     bool activeAllDon();
     void playCard(Card *selectedCard);
+    void useCard(Card *,Card*);
     bool hasCard(Card *card);
     bool hasOnHand(Card *card);
     bool hasOnGround(Card *card);
@@ -48,7 +49,8 @@ public:
     std::vector<Card*> getGround() const;
     std::vector<std::string> getDeckCodes() const;
     int getActiveDon() const;
-    bool resetCard();
+    bool resetBuffAllCards();
+    bool setAllCardActive();
 
 };
 

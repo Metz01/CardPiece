@@ -27,7 +27,7 @@ public:
     void restCard();
     void setActive();
     virtual Utils::CardInfo* getCardInfo(Enums::InfoAttribute attribute) const = 0;
-    virtual void resetCard();
+    virtual void resetBuff();
 };
 
 

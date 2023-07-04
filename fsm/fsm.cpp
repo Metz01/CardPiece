@@ -60,9 +60,6 @@ std::vector<Don *> FSM::drawDonRequest(Player* playerRequesting)
     // Draw Don
     std::vector<Don*> drewDon = ApiLogic::drawDon(_currentPlayer, _turnsPlayed == 0 ? 1 : 2);
 
-    // Deattach and Activate all Don and Character
-    ApiLogic::setUpPlayer(_currentPlayer);
-
     // Change State
     _currentState = Enums::State::SelectCard;
 
@@ -229,11 +226,17 @@ bool FSM::endTurnRequest()
     // Change State
     _currentState = Enums::State::Draw;
     
-    //Reset bonus to cards
+    //Reset bonus to card
     ApiLogic::resetBonusToCard(_currentPlayer);
 
     // Change Player
-    _currentPlayer = ApiLogic::getOpponent(_currentPlayer);    
+
+    _currentPlayer = ApiLogic::getOpponent(_currentPlayer);
+
+    Debug::LogInfo("player2");
+
+    // Deattach and Activate all Dons and Cards
+    ApiLogic::setUpPlayer(_currentPlayer);
     
     // Increment Turns
     _turnsPlayed++;
