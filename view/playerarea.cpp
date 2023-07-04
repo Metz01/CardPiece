@@ -8,12 +8,16 @@
 #include <QString>
 #include "cardview.h"
 #include "./fsm/api/api_logic.h"
+#include "./view/gamewindow.h"
 
 PlayerArea::PlayerArea(Player* player, std::vector<Card*> hand, std::vector<Card*> ground, Leader* leader, QWidget *parent)
     : QWidget(parent), player(player)
 {
-    QHBoxLayout* mainLayout = new QHBoxLayout(this);
-    mainLayout->setContentsMargins(10,10,10,10);
+    QVBoxLayout* playerAreaLayout = new QVBoxLayout(this);
+
+    QHBoxLayout* mainLayout = new QHBoxLayout();
+    mainLayout->setContentsMargins(5,5,5,5);
+    playerAreaLayout->addLayout(mainLayout);
 
     QVBoxLayout* leftLayout = new QVBoxLayout();
 
@@ -56,6 +60,10 @@ PlayerArea::PlayerArea(Player* player, std::vector<Card*> hand, std::vector<Card
     mainLayout->addSpacerItem(horizontalSpacer);
     mainLayout->addLayout(rightLayout);
 
+    playerIndicator->setText(QString::fromStdString(player->getName()));
+    playerAreaLayout->addWidget(playerIndicator);
+    changePlayerTextColor();
+
     // Connections
     connect(deck, &QPushButton::clicked, this, &PlayerArea::deckButtonPressed);
     connect(donDeck, &QPushButton::clicked, this, &PlayerArea::donButtonPressed);
@@ -88,7 +96,7 @@ void PlayerArea::displayLeader(Leader *leader)
     clearLayouts(leaderLayout);
     CardView* cardView = new CardView(leader, CARD_SIZE*1.7);
     leaderView = cardView;
-    cardView->setFixedSize(170,170);
+    cardView->setFixedSize(150,150);
     leaderLayout->addWidget(cardView);
     connect(cardView, &QPushButton::clicked, this, [cardView, this](){PlayerArea::cardButtonPressed(cardView);});
 }
@@ -109,6 +117,19 @@ void PlayerArea::updateGui()
     displayLeader(player->getLeader());
     displayGround(player->getGround());
     displayHand(player->getHand());
+
+    changePlayerTextColor();
+}
+
+void PlayerArea::changePlayerTextColor()
+{
+    if(player == FSM::getCurrentPlayer())
+    {
+        playerIndicator->setStyleSheet("color: red;");
+    }
+    else{
+        playerIndicator->setStyleSheet("color: black;");
+    }
 }
 
 void PlayerArea::deckButtonPressed()
@@ -118,6 +139,7 @@ void PlayerArea::deckButtonPressed()
     CardView* newCardView = new CardView(newCard, CARD_SIZE);
     handLayout->addWidget(newCardView);
     connect(newCardView, &QPushButton::clicked, this, [newCardView, this](){PlayerArea::cardButtonPressed(newCardView);});
+    GameWindow::updateGameStatus();
 }
 
 // USARE FSM PER SAPERE QUANTI DON ATTIVI HA IL CURRENTPLAYER
@@ -126,6 +148,7 @@ void PlayerArea::donButtonPressed()
     if(FSM::drawDonRequest(player).size() == 0) return;
     int dons = ApiLogic::getAvailableDon(player);
     donText->setText("ACTIVE DON : " + QString::number(dons));
+    GameWindow::updateGameStatus();
 }
 
 void PlayerArea::displayHand(std::vector<Card*> hand)
@@ -151,4 +174,5 @@ void PlayerArea::cardButtonPressed(CardView* cardview)
     PlayerArea::displayHand(player->getHand());
     int dons = ApiLogic::getAvailableDon(player);
     donText->setText("ACTIVE DON : " + QString::number(dons));
+    GameWindow::updateGameStatus();
 }

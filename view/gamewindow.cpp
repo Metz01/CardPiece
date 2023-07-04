@@ -3,6 +3,8 @@
 #include <QFrame>
 #include <QVBoxLayout>
 
+QLabel* GameWindow::gameStatusLabel = NULL;
+
 GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
     : QMainWindow{parent}
 {
@@ -23,12 +25,15 @@ GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
     setCentralWidget(frame);
     frame->setFrameStyle(QFrame::Panel);
 
-
-
     player1Area = new PlayerArea(player1, ApiLogic::getCardsOnHand(player1), ApiLogic::getCardsOnGround(player1), ApiLogic::getLeader(player1));
     player2Area = new PlayerArea(player2, ApiLogic::getCardsOnHand(player2), ApiLogic::getCardsOnGround(player2), ApiLogic::getLeader(player2));
 
     QVBoxLayout* layout = new QVBoxLayout(frame);
+    gameStatusLabel = new QLabel();
+    gameStatusLabel->setText(QString::fromStdString("Current State is: Draw"));
+    gameStatusLabel->setAlignment(Qt::AlignCenter);
+    layout->addWidget(gameStatusLabel);
+
     layout->addWidget(player1Area);
 
     QHBoxLayout* midLayout = new QHBoxLayout();
@@ -50,9 +55,15 @@ GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
     connect(endTurnButton, &QPushButton::clicked, this, &GameWindow::endTurnButtonPressed);
 }
 
+void GameWindow::updateGameStatus()
+{
+    gameStatusLabel->setText(QString::fromStdString("Current State is: " + FSM::getCurrentState()));
+}
+
 void GameWindow::endTurnButtonPressed()
 {
     FSM::endTurnRequest();
     player1Area->updateGui();
     player2Area->updateGui();
+    updateGameStatus();
 }

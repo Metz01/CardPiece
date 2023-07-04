@@ -6,6 +6,7 @@
 #include <QGraphicsScene>
 #include <QMenuBar>
 #include <QMenu>
+#include <QLabel>
 
 #include "./fsm/api/api_logic.h"
 #include "./models/Player.h"
@@ -16,6 +17,9 @@ class GameWindow : public QMainWindow
     Q_OBJECT
 public:
     explicit GameWindow(Player* player1 = nullptr, Player* player2 =  nullptr, QWidget *parent = nullptr);
+
+    static QLabel* gameStatusLabel;
+    static void updateGameStatus();
 
 signals:
 

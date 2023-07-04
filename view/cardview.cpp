@@ -20,7 +20,7 @@ CardView::CardView(Card* card, const QSize& size, QPushButton* button)
     {
     case 1:
         text = "ATTACK: " + QString::number(card->getCardInfo(Enums::InfoAttribute::Attack)->value.attack);
-        txtSize = "font-size: 14px;";
+        txtSize = "font-size: 12px;";
         break;
     case 2:
         text = "ATTACK: " + QString::number(card->getCardInfo(Enums::InfoAttribute::Attack)->value.attack);
@@ -44,9 +44,19 @@ CardView::CardView(Card* card, const QSize& size, QPushButton* button)
     layout->addWidget(textLabel);
     layout->setAlignment(Qt::AlignCenter);
 
-    this->setFixedSize(80,100);
+    this->setFixedSize(100,100);
 }
 
 Card* CardView::getCard(){
     return _card;
+}
+
+void CardView::rotateCard()
+{
+//    if(_card->isActive())
+//    {
+//        QTransform transform;
+//        transform.rotate(270);
+
+//    }
 }

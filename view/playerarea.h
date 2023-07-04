@@ -28,6 +28,7 @@ public:
     void displayLeader(Leader* leader);
     void clearLayouts(QHBoxLayout* layout);
     void updateGui();
+    void changePlayerTextColor();
 
 signals:
 
@@ -39,6 +40,7 @@ private:
     QHBoxLayout* fieldLayout = new QHBoxLayout();
     QHBoxLayout* leaderLayout = new QHBoxLayout();
     QLabel* donText = new QLabel();
+    QLabel* playerIndicator = new QLabel();
 
 public slots:
     void deckButtonPressed();

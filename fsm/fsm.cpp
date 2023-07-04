@@ -243,3 +243,13 @@ bool FSM::endTurnRequest()
 
     return true;
 }
+
+Player *FSM::getCurrentPlayer()
+{
+    return _currentPlayer;
+}
+
+std::string FSM::getCurrentState()
+{
+    return EnumsHelper::ToString(_currentState);
+}
