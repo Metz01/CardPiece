@@ -167,12 +167,14 @@ bool FSM::selectEnemyCardRequest(Card* selectedCard, Card* selectedEnemyCard)
     if (ApiLogic::whoseCard(selectedEnemyCard) == _currentPlayer)
     {
         Debug::LogError("Tried to Select an Enemy Card, but the card is yours");
+        _currentState = Enums::SelectCard;
         return false;
     }
 
     if (selectedEnemyCard->getCardType() != Enums::CardType::character && selectedEnemyCard->getCardType() != Enums::CardType::leader)
     {
         Debug::LogError("Tried to Select an Enemy Card, but the card is not a character or a leader");
+        _currentState = Enums::SelectCard;
         return false;
     }
 

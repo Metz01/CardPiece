@@ -4,6 +4,8 @@
 #include <QVBoxLayout>
 
 QLabel* GameWindow::gameStatusLabel = NULL;
+PlayerArea* GameWindow::player1Area = NULL;
+PlayerArea* GameWindow::player2Area = NULL;
 
 GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
     : QMainWindow{parent}
@@ -59,10 +61,19 @@ void GameWindow::updateGameStatus()
     gameStatusLabel->setText(QString::fromStdString("Current State is: " + EnumsHelper::ToString(FSM::getCurrentState())));
 }
 
+void GameWindow::updateOpponent(PlayerArea* myPlayerArea)
+{
+    if(myPlayerArea == player1Area){
+        player2Area->updateGui(false);
+    }else if(myPlayerArea == player2Area){
+        player1Area->updateGui(false);
+    }
+}
+
 void GameWindow::endTurnButtonPressed()
 {
     FSM::endTurnRequest();
-    player1Area->updateGui();
-    player2Area->updateGui();
+    player1Area->updateGui(true);
+    player2Area->updateGui(true);
     updateGameStatus();
 }

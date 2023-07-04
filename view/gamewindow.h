@@ -20,13 +20,14 @@ public:
 
     static QLabel* gameStatusLabel;
     static void updateGameStatus();
-
+    static void updateOpponent(PlayerArea* myPlayerArea);
+    static PlayerArea* player1Area;
+    static PlayerArea* player2Area;
 signals:
 
 private:
     void endTurnButtonPressed();
-    PlayerArea* player1Area;
-    PlayerArea* player2Area;
+
 };
 
 #endif // GAMEWINDOW_H

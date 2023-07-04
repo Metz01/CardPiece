@@ -93,14 +93,14 @@ void PlayerArea::clearLayouts(QHBoxLayout *layout)
     }
 }
 
-void PlayerArea::updateGui()
+void PlayerArea::updateGui(bool changeTurn)
 {
     displayLeader(player->getLeader());
     displayGround(player->getGround());
     displayHand(player->getHand());
     int dons = ApiLogic::getAvailableDon(player);
     donText->setText("ACTIVE DON : " + QString::number(dons));
-    changePlayerTextColor();
+    if(changeTurn) changePlayerTextColor();
 }
 
 void PlayerArea::changePlayerTextColor()
@@ -131,12 +131,13 @@ void PlayerArea::donButtonPressed()
     if(FSM::getCurrentState() == Enums::DrawDon){
         FSM::drawDonRequest(player);
         dons = ApiLogic::getAvailableDon(player);
-    }else if (FSM::getCurrentState() == Enums::SelectCard){
+    }else if(dons > 0){
         FSM::selectCardRequest(player->getDonList().at(dons-1));
         bufferDon = player->getDonList().at(dons-1);
     }
     donText->setText("ACTIVE DON : " + QString::number(dons));
     GameWindow::updateGameStatus();
+    PlayerArea::displayGround(player->getGround());
 
 }
 
@@ -178,17 +179,14 @@ void PlayerArea::cardButtonPressed(CardView* cardview)
     }else{
         FSM::selectCardRequest(cardview->getCard());
     }
-    int dons = ApiLogic::getAvailableDon(player);
-    donText->setText("ACTIVE DON : " + QString::number(dons));
+    this->updateGui();
     GameWindow::updateGameStatus();
-    PlayerArea::displayLeader(player->getLeader());
-    PlayerArea::displayGround(player->getGround());
-    PlayerArea::displayHand(player->getHand());
     if(FSM::getCurrentState() == Enums::SelectEnemyCard){
         displayGround(player->getGround(), cardview->getCard());
     }
     if(FSM::getCurrentState() == Enums::SelectEnemyCard && cardview->getCard() == player->getLeader()){
         PlayerArea::displayLeader(player->getLeader(), true);
     }
+    GameWindow::updateOpponent(this);
 
 }

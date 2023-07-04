@@ -45,6 +45,7 @@ Player* ApiLogic::whoseCard(Card* card)
 Don* ApiLogic::attachDon(Don* don, Attacker* card, Player* currentPlayer)
 {
     Debug::LogEnv("ApiLogic::attachDon");
+    if(!currentPlayer->hasOnGround(card)) return nullptr;
     don->attachCard(card);
     currentPlayer->useDon();
     return don;

@@ -27,7 +27,7 @@ public:
     void displayGround(std::vector<Card*>, Card* rotateCard = nullptr);
     void displayLeader(Leader*, bool rotate = false);
     void clearLayouts(QHBoxLayout* layout);
-    void updateGui();
+    void updateGui(bool = false);
     void changePlayerTextColor();
 
 signals:
