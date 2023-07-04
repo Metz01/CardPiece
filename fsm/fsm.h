@@ -25,7 +25,7 @@ public:
     static bool useCardRequest(Card* cardToUse, Card* cardToUseOn);
     static bool endTurnRequest();
     static Player* getCurrentPlayer();
-    static std::string getCurrentState();
+    static Enums::State getCurrentState();
 };
 
 #endif

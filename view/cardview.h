@@ -2,6 +2,8 @@
 #define CARDVIEW_H
 
 #include <QPushButton>
+#include <QLabel>
+#include <QPixmap>
 #include "./models/card/Card.h"
 
 class CardView : public QPushButton
@@ -16,6 +18,10 @@ signals:
 
 private:
     Card* _card;
+    QLabel* imageLabel;
+    QPixmap* pixmap;
+    bool activeCard = true;
+    QSize _size;
 
 };
 

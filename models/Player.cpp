@@ -75,6 +75,7 @@ void Player::printDeck() const
 std::vector<Don *> Player::drawDon(int numberOfDon = 2)
 {
     Debug::LogEnv("Player::drawDon");
+    if(don + numberOfDon > 10) numberOfDon -= (don + numberOfDon) % 10;
     don += numberOfDon;
     Debug::LogDebug("number of don " + std::to_string(don));
     std::vector<Don *> addedDon;

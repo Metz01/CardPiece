@@ -69,35 +69,16 @@ PlayerArea::PlayerArea(Player* player, std::vector<Card*> hand, std::vector<Card
     connect(donDeck, &QPushButton::clicked, this, &PlayerArea::donButtonPressed);
 }
 
-void PlayerArea::displayGround(std::vector<Card *> ground)
+void PlayerArea::displayLeader(Leader *leader, bool rotate)
 {
-    clearLayouts(groundLayout);
-
-    for(int i = 0; i < (int)ground.size(); i++)
-    {
-        CardView* cardView = new CardView(ground.at(i), CARD_SIZE);
-        groundLayout->addWidget(cardView);
-        connect(cardView, &QPushButton::clicked, this, [cardView, this](){PlayerArea::cardButtonPressed(cardView);});
-    }
-}
-
-void PlayerArea::displayLeader(Leader *leader)
-{
-//    if(fieldLayout->isEmpty())
-//    {
-//        fieldLayout->addWidget(cardView);
-//    }
-//    else {
-//        QLayoutItem *item = fieldLayout->takeAt(0);
-//        QWidget* oldWidget = item->widget();
-//        fieldLayout->replaceWidget(oldWidget, cardView);
-//    }
-
     clearLayouts(leaderLayout);
     CardView* cardView = new CardView(leader, CARD_SIZE*1.7);
     leaderView = cardView;
     cardView->setFixedSize(130,130);
     leaderLayout->addWidget(cardView);
+    if (!leader->isActive() || rotate){
+        cardView->rotateCard();
+    }
     connect(cardView, &QPushButton::clicked, this, [cardView, this](){PlayerArea::cardButtonPressed(cardView);});
 }
 
@@ -117,7 +98,8 @@ void PlayerArea::updateGui()
     displayLeader(player->getLeader());
     displayGround(player->getGround());
     displayHand(player->getHand());
-
+    int dons = ApiLogic::getAvailableDon(player);
+    donText->setText("ACTIVE DON : " + QString::number(dons));
     changePlayerTextColor();
 }
 
@@ -145,10 +127,17 @@ void PlayerArea::deckButtonPressed()
 // USARE FSM PER SAPERE QUANTI DON ATTIVI HA IL CURRENTPLAYER
 void PlayerArea::donButtonPressed()
 {
-    if(FSM::drawDonRequest(player).size() == 0) return;
     int dons = ApiLogic::getAvailableDon(player);
+    if(FSM::getCurrentState() == Enums::DrawDon){
+        FSM::drawDonRequest(player);
+        dons = ApiLogic::getAvailableDon(player);
+    }else if (FSM::getCurrentState() == Enums::SelectCard){
+        FSM::selectCardRequest(player->getDonList().at(dons-1));
+        bufferDon = player->getDonList().at(dons-1);
+    }
     donText->setText("ACTIVE DON : " + QString::number(dons));
     GameWindow::updateGameStatus();
+
 }
 
 void PlayerArea::displayHand(std::vector<Card*> hand)
@@ -159,20 +148,47 @@ void PlayerArea::displayHand(std::vector<Card*> hand)
     {
         CardView* cardView = new CardView(hand.at(i), CARD_SIZE);
         handLayout->addWidget(cardView);
-        std::cout << "Display Hand"<< std::endl;
         connect(cardView, &QPushButton::clicked, this, [cardView, this](){PlayerArea::cardButtonPressed(cardView);});
 
+    }
+}
+
+void PlayerArea::displayGround(std::vector<Card *> ground, Card* rotateCard)
+{
+    clearLayouts(groundLayout);
+
+    std::cout << "DISPLAYING GROUND" << std::endl;
+
+    for(int i = 0; i < (int)ground.size(); i++)
+    {
+        CardView* cardView = new CardView(ground.at(i), CARD_SIZE);
+        groundLayout->addWidget(cardView);
+        if (!ground.at(i)->isActive() || ground.at(i) == rotateCard){
+            cardView->rotateCard();
+        }
+        connect(cardView, &QPushButton::clicked, this, [cardView, this](){PlayerArea::cardButtonPressed(cardView);});
     }
 }
 
 void PlayerArea::cardButtonPressed(CardView* cardview)
 {
     std::cout << "Button pressed"<< std::endl;
-    FSM::selectCardRequest(cardview->getCard());
-    PlayerArea::displayLeader(player->getLeader());
-    PlayerArea::displayGround(player->getGround());
-    PlayerArea::displayHand(player->getHand());
+    if(FSM::getCurrentState() == Enums::AttachDon){
+        FSM::attachDonRequest(cardview->getCard(), bufferDon);
+    }else{
+        FSM::selectCardRequest(cardview->getCard());
+    }
     int dons = ApiLogic::getAvailableDon(player);
     donText->setText("ACTIVE DON : " + QString::number(dons));
     GameWindow::updateGameStatus();
+    PlayerArea::displayLeader(player->getLeader());
+    PlayerArea::displayGround(player->getGround());
+    PlayerArea::displayHand(player->getHand());
+    if(FSM::getCurrentState() == Enums::SelectEnemyCard){
+        displayGround(player->getGround(), cardview->getCard());
+    }
+    if(FSM::getCurrentState() == Enums::SelectEnemyCard && cardview->getCard() == player->getLeader()){
+        PlayerArea::displayLeader(player->getLeader(), true);
+    }
+
 }

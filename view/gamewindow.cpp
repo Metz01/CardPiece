@@ -56,7 +56,7 @@ GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
 
 void GameWindow::updateGameStatus()
 {
-    gameStatusLabel->setText(QString::fromStdString("Current State is: " + FSM::getCurrentState()));
+    gameStatusLabel->setText(QString::fromStdString("Current State is: " + EnumsHelper::ToString(FSM::getCurrentState())));
 }
 
 void GameWindow::endTurnButtonPressed()

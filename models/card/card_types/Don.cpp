@@ -29,7 +29,7 @@ void Don::deattachCard()
 {
     if(_attachedCard == NULL)
         return;
-    _attachedCard->buffAttack(-attackIncrement);
+    //_attachedCard->buffAttack(-attackIncrement);
     _attachedCard = NULL;
 }
 

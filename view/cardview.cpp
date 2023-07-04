@@ -2,18 +2,23 @@
 
 #include <QVBoxLayout>
 #include <QLabel>
+#include <QTransform>
+#include <iostream>
 
 CardView::CardView(Card* card, const QSize& size, QPushButton* button)
     : QPushButton(button), _card(card)
 {
     QVBoxLayout* layout = new QVBoxLayout(this);
 
-    QLabel* imageLabel = new QLabel();
-    imageLabel->setPixmap(QPixmap(card->getCardInfo(Enums::InfoAttribute::ArtPath)->value.artPath));
+    imageLabel = new QLabel();
+    pixmap = new QPixmap(card->getCardInfo(Enums::InfoAttribute::ArtPath)->value.artPath);
+    imageLabel->setPixmap(*pixmap);
     imageLabel->setAlignment(Qt::AlignCenter);
     imageLabel->setFixedSize(size);
     imageLabel->setScaledContents(true);
     std::string txtSize;
+
+    _size = size;
 
     QString text;
     switch(card->getCardType())
@@ -53,10 +58,10 @@ Card* CardView::getCard(){
 
 void CardView::rotateCard()
 {
-//    if(_card->isActive())
-//    {
-//        QTransform transform;
-//        transform.rotate(270);
-
-//    }
+    QTransform transform;
+    transform.rotate(90);
+    imageLabel->setPixmap((*pixmap).transformed(transform));
+    _size.transpose();
+    imageLabel->setFixedSize(_size);
+    std::cout << "ROTATING"<< std::endl;
 }

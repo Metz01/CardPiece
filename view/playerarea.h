@@ -24,8 +24,8 @@ public:
     const QSize CARD_SIZE = QSize(40,56);
 
     void displayHand(std::vector<Card*> hand);
-    void displayGround(std::vector<Card*> ground);
-    void displayLeader(Leader* leader);
+    void displayGround(std::vector<Card*>, Card* rotateCard = nullptr);
+    void displayLeader(Leader*, bool rotate = false);
     void clearLayouts(QHBoxLayout* layout);
     void updateGui();
     void changePlayerTextColor();
@@ -34,6 +34,8 @@ signals:
 
 private:
     CardView* leaderView;
+    CardView* bufferCardView;
+    Don* bufferDon;
     Player* player;
     QHBoxLayout* handLayout = new QHBoxLayout();
     QHBoxLayout* groundLayout = new QHBoxLayout();
@@ -41,6 +43,7 @@ private:
     QHBoxLayout* leaderLayout = new QHBoxLayout();
     QLabel* donText = new QLabel();
     QLabel* playerIndicator = new QLabel();
+
 
 public slots:
     void deckButtonPressed();

@@ -34,7 +34,8 @@ Card *FSM::drawCardRequest(Player* playerRequesting)
     Card *card = ApiLogic::drawCard(_currentPlayer);
 
     // Change State
-    _currentState = Enums::State::DrawDon;
+    if(_currentPlayer->getDonList().size() == 10) _currentState = Enums::State::SelectCard;
+    else _currentState = Enums::State::DrawDon;
 
     Debug::LogInfo("Drew Card");
 
@@ -249,7 +250,7 @@ Player *FSM::getCurrentPlayer()
     return _currentPlayer;
 }
 
-std::string FSM::getCurrentState()
+Enums::State FSM::getCurrentState()
 {
-    return EnumsHelper::ToString(_currentState);
+    return (_currentState);
 }
