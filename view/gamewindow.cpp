@@ -16,14 +16,12 @@ GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
     file->addAction(save);
     file->addAction(save_as);
     file->addSeparator();
+    file->addAction(load);
 
     QMenu* rules = menuBar()->addMenu("Rules");
 
-    file->addAction(load);
-
     QFrame* frame = new QFrame(this);
     setCentralWidget(frame);
-    frame->setFrameStyle(QFrame::Panel);
 
     player1Area = new PlayerArea(player1, ApiLogic::getCardsOnHand(player1), ApiLogic::getCardsOnGround(player1), ApiLogic::getLeader(player1));
     player2Area = new PlayerArea(player2, ApiLogic::getCardsOnHand(player2), ApiLogic::getCardsOnGround(player2), ApiLogic::getLeader(player2));
@@ -51,6 +49,7 @@ GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
     layout->addLayout(midLayout);
     layout->addWidget(player2Area);
     layout->setAlignment(Qt::AlignCenter);
+    layout->setContentsMargins(0,0,0,0);
 
     connect(endTurnButton, &QPushButton::clicked, this, &GameWindow::endTurnButtonPressed);
 }

@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
   _setup(p1, p2);
   QApplication a(argc, argv);
   GameWindow w(p1, p2);
-  w.setFixedSize(900,700);
+  w.setFixedSize(900,680);
   w.show();
   return a.exec();
   

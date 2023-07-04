@@ -16,7 +16,7 @@ PlayerArea::PlayerArea(Player* player, std::vector<Card*> hand, std::vector<Card
     QVBoxLayout* playerAreaLayout = new QVBoxLayout(this);
 
     QHBoxLayout* mainLayout = new QHBoxLayout();
-    mainLayout->setContentsMargins(5,5,5,5);
+    mainLayout->setContentsMargins(0,0,0,0);
     playerAreaLayout->addLayout(mainLayout);
 
     QVBoxLayout* leftLayout = new QVBoxLayout();
@@ -96,7 +96,7 @@ void PlayerArea::displayLeader(Leader *leader)
     clearLayouts(leaderLayout);
     CardView* cardView = new CardView(leader, CARD_SIZE*1.7);
     leaderView = cardView;
-    cardView->setFixedSize(150,150);
+    cardView->setFixedSize(130,130);
     leaderLayout->addWidget(cardView);
     connect(cardView, &QPushButton::clicked, this, [cardView, this](){PlayerArea::cardButtonPressed(cardView);});
 }

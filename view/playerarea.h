@@ -21,7 +21,7 @@ public:
                         Leader* leader = new Leader(),
                         QWidget *parent = nullptr);
 
-    const QSize CARD_SIZE = QSize(50,70);
+    const QSize CARD_SIZE = QSize(40,56);
 
     void displayHand(std::vector<Card*> hand);
     void displayGround(std::vector<Card*> ground);
