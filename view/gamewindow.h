@@ -11,7 +11,7 @@
 
 #include "./fsm/api/api_logic.h"
 #include "./models/Player.h"
-#include "playerarea.h"
+#include "./view/playerarea.h"
 
 class LobbyWindow;
 

@@ -268,4 +268,5 @@ bool FSM::endGameRequest()
     Debug::LogEnv("FSM::endGameRequest");
 
     _currentState = Enums::State::EndGame;
+    return true;
 }
