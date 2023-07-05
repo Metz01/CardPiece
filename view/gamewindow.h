@@ -30,6 +30,7 @@ public:
     static PlayerArea* player2Area;
     static void showEndGame(Player*);
     static GameWindow* game;
+    void saveGame(std::string path = "./assets/saves");
 signals:
 
 private:

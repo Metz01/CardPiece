@@ -14,15 +14,18 @@ GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
 {
     game = this;
 
-    QAction* save = new QAction("Save Game");
-    QAction* save_as = new QAction("Save Game as...");
-    QAction* load = new QAction("Load Game");
+    QAction* save = new QAction("Save Game", this);
+    QAction* save_as = new QAction("Save Game as...", this);
+
+    std::string path = "./assets/saves";
+
+    connect(save, &QAction::triggered, this, [path, this]{GameWindow::saveGame();});
 
     QMenu* file = menuBar()->addMenu("File");
     file->addAction(save);
     file->addAction(save_as);
-    file->addSeparator();
-    file->addAction(load);
+
+
 
     QMenu* rules = menuBar()->addMenu("Rules");
 
@@ -34,7 +37,7 @@ GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
 
     QVBoxLayout* layout = new QVBoxLayout(frame);
     gameStatusLabel = new QLabel();
-    gameStatusLabel->setText(QString::fromStdString("Current State is: Draw"));
+    gameStatusLabel->setText(QString::fromStdString("Current State is: " + EnumsHelper::ToString(FSM::getCurrentState())));
     gameStatusLabel->setAlignment(Qt::AlignCenter);
     layout->addWidget(gameStatusLabel);
 
@@ -58,6 +61,9 @@ GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
     layout->setContentsMargins(0,0,0,0);
 
     connect(endTurnButton, &QPushButton::clicked, this, &GameWindow::endTurnButtonPressed);
+    player1Area->updateGui();
+    player2Area->updateGui();
+
 }
 
 GameWindow::~GameWindow()
@@ -109,6 +115,13 @@ void GameWindow::showEndGame(Player *player)
     dialog->resize(300, 150);
 
     dialog->exec();
+}
+
+void GameWindow::saveGame(std::string path)
+{
+    QString savesFolder(QDir::currentPath() + QString::fromStdString(path));
+    QString filePath = QFileDialog::getSaveFileName(game, "Save Game", savesFolder, "Deck (*.txt)");
+    ApiLogic::saveGame(filePath.toStdString());
 }
 
 void GameWindow::endTurnButtonPressed()

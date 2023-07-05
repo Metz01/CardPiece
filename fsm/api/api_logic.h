@@ -25,7 +25,7 @@ public:
     static bool battlePhase(Card* attacker, Card* defender, Player* currentPlayer);
     static bool attachDonToCard(Card* card, Don* don, Player* currentPlayer);
     static Player* getOpponent(Player* currentPlayer);
-    static bool saveGame(Player* player1, Player* player2, std::string path);
+    static bool saveGame(std::string);
     static Player* loadPlayer(std::string path, int playerNumber);
     static bool useCardEffect(Card* cardToUse, Card* cardToUseOn, Player* currentPlayer);
     static bool resetBonusToCard(Player* currentPlayer);

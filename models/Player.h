@@ -23,7 +23,7 @@ private:
     int life;
 public:
     Player(std::string path, std::string name);
-    Player(std::string name, int life, std::string leaderCode, int donNumber, std::vector<std::string> handCode, 
+    Player(std::string name, int life, std::string leaderCode, int donNumber, int activeDon, std::vector<std::string> handCode,
     std::vector<std::string> groundCode, std::vector<std::string> graveCode, std::vector<std::string> deckCodes);
     ~Player();
     std::string getLeaderCodeFromDeck() const;

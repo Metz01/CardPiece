@@ -17,6 +17,7 @@ SOURCES += \
     models/card/card_types/Don.cpp \
     models/card/card_types/Leader.cpp \
     models/card/card_types/Event.cpp \
+    models/card/card_types/Stage.cpp \
     utils/Debug.cpp \
     fsm/api/api_logic.cpp \
     fsm/api/battle.cpp \
@@ -47,6 +48,7 @@ HEADERS += \
     models/card/card_types/Leader.h \
     models/card/card_types/CardTypes.h \
     models/card/card_types/Event.h \
+    models/card/card_types/Stage.h \
     utils/Debug.h \
     fsm/api/api_logic.h \
     fsm/api/battle.h \

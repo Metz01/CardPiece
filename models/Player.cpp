@@ -26,27 +26,37 @@ Player::Player(std::string path, std::string name) : deck(Deck(path)), hand(std:
 /// @param groundCode codes of the cards in the ground
 /// @param graveCode codes of the cards in the graveyard
 /// @param deckCodes codes of the cards in the deck
-Player::Player(std::string name, int life, std::string leaderCode, int donNumber, std::vector<std::string> handCode, std::vector<std::string> groundCode, std::vector<std::string> graveCode, std::vector<std::string> deckCodes) :
+Player::Player(std::string name, int life, std::string leaderCode, int donNumber, int activeDon, std::vector<std::string> handCode, std::vector<std::string> groundCode, std::vector<std::string> graveCode, std::vector<std::string> deckCodes) :
     deck(Deck(deckCodes)), hand(std::vector<Card *>()), graveyard(std::vector<Card *>()), ground(std::vector<Card *>()),don(donNumber), _name(name),  life(life)
 {
     this->activeDon = donNumber;
-    this->leader = dynamic_cast<Leader *>(DatabaseHelper::selectJSonCard(leaderCode));
+    size_t tokenPosition = leaderCode.find("-");
+    this->leader = dynamic_cast<Leader *>(DatabaseHelper::selectJSonCard(leaderCode.substr(0, tokenPosition)));
+    dynamic_cast<Attacker*>(leader)->buffAttack(std::stoi(leaderCode.substr(tokenPosition + std::string("-").length())));
     for (std::string code : handCode)
     {
         hand.push_back(DatabaseHelper::selectJSonCard(code));
     }
     for (std::string code : groundCode)
     {
-        ground.push_back(DatabaseHelper::selectJSonCard(code));
+        ground.push_back(DatabaseHelper::selectJSonCard(code.substr(0, tokenPosition)));
+        dynamic_cast<Attacker*>(ground.back())->buffAttack(std::stoi(code.substr(tokenPosition + std::string("-").length())));
     }
     for (std::string code : graveCode)
     {
         graveyard.push_back(DatabaseHelper::selectJSonCard(code));
     }
-    for(int i = 0; i < this->don; i++){
+    for(int i = 0; i < activeDon; i++){
         Don* don = new Don();
+        don->active();
         donList.push_back(don);
     }
+    for(int i = 0; i < donNumber - activeDon; i++){
+        Don* don = new Don();
+        don->restCard();
+        donList.push_back(don);
+    }
+    this->activeDon = activeDon;
 }
 
 

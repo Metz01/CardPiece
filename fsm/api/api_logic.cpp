@@ -140,7 +140,7 @@ Player* ApiLogic::getOpponent(Player* currentPlayer)
         return player1;
 }
 
-bool ApiLogic::saveGame(Player* player1, Player* player2, std::string path)
+bool ApiLogic::saveGame(std::string path)
 {
     Debug::LogEnv("ApiLogic::saveGame");
     Save::saveGame(player1, player2, path);

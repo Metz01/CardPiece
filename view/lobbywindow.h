@@ -1,6 +1,10 @@
 #ifndef LOBBYWINDOW_H
 #define LOBBYWINDOW_H
 
+#include <QApplication>
+#include <QLabel>
+#include <QWidget>
+#include <QGridLayout>
 #include <QMainWindow>
 #include <QFrame>
 #include <QVBoxLayout>
@@ -25,6 +29,7 @@ public:
     void selectDeck1File();
     void selectDeck2File();
     void openGameWindow();
+    void loadGameWindow();
     static LobbyWindow* lobby;
     static void clearWindow();
 
@@ -36,6 +41,7 @@ private:
     QPushButton* player1Button = new QPushButton();
     QPushButton* player2Button = new QPushButton();
     QPushButton* startButton = new QPushButton();
+    QPushButton* loadButton = new QPushButton();
 
     QString player1Name;
     QString player2Name;

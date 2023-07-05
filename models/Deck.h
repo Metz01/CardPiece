@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <algorithm>
+#include <random>
 #include "LinkedList.h"
 #include "../utils/database_helper.h"
 

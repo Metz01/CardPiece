@@ -29,6 +29,11 @@ int Attacker::getAttack() const
     return _attack + _buffBonus;
 }
 
+int Attacker::getBuff() const
+{
+    return _buffBonus;
+}
+
 void Attacker::resetBuff()
 {
     Debug::LogEnv("Attacker::resetCardBuff");

@@ -10,19 +10,40 @@ LobbyWindow::LobbyWindow(QWidget *parent)
     QFrame* frame = new QFrame(this);
     setCentralWidget(frame);
 
-    QVBoxLayout* mainLayout = new QVBoxLayout(frame);
+    // Main Layout creation
+    QHBoxLayout* mainLayout = new QHBoxLayout(frame);
+    mainLayout->setAlignment(Qt::AlignHCenter);
+
+    // Vertical Layouts creation
+    QVBoxLayout *ngLayout = new QVBoxLayout();
+    ngLayout->setAlignment(Qt::AlignCenter);
+    ngLayout->setContentsMargins(0,0,0,0);
+    QVBoxLayout *lgLayout = new QVBoxLayout();
+    lgLayout->setAlignment(Qt::AlignCenter);
+    lgLayout->setContentsMargins(85,0,85,0);
+
+    QLabel* ngLabel = new QLabel("<b>NEW GAME</b>");
+    ngLabel->setAlignment(Qt::AlignCenter);
+    ngLabel->setFixedSize(250,50);
+    ngLayout->addWidget(ngLabel);
+
     QHBoxLayout* player1Layout = new QHBoxLayout();
     QHBoxLayout* player2Layout = new QHBoxLayout();
 
     player1LineEdit->setPlaceholderText("Enter Player1 Name");
+    player1LineEdit->setFixedWidth(100);
+
     player2LineEdit->setPlaceholderText("Enter Player2 Name");
+    player2LineEdit->setFixedWidth(100);
 
     player1Button->setText("Select a Deck for Player1");
+    player1Button->setFixedSize(100,25);
     connect(player1Button, &QPushButton::clicked, this, &LobbyWindow::selectDeck1File);
     player2Button->setText("Select a Deck for Player2");
+    player2Button->setFixedSize(100,25);
     connect(player2Button, &QPushButton::clicked, this, &LobbyWindow::selectDeck2File);
 
-    startButton->setText("Start New Game");
+    startButton->setText("START NEW GAME");
     connect(startButton, &QPushButton::clicked, this, &LobbyWindow::openGameWindow);
 
     player1Layout->addWidget(player1LineEdit);
@@ -30,9 +51,27 @@ LobbyWindow::LobbyWindow(QWidget *parent)
     player2Layout->addWidget(player2LineEdit);
     player2Layout->addWidget(player2Button);
 
-    mainLayout->addLayout(player1Layout);
-    mainLayout->addLayout(player2Layout);
-    mainLayout->addWidget(startButton);
+    ngLayout->addLayout(player1Layout);
+    ngLayout->addLayout(player2Layout);
+    ngLayout->addWidget(startButton);
+
+    QLabel* lgLabel = new QLabel("<b>LOAD GAME</b>");
+    lgLabel->setAlignment(Qt::AlignCenter);
+    lgLabel->setFixedSize(250,50);
+    lgLayout->addWidget(lgLabel);
+
+    loadButton->setText("LOAD GAME");
+    connect(loadButton, &QPushButton::clicked, this, &LobbyWindow::loadGameWindow);
+    lgLayout->addWidget(lgLabel);
+    lgLayout->addWidget(loadButton);
+
+    // Main Layout assignments
+    mainLayout->addLayout(ngLayout);
+    QFrame* line = new QFrame;
+    line->setFrameShape(QFrame::VLine);
+    line->setFrameShadow(QFrame::Sunken);
+    mainLayout->addWidget(line);
+    mainLayout->addLayout(lgLayout);
 }
 
 void LobbyWindow::selectDeck1File()
@@ -56,6 +95,27 @@ void LobbyWindow::openGameWindow()
     Player *p2 = new Player(deck2Path.toStdString(), player2LineEdit->text().toStdString());
     ApiLogic(p1, p2);
     FSM fsm(p1);
+    w = new GameWindow(p1,p2);
+    w->show();
+
+    hide();
+}
+
+void LobbyWindow::loadGameWindow()
+{
+    QString savesFolder(QDir::currentPath() + "/assets/saves");
+    QString filePath = QFileDialog::getOpenFileName(this, savesFolder);
+    std::string path = filePath.toStdString();
+    if(path == "") return;
+    DatabaseHelper();
+    Player *p1 = Save::loadPlayer1(path);;
+    Player *p2 = Save::loadPlayer2(path);;
+    ApiLogic(p1, p2);
+    if(Save::loadCurrentPlayer(path) == p1->getName())
+        FSM fsm(p1, Save::loadState(path));
+    else if(Save::loadCurrentPlayer(path) == p2->getName())
+        FSM fsm(p2, Save::loadState(path));
+    else return;
     w = new GameWindow(p1,p2);
     w->show();
 

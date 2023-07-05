@@ -54,6 +54,19 @@ Enums::CardType EnumsHelper::getCardType(int value){
     return Enums::leader;
 }
 
+Enums::State EnumsHelper::getState(std::string state){
+    if(state == "Draw") return Enums::Draw;
+    if(state == "DrawDon") return Enums::DrawDon;
+    if(state == "SelectCard") return Enums::SelectCard;
+    if(state == "UseCard") return Enums::UseCard;
+    if(state == "SelectEnemyCard") return Enums::SelectEnemyCard;
+    if(state == "AttachDon") return Enums::AttachDon;
+    if(state == "EndGame") return Enums::EndGame;
+    return Enums::SelectCard;
+
+
+}
+
 /// @brief return the attribute name from the given card type
 /// @param type the card type
 /// @return the attribute name

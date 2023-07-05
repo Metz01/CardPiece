@@ -5,12 +5,23 @@
 /// @param path path to the deck file
 Deck::Deck(std::string path) : cards(new LinkedList()){
     std::ifstream file;
+    std::vector<std::string> cardCodes;
     file.open(path);
     std::string line;
     while (std::getline(file, line))
     {
-        cards->add(line);
+        cardCodes.push_back(line);
     }
+
+    std::random_device rd;
+    std::mt19937 rng(rd());
+
+    std::shuffle(cardCodes.begin(), cardCodes.end(), rng);
+
+    for(auto cc: cardCodes){
+        cards->add(cc);
+    }
+
     file.close();
 }
 
