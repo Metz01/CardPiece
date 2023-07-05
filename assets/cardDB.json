@@ -31,7 +31,6 @@
 
     "OP010300":{
         "name": "Event",
-        "attack": "1000",
         "cost": "1",
         "type": "3",
         "buff": "2000",
@@ -40,6 +39,20 @@
             "cardData": {
                 "name": "Two Years",
                 "artPath": "./assets/OP01-030.png"
+            }
+        }
+    },
+
+    "OP010900":{
+        "name": "Stage",
+        "cost": "1",
+        "type": "4",
+        "buff": "1000",
+        "colorData":{
+            "color": "2",
+            "cardData": {
+                "name": "Stage",
+                "artPath": "./assets/Don.png"
             }
         }
     }
