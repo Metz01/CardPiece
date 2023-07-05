@@ -6,7 +6,7 @@
 
 namespace Battle
 {
-    bool attackCard(Card* attacker, Card* defender, Player* currentPlayer, Player* enemyPlayer);
+    bool attackCard(Card* attacker, Card* defender, Player* enemyPlayer);
     int buffCount(Card* card, Player* playerOwner);
 }
 

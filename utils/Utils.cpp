@@ -116,6 +116,37 @@ Utils::CardInfo::CardInfo(Enums::InfoAttribute attribut, Event const* card){
     }
 }
 
+Utils::CardInfo::CardInfo(Enums::InfoAttribute attribut, Stage const* card){
+    attribute = attribut;
+    switch (attribut)
+    {
+    case Enums::Name:
+        std::strcpy(value.name, card->getName().c_str());
+        break;
+    case Enums::Type:
+        value.type = card->getCardType();
+        break;
+    case Enums::Cost:
+        value.cost = card->getCost();
+        break;
+    case Enums::Color:
+        value.color = card->getColor();
+        break;
+    case Enums::ArtPath:
+        std::strcpy(value.artPath, card->getArtPath().c_str());
+        break;
+    case Enums::Code:
+        std::strcpy(value.code, card->getCode().c_str());
+        break;
+    case Enums::Buff:
+        value.buff = card->getBuff();
+        break;
+    default:
+        break;
+    }
+}
+
+
 Utils::CardInfo::~CardInfo(){
     
 }

@@ -10,7 +10,7 @@
 #include "./fsm/api/api_logic.h"
 #include "./view/gamewindow.h"
 
-PlayerArea::PlayerArea(Player* player, std::vector<Card*> hand, std::vector<Card*> ground, Leader* leader, QWidget *parent)
+PlayerArea::PlayerArea(Player* player, QWidget *parent)
     : QWidget(parent), player(player)
 {
     QVBoxLayout* playerAreaLayout = new QVBoxLayout(this);
@@ -21,10 +21,10 @@ PlayerArea::PlayerArea(Player* player, std::vector<Card*> hand, std::vector<Card
 
     QVBoxLayout* leftLayout = new QVBoxLayout();
 
-    displayLeader(leader);
-    displayGround(ground);
-    displayHand(hand);
-//    displayStage(???);
+    displayLeader(player->getLeader());
+    displayGround(player->getGround());
+    displayHand(player->getHand());
+    displayStage(player->getStage());
 
     // Setting FixedSize for groundLayout
     QWidget* groundContainer = new QWidget();
@@ -122,13 +122,19 @@ void PlayerArea::displayLeader(Leader *leader, bool rotate)
 
 void PlayerArea::displayStage(Card *stage)
 {
-//    clearLayouts(stageLayout);
-//    CardView* cardView = new CardView(stage, CARD_SIZE);
-//    stageView = cardView;
-//    stageLayout->addWidget(stageView);
+    Debug::LogEnv("PlayerArea::displayStage");
+    if(!stage){
+        Debug::LogInfo("No stage found in playerArea");
+        return;
+    }
+    clearLayouts(stageLayout);
+    CardView* cardView = new CardView(stage, CARD_SIZE);
+    stageView = cardView;
+    cardView->setFixedSize(80,80);
+    stageLayout->addWidget(stageView);
 
-//    // CONNECT
-//    connect();
+    // CONNECT
+    //connect();
 }
 
 void PlayerArea::clearLayouts(QHBoxLayout *layout)
@@ -147,7 +153,7 @@ void PlayerArea::updateGui(bool changeTurn)
     displayLeader(player->getLeader());
     displayGround(player->getGround());
     displayHand(player->getHand());
-//    displayStage(player->getStage());
+    displayStage(player->getStage());
     int dons = ApiLogic::getAvailableDon(player);
     donText->setText("ACTIVE DON : " + QString::number(dons));
     std::string lifeString = std::to_string(player->getLife());

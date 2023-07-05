@@ -22,7 +22,7 @@ public:
     static bool selectCardRequest(Card* selectedCard);
     static bool attachDonRequest(Card* selectedCard, Don* selectedDon);
     static bool selectEnemyCardRequest(Card* selectedCard, Card* selectedEnemyCard);
-    static bool useCardRequest(Card* cardToUse, Card* cardToUseOn);
+    static bool useCardRequest(Card* cardToUse, Card* cardToUseOn = NULL);
     static bool endTurnRequest();
     static Player* getCurrentPlayer();
     static Enums::State getCurrentState();

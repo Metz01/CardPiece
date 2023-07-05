@@ -1,6 +1,6 @@
 #include "battle.h"
 
-bool Battle::attackCard(Card* attacker, Card* defender, Player* currentPlayer, Player* enemyPlayer){
+bool Battle::attackCard(Card* attacker, Card* defender, Player* enemyPlayer){
     Debug::LogEnv("ApiLogic::attackCard");
 
     int attack = attacker->getCardInfo(Enums::InfoAttribute::Attack)->value.attack;

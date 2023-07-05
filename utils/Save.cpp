@@ -22,6 +22,8 @@ void Save::saveGame(Player *player1, Player *player2, std::string path)
     file << player1->getDonList().size() << std::endl;
     file << "-ActiveDon-" << std::endl;
     file << player1->getActiveDon() << std::endl;
+    file << "-Stage-" << std::endl;
+    file << player1->getStage() << std::endl;
     file << "-Hand-" << std::endl;
     for (Card *card : player1->getHand())
     {
@@ -56,6 +58,8 @@ void Save::saveGame(Player *player1, Player *player2, std::string path)
     file << player2->getDonList().size() << std::endl;
     file << "-ActiveDon-" << std::endl;
     file << player2->getActiveDon() << std::endl;
+    file << "-Stage-" << std::endl;
+    file << player2->getStage() << std::endl;
     file << "-Hand-" << std::endl;
     for (Card *card : player2->getHand())
     {
@@ -96,11 +100,18 @@ Player* Save::loadPlayer(std::vector<std::string> playerInfo){
         std::string leaderCode = playerInfo.at(4);
         int donListSize = std::stoi(playerInfo.at(6));
         int donactive = std::stoi(playerInfo.at(8));
+        std::string stage;
         std::vector<std::string> handCodes;
         std::vector<std::string> groundCodes;
         std::vector<std::string> graveyardCodes;
         std::vector<std::string> deckCodes;
         int i = 10;
+        while (playerInfo.at(i) != "-Hand-")
+        {
+            stage = playerInfo.at(i);
+            i++;
+        }
+        i++;
         while (playerInfo.at(i) != "-Ground-")
         {
             handCodes.push_back(playerInfo.at(i));
@@ -125,7 +136,7 @@ Player* Save::loadPlayer(std::vector<std::string> playerInfo){
             i++;
         }
         Debug::LogEnv("making player");
-        return new Player(name, life, leaderCode, donListSize, donactive, handCodes, groundCodes, graveyardCodes, deckCodes);
+        return new Player(name, life, leaderCode, donListSize, donactive, handCodes, groundCodes, graveyardCodes, stage, deckCodes);
     }
     catch(const std::out_of_range& e)
     {

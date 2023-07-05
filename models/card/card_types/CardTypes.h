@@ -6,6 +6,7 @@
 #include "Leader.h"
 #include "Don.h"
 #include "Event.h"
+#include "Stage.h"
 
 
 #endif

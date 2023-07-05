@@ -19,12 +19,13 @@ private:
     int activeDon;
     int don;
     Leader *leader = NULL;
+    Card *stage = nullptr;
     std::string _name;
     int life;
 public:
     Player(std::string path, std::string name);
     Player(std::string name, int life, std::string leaderCode, int donNumber, int activeDon, std::vector<std::string> handCode,
-    std::vector<std::string> groundCode, std::vector<std::string> graveCode, std::vector<std::string> deckCodes);
+           std::vector<std::string> groundCode, std::vector<std::string> graveCode, std::string stage, std::vector<std::string> deckCodes);
     ~Player();
     std::string getLeaderCodeFromDeck() const;
     Card *drawCard();
@@ -44,6 +45,7 @@ public:
     bool useDon();
     std::string getName() const;
     int getLife() const;
+    Card *getStage() const;
     std::vector<Card*> getHand() const;
     std::vector<Card*> getGraveyard() const;
     std::vector<Don*> getDonList() const;
@@ -52,6 +54,8 @@ public:
     int getActiveDon() const;
     bool resetBuffAllCards();
     bool setAllCardActive();
+    void setStage(Card* stage);
+    void useStage();
 
 };
 

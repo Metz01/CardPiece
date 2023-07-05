@@ -68,8 +68,7 @@ Card* DatabaseHelper::selectJSonCard(std::string cardCode){
         return new Event(cardInfoJson, cardCode);
         break;
     case Enums::stage:
-        return new Character(cardInfoJson, std::string(cardCode));
-        //return new Stage(cardInfoJson);
+        return new Stage(cardInfoJson, cardCode);
         break;
     default:
         return new Character(cardInfoJson, std::string(cardCode));
@@ -82,6 +81,7 @@ bool DatabaseHelper::isLeader(std::string cardCode){
     QJsonObject cardInfoJson = JsonParser::jsonKeytoJsonObject(jsonObj, cardCode);
     QJsonValue type = cardInfoJson.value(QString("type"));
     int cardType = (type.toString().toInt());
+    Debug::LogInfo(std::to_string(cardType));
     if(cardType == Enums::leader){
         return true;
     }else{

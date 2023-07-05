@@ -12,6 +12,7 @@ class Character;
 class Don;
 class Leader;
 class Event;
+class Stage;
 namespace Utils{
     class CardInfo{
         
@@ -37,6 +38,7 @@ namespace Utils{
             CardInfo(Enums::InfoAttribute attribute, Don const* card);
             CardInfo(Enums::InfoAttribute attribute, Leader const* card);
             CardInfo(Enums::InfoAttribute attribute, Event const* card);
+            CardInfo(Enums::InfoAttribute attribute, Stage const* card);
 
             ~CardInfo();
     };

@@ -9,7 +9,7 @@
 #include "../models/Deck.h"
 #include "../models/card/Card.h"
 #include "./fsm/fsm.h"
-#include "./Enums.h""
+#include "./Enums.h"
 
 //Create a class to save and load the status of player in a file
 namespace Save

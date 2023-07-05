@@ -15,11 +15,7 @@ class PlayerArea : public QWidget
 {
     Q_OBJECT
 public:
-    explicit PlayerArea(Player* player,
-                        std::vector<Card*> hand = std::vector<Card*>(),
-                        std::vector<Card*> field = std::vector<Card*>(),
-                        Leader* leader = new Leader(),
-                        QWidget *parent = nullptr);
+    explicit PlayerArea(Player* player, QWidget *parent = nullptr);
 
     const QSize CARD_SIZE = QSize(40,56);
 

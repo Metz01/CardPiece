@@ -17,6 +17,7 @@ bool ApiLogic::setUpPlayer(Player *player)
 {
     Debug::LogEnv("ApiLogic::setUpPlayer");
     player->setAllCardActive();
+    useStageCard(player);
     return player->activeAllDon();
 }
 
@@ -98,7 +99,7 @@ bool ApiLogic::attackCard(Card* attacker, Card* defender, Player* currentPlayer)
         return false;
     }
 
-    Battle::attackCard(attacker, defender, currentPlayer, getOpponent(currentPlayer));
+    Battle::attackCard(attacker, defender, getOpponent(currentPlayer));
 
     //bool result = defender->get
     return true;
@@ -199,4 +200,17 @@ int ApiLogic::getAvailableDon(Player* player)
 {
     Debug::LogEnv("ApiLogic::getAvailableDon");
     return player->getActiveDon();
+}
+
+bool ApiLogic::setStageCard(Card * stage)
+{
+    ApiLogic::whoseCard(stage)->setStage(stage);
+    return true;
+}
+
+bool ApiLogic::useStageCard(Player* player)
+{
+    if(!player->getStage()) return false;
+    player->useStage();
+    return true;
 }

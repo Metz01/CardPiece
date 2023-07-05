@@ -36,9 +36,9 @@ CardView::CardView(Card* card, const QSize& size, QPushButton* button)
         txtSize = "font-size: 8px;";
         break;
     case 4:
-//        text = "STAGE: +" + QString::number(card->getCardInfo());
-//        txtSize = "font-size: 8px;";
-//        break;
+        text = "BUFF: +" + QString::number(card->getCardInfo(Enums::InfoAttribute::Buff)->value.buff);
+        txtSize = "font-size: 8px;";
+        break;
     case 5:
         text = "DON: +" + QString::number(card->getCardInfo(Enums::InfoAttribute::Buff)->value.buff);
         break;

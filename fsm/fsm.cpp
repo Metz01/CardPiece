@@ -88,6 +88,13 @@ bool FSM::selectCardRequest(Card* selectedCard)
             _currentState = Enums::State::AttachDon;
             return true;
         }
+        if(selectedCard->getCardType() == Enums::CardType::stage)
+        {
+            Debug::LogInfo("Selected Stage");
+            _currentState = Enums::State::UseCard;
+            FSM::useCardRequest(selectedCard);
+            return true;
+        }
         else if (selectedCard->getCardType() == Enums::CardType::character)
         {
             bool* isPlayedFromHand = (bool*)malloc(sizeof(bool));
@@ -199,6 +206,17 @@ bool FSM::useCardRequest(Card* cardToUse, Card* cardToUseOn)
     if (_currentState != Enums::State::UseCard)
     {
         Debug::LogError("Tried to Use a Card, but the state is: " + EnumsHelper::ToString(_currentState));
+        return false;
+    }
+
+    if(cardToUse->getCardType() == Enums::CardType::stage){
+        ApiLogic::setStageCard(cardToUse);
+        FSM::_currentState = Enums::State::SelectCard;
+        return true;
+    }
+
+    if(!cardToUseOn){
+        Debug::LogError("card was not a stage and no card to use on selected");
         return false;
     }
 

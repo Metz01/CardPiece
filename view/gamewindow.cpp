@@ -32,8 +32,8 @@ GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
     QFrame* frame = new QFrame(this);
     setCentralWidget(frame);
 
-    player1Area = new PlayerArea(player1, ApiLogic::getCardsOnHand(player1), ApiLogic::getCardsOnGround(player1), ApiLogic::getLeader(player1));
-    player2Area = new PlayerArea(player2, ApiLogic::getCardsOnHand(player2), ApiLogic::getCardsOnGround(player2), ApiLogic::getLeader(player2));
+    player1Area = new PlayerArea(player1);
+    player2Area = new PlayerArea(player2);
 
     QVBoxLayout* layout = new QVBoxLayout(frame);
     gameStatusLabel = new QLabel();

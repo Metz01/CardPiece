@@ -33,6 +33,8 @@ public:
     static std::vector<Card*> getCardsOnGround(Player*);
     static Leader* getLeader(Player*);
     static int getAvailableDon(Player*);
+    static bool setStageCard(Card *);
+    static bool useStageCard(Player *);
     // static void selectCard();
     // static void useCard();
     // static void selectEnemyCard();
