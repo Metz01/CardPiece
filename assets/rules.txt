@@ -1,0 +1,90 @@
+<p><span style="font-size:18px;"><strong>CARD PIECE SIMULATOR</strong></span></p>
+<p>&nbsp;</p>
+<p><span style="font-size:16px;"><strong>Introduction</strong></span></p>
+<p><em>CARD PIECE SIMULATOR </em>is an app freely inspired by the newly released <em>ONE PIECE CARD GAME </em>that allows you to test your decks and affine your strategies by playing solo matches.</p>
+<p>At this point of the development, the simulator lets you play only with certain type of cards, which are:</p>
+<ul>
+<li><strong><em>Leader</em></strong>, your &ldquo;main character&rdquo;: his <strong>life count</strong> will also be yours, so when it reaches zero, it&rsquo;s game over.</li>
+<li><strong><em>Characters</em></strong>: the cards you can play and put on the <strong>Ground</strong>; they can <strong>attack</strong> other <em>rested</em> enemy Characters and your opponent&rsquo;s Leader.</li>
+<li><strong><em>Buff</em></strong>: special type of cards that can be played and assigned to both <em>Characters</em> and <em>Leader</em>; they <strong>increase</strong> <strong>the</strong> <strong>attack</strong> of a certain amount (and for that turn only).</li>
+<li><strong><em>Stage</em></strong>: special type of cards that can be played on the Ground and that will last permanently during the game; [&hellip;] .</li>
+<li><strong><em>Don</em></strong>, the &ldquo;mana&rdquo; cards: these cards are drawn from a different deck, the <strong>DonDeck</strong>, and are used as:<ul>
+<li><strong>cost </strong>for <em>Character</em>/<em>Buff</em>/<em>Stage</em> cards to play;</li>
+<li><strong>attack buff</strong> of +1000 when attached to <em>Leader</em>/<em>Character</em> cards of your choice.</li>
+</ul>
+</li>
+</ul>
+<p>&nbsp;</p>
+<p>The simulator has a complete <strong>game loop</strong> which allows you to:</p>
+<ul>
+<li>begin a new game by choosing the Players&rsquo; names and deck files, or simply loading an existing one;</li>
+<li>play a game and save it at any point;</li>
+<li>win/lose the game when one of the two <em>Leaders&rsquo;</em> life reaches zero.</li>
+</ul>
+<p>&nbsp;</p>
+<p><span style="font-size:16px;"><strong>How to play</strong></span></p>
+<p><span style="font-size:14px;"><strong>Legend</strong></span></p>
+<p><img src="./assets/rules_image.png" alt="Image Description" width="450" height="282"></p>
+<ol>
+<li><strong>MenuBar</strong>, that allows you to:<ul>
+<li>save the current game;</li>
+<li>show these rules.</li>
+</ul>
+</li>
+<li><strong>GameState</strong><strong> Label</strong>: it shows the current status of the game, so whether the game&rsquo;s waiting for you to:<ul>
+<li><strong>Draw</strong>: draw a card;</li>
+<li><strong>DrawDon</strong>: draw a <em>Don</em> card;</li>
+<li><strong>SelectCard</strong>: select a card, that can be one of those in your hand, or on the Ground, or the <em>Leader</em>;</li>
+<li><strong>UseCard</strong>: active after you clicked on a <em>Buff</em> or <em>Stage</em> card type; the game waits for you to then click on the card you want to be affected by the effect of the firstly selected <em>Buff</em> or <em>Stage</em> card;</li>
+<li><strong>SelectEnemyCard</strong>: active after you clicked on one of your <em>Characters</em> on the Ground or on your <em>Leader</em>; the game waits for you to click on the opponent&rsquo;s card you want to attack (<em>Characters</em> on the Ground or <em>Leader</em>);</li>
+<li><strong>AttachDon</strong>: active after you clicked on the <strong>DonDeck</strong> button; the game waits for you to pick which one of your <em>Characters</em> on the Ground or <em>Leader</em> you want to buff using one of your available <em>Dons;</em></li>
+<li><strong>EndGame</strong>: active when one of the two <em>Leaders</em>&rsquo; life reaches zero.</li>
+</ul>
+</li>
+<li><strong>Deck.</strong></li>
+<li><strong>Graveyard</strong> (there for scalability purposes; not actually implemented in any way yet).</li>
+<li><strong>DonDeck </strong>with the <strong>ActiveDon</strong> <strong>Label</strong>, which shows how many <em>Dons</em> the Player can still use during his turn.</li>
+<li><strong><em>Leader</em></strong><strong>Card.</strong></li>
+<li><strong><em>Character</em></strong><strong>Card </strong>in Ground.</li>
+<li><strong>Hand Layout</strong>: it contains the cards you have in your hand.</li>
+<li><strong>PlayerInfo Label</strong>, which shows:<ul>
+<li>the Player&rsquo;s name; it is written in red when it&rsquo;s <em>his </em>turn</li>
+<li>the Player&rsquo;s life count.</li>
+</ul>
+</li>
+<li><strong>EndTurn Button</strong>, to click for finishing the turn and pass it to the other Player.</li>
+</ol>
+<p>&nbsp;</p>
+<p><span style="font-size:14px;"><strong>Turn Progression</strong></span></p>
+<ul>
+<li>The first thing to do at the beginning of the turn is, of course, to draw a card from the Deck.</li>
+<li>Next, it&rsquo;s time for the Player to draw your <em>Dons</em> from the DonDeck. The Player which begins first can draw only one <em>Don</em>. In every other turn, each Player draws two <em>Dons</em>, until they get to 10.</li>
+<li>After that, the Player can choose to:<ul>
+<li>deploy a <em>Character</em>/<em>Stage</em> card on the Ground;</li>
+<li>use a <em>Buff</em> card from his Hand;</li>
+<li>attack with his <em>Leader</em> (once per turn), or with one of his <em>Characters</em> already on the Ground (once per turn):<ul>
+<li>after an attack, the card becomes <strong><em>rested</em></strong>, which means that can be attacked by the opponent Player during his next turn;</li>
+<li>visually, it is represented by a 90-degrees rotation of the card&rsquo;s image;</li>
+<li>please note that the <em>Leader</em> can be attacked even if it is not <em>rested</em>.</li>
+</ul>
+</li>
+<li>attach a <em>Don</em>, by clicking on the DonDeck and then on the card he wants to boost with the <em>Don</em> effect.</li>
+</ul>
+</li>
+<li>In any moment after the <em>DrawCard</em> and <em>DrawDon</em> states, the Player can choose to end his turn by clicking on the <em>EndTurn</em> button</li>
+</ul>
+<p>&nbsp;</p>
+<p><span style="font-size:14px;"><strong>Attacking</strong></span></p>
+<p>The attack in <em>CARD PIECE SIMULATOR</em> has some basic but important characteristics.</p>
+<ul>
+<li>For both the <em>Leader</em> and the <em>Characters</em>, during an attack we always look at the cards&rsquo; &ldquo;Attack&rdquo; parameter:<ul>
+<li>when attacking, it is the actual &ldquo;attack power&rdquo; of the card;</li>
+<li>when defending, it is the &ldquo;defence power&rdquo; of the card.</li>
+</ul>
+</li>
+<li>An attack goes well if the &ldquo;Attack&rdquo; of the attacking card is greater or equal to the &ldquo;Attack&rdquo; of the defending card.</li>
+<li>If a card has been buffed during <em>PlayerA</em>&rsquo;s turn, that buff disappears after clicking the EndTurn button, so during <em>PlayerB</em>&rsquo;s turn; this means that every possible increment of the &ldquo;Attack&rdquo; of a card is that only on the <em>PlayerA</em>&rsquo;s turn, and <em>it does not</em> influence is &ldquo;defence power&rdquo; when possibly attacked during <em>PlayerB</em>&rsquo;s turn.</li>
+</ul>
+<p>&nbsp;</p>
+<p><span style="font-size:16px;"><strong>Winning Condition</strong></span></p>
+<p>If one of the two Players&rsquo; successfully attacks the Opponent&rsquo;s <em>Leader</em> making his life count reach zero, the game is set and the attacking Player wins. A pop-up window will appear asking for starting another game or simply close the app.</p>

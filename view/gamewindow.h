@@ -12,6 +12,7 @@
 #include "./fsm/api/api_logic.h"
 #include "./models/Player.h"
 #include "./view/playerarea.h"
+#include "./view/ruleswindow.h"
 
 class LobbyWindow;
 
@@ -31,6 +32,7 @@ public:
     static void showEndGame(Player*);
     static GameWindow* game;
     void saveGame(std::string path = "./assets/saves");
+    static void showRules();
 signals:
 
 private:
