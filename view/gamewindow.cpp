@@ -97,13 +97,12 @@ void GameWindow::showEndGame(Player *player)
     textLabel->setAlignment(Qt::AlignCenter);
 
     QPushButton* newGameButton = new QPushButton("New Game");
-    QPushButton* closeButton = new QPushButton("Close Game");
 
     QVBoxLayout* mainLayout = new QVBoxLayout();
     QHBoxLayout* buttonsLayout = new QHBoxLayout();
+    buttonsLayout->setAlignment(Qt::AlignCenter);
 
     buttonsLayout->addWidget(newGameButton);
-    buttonsLayout->addWidget(closeButton);
 
     mainLayout->addWidget(textLabel);
     mainLayout->addLayout(buttonsLayout);
@@ -111,7 +110,7 @@ void GameWindow::showEndGame(Player *player)
 
     dialog->setLayout(mainLayout);
 
-    QObject::connect(closeButton, &QPushButton::clicked, game, &GameWindow::closeEndGame);
+    QObject::connect(newGameButton, &QPushButton::clicked, game, &GameWindow::closeEndGame);
 
     dialog->resize(300, 150);
 
