@@ -79,6 +79,7 @@ void LobbyWindow::selectDeck1File()
     QString decksFolder(QDir::currentPath() + "/assets/deck");
     QString filePath = QFileDialog::getOpenFileName(this, "Select Deck for Player1", decksFolder);
     deck1Path = filePath;
+    if(deck1Path == "") return;
     QFileInfo fileInfo(filePath);
     QString baseName = fileInfo.baseName();
     player1Button->setText(baseName);
@@ -89,6 +90,7 @@ void LobbyWindow::selectDeck2File()
     QString decksFolder(QDir::currentPath() + "/assets/deck");
     QString filePath = QFileDialog::getOpenFileName(this, "Select Deck for Player2", decksFolder);
     deck2Path = filePath;
+    if(deck2Path == "") return;
     QFileInfo fileInfo(filePath);
     QString baseName = fileInfo.baseName();
     player2Button->setText(baseName);
@@ -110,7 +112,7 @@ void LobbyWindow::openGameWindow()
 void LobbyWindow::loadGameWindow()
 {
     QString savesFolder(QDir::currentPath() + "/assets/saves");
-    QString filePath = QFileDialog::getOpenFileName(this, savesFolder);
+    QString filePath = QFileDialog::getOpenFileName(this, "Select Game to load", savesFolder);
     std::string path = filePath.toStdString();
     if(path == "") return;
     DatabaseHelper();

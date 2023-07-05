@@ -321,7 +321,7 @@ void Player::setStage(Card* stage)
             break;
         }
     }
-    Card* prev = stage;
+    Card* prev = this->stage;
     Debug::LogEnv("Player::setStage " + stage->getName());
     this->stage = stage;
     hand.erase(std::remove(hand.begin(), hand.end(), stage), hand.end());

@@ -23,7 +23,8 @@ void Save::saveGame(Player *player1, Player *player2, std::string path)
     file << "-ActiveDon-" << std::endl;
     file << player1->getActiveDon() << std::endl;
     file << "-Stage-" << std::endl;
-    file << player1->getStage() << std::endl;
+    if(player1->getStage()) file << player1->getStage() << std::endl;
+    else file << "0" << std::endl;
     file << "-Hand-" << std::endl;
     for (Card *card : player1->getHand())
     {
@@ -59,7 +60,8 @@ void Save::saveGame(Player *player1, Player *player2, std::string path)
     file << "-ActiveDon-" << std::endl;
     file << player2->getActiveDon() << std::endl;
     file << "-Stage-" << std::endl;
-    file << player2->getStage() << std::endl;
+    if(player2->getStage()) file << player2->getStage() << std::endl;
+    else file << "0" << std::endl;
     file << "-Hand-" << std::endl;
     for (Card *card : player2->getHand())
     {
