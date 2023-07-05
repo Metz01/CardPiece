@@ -49,6 +49,11 @@ Player::Player(std::string name, int life, std::string leaderCode, int donNumber
     }
 }
 
+
+Player::~Player()
+{
+    delete leader;
+}
 /// @brief get the leader code from the deck and remove it from the deck
 /// @return leader code
 std::string Player::getLeaderCodeFromDeck() const

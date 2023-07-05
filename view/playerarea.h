@@ -31,11 +31,11 @@ public:
     void updateGui(bool = false);
     void changePlayerTextColor();
 
+    ~PlayerArea();
 signals:
 
 private:
     CardView* leaderView;
-    CardView* bufferCardView;
     CardView* stageView;
     Don* bufferDon;
     Player* player;

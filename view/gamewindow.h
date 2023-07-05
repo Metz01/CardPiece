@@ -13,11 +13,15 @@
 #include "./models/Player.h"
 #include "playerarea.h"
 
+class LobbyWindow;
+
 class GameWindow : public QMainWindow
 {
     Q_OBJECT
 public:
     explicit GameWindow(Player* player1 = nullptr, Player* player2 =  nullptr, QWidget *parent = nullptr);
+
+    ~GameWindow();
 
     static QLabel* gameStatusLabel;
     static void updateGameStatus();
@@ -30,6 +34,8 @@ signals:
 
 private:
     void endTurnButtonPressed();
+    static void closeEndGame();
+    static QDialog* dialog;
 
 };
 

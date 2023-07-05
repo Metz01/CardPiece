@@ -30,6 +30,7 @@ std::string EnumsHelper::ToString(Enums::State state){
         case Enums::UseCard: return "UseCard";
         case Enums::SelectEnemyCard: return "SelectEnemyCard";
         case Enums::AttachDon: return "AttachDon";
+        case Enums::EndGame: return "EndGame";
         default:      return "[Unknown State]";
     }
 }

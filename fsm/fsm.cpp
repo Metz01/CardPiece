@@ -11,6 +11,7 @@ Card *FSM::_buffedCard = NULL;
 FSM::FSM(Player *starterPlayer)
 {
     _currentPlayer = starterPlayer;
+    FSM::_currentState = Enums::State::Draw;
 }
 
 Card *FSM::drawCardRequest(Player* playerRequesting)

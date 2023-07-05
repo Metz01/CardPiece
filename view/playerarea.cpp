@@ -97,6 +97,16 @@ PlayerArea::PlayerArea(Player* player, std::vector<Card*> hand, std::vector<Card
     connect(donDeck, &QPushButton::clicked, this, &PlayerArea::donButtonPressed);
 }
 
+PlayerArea::~PlayerArea()
+{
+    delete PlayerArea::handLayout;
+    delete PlayerArea::groundLayout;
+    delete PlayerArea::stageLayout;
+    delete PlayerArea::donText;
+    delete PlayerArea::playerIndicator;
+    delete PlayerArea::lifesText;
+}
+
 void PlayerArea::displayLeader(Leader *leader, bool rotate)
 {
     clearLayouts(leaderLayout);
@@ -232,6 +242,7 @@ void PlayerArea::cardButtonPressed(CardView* cardview)
     if(FSM::getCurrentState() == Enums::State::EndGame)
     {
         GameWindow::showEndGame(player);
+        return;
     }
     GameWindow::updateOpponent(this);
 

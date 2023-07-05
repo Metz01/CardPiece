@@ -1,8 +1,12 @@
 #include "lobbywindow.h"
 
+LobbyWindow* LobbyWindow::lobby = NULL;
+
 LobbyWindow::LobbyWindow(QWidget *parent)
     : QMainWindow{parent}
 {
+    lobby = this;
+
     QFrame* frame = new QFrame(this);
     setCentralWidget(frame);
 
@@ -33,13 +37,15 @@ LobbyWindow::LobbyWindow(QWidget *parent)
 
 void LobbyWindow::selectDeck1File()
 {
-    QString filePath = QFileDialog::getOpenFileName(this, "Select Deck for Player1");
+    QString decksFolder(QDir::currentPath() + "/assets/deck");
+    QString filePath = QFileDialog::getOpenFileName(this, "Select Deck for Player1", decksFolder);
     deck1Path = filePath;
 }
 
 void LobbyWindow::selectDeck2File()
 {
-    QString filePath = QFileDialog::getOpenFileName(this, "Select Deck for Player2");
+    QString decksFolder(QDir::currentPath() + "/assets/deck");
+    QString filePath = QFileDialog::getOpenFileName(this, "Select Deck for Player2", decksFolder);
     deck2Path = filePath;
 }
 
@@ -54,4 +60,9 @@ void LobbyWindow::openGameWindow()
     w->show();
 
     hide();
+}
+
+void LobbyWindow::clearWindow()
+{
+//    w->close();
 }

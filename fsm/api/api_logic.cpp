@@ -7,6 +7,8 @@ Player *ApiLogic::player2 = NULL;
 
 ApiLogic::ApiLogic(Player *p1, Player *p2)
 {
+    if(player1) delete player1;
+    if(player2) delete player2;
     player1 = p1;
     player2 = p2;
 }

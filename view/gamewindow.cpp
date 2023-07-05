@@ -1,5 +1,5 @@
 #include "gamewindow.h"
-
+#include "lobbywindow.h"
 #include <QFrame>
 #include <QVBoxLayout>
 
@@ -7,6 +7,7 @@ QLabel* GameWindow::gameStatusLabel = NULL;
 PlayerArea* GameWindow::player1Area = NULL;
 PlayerArea* GameWindow::player2Area = NULL;
 GameWindow* GameWindow::game = NULL;
+QDialog* GameWindow::dialog = NULL;
 
 GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
     : QMainWindow{parent}
@@ -59,6 +60,13 @@ GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
     connect(endTurnButton, &QPushButton::clicked, this, &GameWindow::endTurnButtonPressed);
 }
 
+GameWindow::~GameWindow()
+{
+    delete GameWindow::gameStatusLabel;
+    delete GameWindow::player1Area;
+    delete GameWindow::player2Area;
+}
+
 void GameWindow::updateGameStatus()
 {
     gameStatusLabel->setText(QString::fromStdString("Current State is: " + EnumsHelper::ToString(FSM::getCurrentState())));
@@ -75,8 +83,8 @@ void GameWindow::updateOpponent(PlayerArea* myPlayerArea)
 
 void GameWindow::showEndGame(Player *player)
 {
-    QDialog dialog;
-    dialog.setWindowTitle("EndGame");
+    dialog = new QDialog();
+    dialog->setWindowTitle("EndGame");
 
     QLabel* textLabel = new QLabel(QString::fromStdString(player->getName() + " WINS!"));
     textLabel->setAlignment(Qt::AlignCenter);
@@ -94,13 +102,13 @@ void GameWindow::showEndGame(Player *player)
     mainLayout->addLayout(buttonsLayout);
     mainLayout->setAlignment(Qt::AlignCenter);
 
-    dialog.setLayout(mainLayout);
+    dialog->setLayout(mainLayout);
 
-    QObject::connect(closeButton, &QPushButton::clicked, game, &GameWindow::close);
+    QObject::connect(closeButton, &QPushButton::clicked, game, &GameWindow::closeEndGame);
 
-    dialog.resize(300, 150);
+    dialog->resize(300, 150);
 
-    dialog.exec();
+    dialog->exec();
 }
 
 void GameWindow::endTurnButtonPressed()
@@ -110,3 +118,13 @@ void GameWindow::endTurnButtonPressed()
     player2Area->updateGui(true);
     updateGameStatus();
 }
+
+void GameWindow::closeEndGame()
+{
+    LobbyWindow::lobby->show();
+
+    delete GameWindow::dialog;
+    delete GameWindow::game;
+}
+
+

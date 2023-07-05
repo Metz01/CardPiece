@@ -55,6 +55,13 @@ CardView::CardView(Card* card, const QSize& size, QPushButton* button)
     this->setFixedSize(80,80);
 }
 
+CardView::~CardView()
+{
+    delete imageLabel;
+    delete pixmap;
+}
+
+
 Card* CardView::getCard(){
     return _card;
 }

@@ -17,10 +17,6 @@ Leader::Leader(QJsonObject Json, std::string cardCode) :
 
 Leader::Leader(): ColoredCard(), Attacker(0){}
 
-Leader::~Leader()
-{
-}
-
 
 std::string* Leader::lead() const{
     std::string *c = new std::string("Leader");

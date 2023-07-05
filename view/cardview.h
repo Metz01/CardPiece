@@ -14,6 +14,7 @@ public:
     Card* getCard();
     void rotateCard();
 
+    ~CardView();
 signals:
 
 private:

@@ -9,6 +9,8 @@
 #include <QPushButton>
 #include <QFileDialog>
 #include <QString>
+#include <QCoreApplication>
+#include <QDir>
 
 #include "./models/Player.h"
 #include "./fsm/api/api_logic.h"
@@ -23,6 +25,8 @@ public:
     void selectDeck1File();
     void selectDeck2File();
     void openGameWindow();
+    static LobbyWindow* lobby;
+    static void clearWindow();
 
 signals:
 
