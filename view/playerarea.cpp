@@ -24,13 +24,32 @@ PlayerArea::PlayerArea(Player* player, std::vector<Card*> hand, std::vector<Card
     displayLeader(leader);
     displayGround(ground);
     displayHand(hand);
+//    displayStage(???);
 
+    // Setting FixedSize for groundLayout
+    QWidget* groundContainer = new QWidget();
+    groundLayout->setParent(groundContainer);
+    groundContainer->setFixedSize(600, 100);
+    groundContainer->setLayout(groundLayout);
+
+    // Setting the alignments for ground and hand
+    handLayout->setAlignment(Qt::AlignLeft);
+    groundLayout->setAlignment(Qt::AlignLeft);
+
+    // Setting a fixed size for handLayout
+    QWidget* handContainer = new QWidget();
+    handLayout->setParent(handContainer);
+    handContainer->setFixedSize(600, 90);
+    handContainer->setLayout(handLayout);
+
+    // Adding the various layouts to the fieldLayout
     fieldLayout->addLayout(leaderLayout);
-    fieldLayout->addLayout(groundLayout);
+    fieldLayout->addWidget(groundContainer);
+    fieldLayout->addLayout(stageLayout);
     fieldLayout->setAlignment(Qt::AlignLeft);
 
     leftLayout->addLayout(fieldLayout);
-    leftLayout->addLayout(handLayout);
+    leftLayout->addWidget(handContainer);
 
     QPushButton* deck = new QPushButton();
     QPixmap imageDeck("./assets/CardBackRegular.png");
@@ -60,8 +79,17 @@ PlayerArea::PlayerArea(Player* player, std::vector<Card*> hand, std::vector<Card
     mainLayout->addSpacerItem(horizontalSpacer);
     mainLayout->addLayout(rightLayout);
 
+    QHBoxLayout* playerInfoLayout = new QHBoxLayout();
+
     playerIndicator->setText(QString::fromStdString(player->getName()));
-    playerAreaLayout->addWidget(playerIndicator);
+    std::string lifeString = std::to_string(player->getLife());
+    lifesText->setText(QString::fromStdString("-  LIFES: " + lifeString));
+    playerInfoLayout->addWidget(playerIndicator);
+    playerInfoLayout->addWidget(lifesText);
+    playerInfoLayout->setAlignment(Qt::AlignLeft);
+
+    playerAreaLayout->addLayout(playerInfoLayout);
+
     changePlayerTextColor();
 
     // Connections
@@ -82,6 +110,17 @@ void PlayerArea::displayLeader(Leader *leader, bool rotate)
     connect(cardView, &QPushButton::clicked, this, [cardView, this](){PlayerArea::cardButtonPressed(cardView);});
 }
 
+void PlayerArea::displayStage(Card *stage)
+{
+//    clearLayouts(stageLayout);
+//    CardView* cardView = new CardView(stage, CARD_SIZE);
+//    stageView = cardView;
+//    stageLayout->addWidget(stageView);
+
+//    // CONNECT
+//    connect();
+}
+
 void PlayerArea::clearLayouts(QHBoxLayout *layout)
 {
     while (QLayoutItem* item = layout->takeAt(0)) {
@@ -98,8 +137,11 @@ void PlayerArea::updateGui(bool changeTurn)
     displayLeader(player->getLeader());
     displayGround(player->getGround());
     displayHand(player->getHand());
+//    displayStage(player->getStage());
     int dons = ApiLogic::getAvailableDon(player);
     donText->setText("ACTIVE DON : " + QString::number(dons));
+    std::string lifeString = std::to_string(player->getLife());
+    lifesText->setText(QString::fromStdString("-  LIFES: " + lifeString));
     if(changeTurn) changePlayerTextColor();
 }
 
@@ -186,6 +228,10 @@ void PlayerArea::cardButtonPressed(CardView* cardview)
     }
     if(FSM::getCurrentState() == Enums::SelectEnemyCard && cardview->getCard() == player->getLeader()){
         PlayerArea::displayLeader(player->getLeader(), true);
+    }
+    if(FSM::getCurrentState() == Enums::State::EndGame)
+    {
+        GameWindow::showEndGame(player);
     }
     GameWindow::updateOpponent(this);
 

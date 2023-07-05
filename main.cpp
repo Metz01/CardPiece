@@ -14,6 +14,7 @@
 #include "./utils/Constants.h"
 #include "./utils/Save.h"
 #include "./view/gamewindow.h"
+#include "./view/lobbywindow.h"
 
 
 void _setup(Player* p1, Player* p2)
@@ -85,12 +86,12 @@ void _testFunctions()
 
 int main(int argc, char *argv[])
 {
-  DatabaseHelper();
-  Player *p1 = new Player(DECK1_PATH, "Alex");
-  Player *p2 = new Player(DECK1_PATH, "Mark");
-  _setup(p1, p2);
+//  DatabaseHelper();
+//  Player *p1 = new Player(DECK1_PATH, "Alex");
+//  Player *p2 = new Player(DECK1_PATH, "Mark");
+//  _setup(p1, p2);
   QApplication a(argc, argv);
-  GameWindow w(p1, p2);
+  LobbyWindow w;
   w.setFixedSize(900,680);
   w.show();
   return a.exec();

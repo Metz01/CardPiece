@@ -6,10 +6,13 @@
 QLabel* GameWindow::gameStatusLabel = NULL;
 PlayerArea* GameWindow::player1Area = NULL;
 PlayerArea* GameWindow::player2Area = NULL;
+GameWindow* GameWindow::game = NULL;
 
 GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
     : QMainWindow{parent}
 {
+    game = this;
+
     QAction* save = new QAction("Save Game");
     QAction* save_as = new QAction("Save Game as...");
     QAction* load = new QAction("Load Game");
@@ -68,6 +71,36 @@ void GameWindow::updateOpponent(PlayerArea* myPlayerArea)
     }else if(myPlayerArea == player2Area){
         player1Area->updateGui(false);
     }
+}
+
+void GameWindow::showEndGame(Player *player)
+{
+    QDialog dialog;
+    dialog.setWindowTitle("EndGame");
+
+    QLabel* textLabel = new QLabel(QString::fromStdString(player->getName() + " WINS!"));
+    textLabel->setAlignment(Qt::AlignCenter);
+
+    QPushButton* newGameButton = new QPushButton("New Game");
+    QPushButton* closeButton = new QPushButton("Close Game");
+
+    QVBoxLayout* mainLayout = new QVBoxLayout();
+    QHBoxLayout* buttonsLayout = new QHBoxLayout();
+
+    buttonsLayout->addWidget(newGameButton);
+    buttonsLayout->addWidget(closeButton);
+
+    mainLayout->addWidget(textLabel);
+    mainLayout->addLayout(buttonsLayout);
+    mainLayout->setAlignment(Qt::AlignCenter);
+
+    dialog.setLayout(mainLayout);
+
+    QObject::connect(closeButton, &QPushButton::clicked, game, &GameWindow::close);
+
+    dialog.resize(300, 150);
+
+    dialog.exec();
 }
 
 void GameWindow::endTurnButtonPressed()

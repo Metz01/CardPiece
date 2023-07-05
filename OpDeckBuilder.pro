@@ -35,6 +35,7 @@ SOURCES += \
     utils/Enums.cpp \
     view/gamewindow.cpp \
     view/cardview.cpp \
+    view/lobbywindow.cpp \
     view/playerarea.cpp \
     widgets/Card_widget.cpp \
     widgets/Main_Window.cpp \
@@ -66,6 +67,7 @@ HEADERS += \
     utils/Save.h \
     view/gamewindow.h \
     view/cardview.h \
+    view/lobbywindow.h \
     view/playerarea.h \
     widgets/Card_widget.h \
     widgets/Main_Window.h

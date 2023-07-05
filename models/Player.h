@@ -11,7 +11,7 @@ class Player
 {
 private:
     Deck deck;
-    LinkedList lifeCards;
+//    LinkedList lifeCards;
     std::vector<Card *> hand;
     std::vector<Card *> graveyard;
     std::vector<Card *> ground;

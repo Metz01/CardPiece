@@ -12,9 +12,9 @@ Player::Player(std::string path, std::string name) : deck(Deck(path)), hand(std:
     this->activeDon = 0;
     this->leader = dynamic_cast<Leader *>(DatabaseHelper::selectJSonCard(getLeaderCodeFromDeck()));
     this->life = leader->getLife();
-    for(int i = 0; i < this->life; i++){
-        lifeCards.add(this->deck.drawCard());
-    }
+//    for(int i = 0; i < this->life; i++){
+//        lifeCards.add(this->deck.drawCard());
+//    }
 }
 
 /// @brief constructor for the player class, it will create a deck and set the leader from the deck
@@ -192,11 +192,11 @@ bool Player::loseLife(int amount)
 {
     Debug::LogEnv("Player::loseLife");
     life -= amount;
-    if(life < 0) return false;
-    for(int i = 0; i < amount; i++){
-        Card* card = DatabaseHelper::selectJSonCard(lifeCards.popFirst());
-        hand.push_back(card);
-    }
+    if(life == 0) return false;
+//    for(int i = 0; i < amount; i++){
+//        Card* card = DatabaseHelper::selectJSonCard(lifeCards.popFirst());
+//        hand.push_back(card);
+//    }
     return true;
 }
 
@@ -253,7 +253,7 @@ void Player::print() const
     {
         Debug::LogDebug(don->getName());
     }
-    lifeCards.print();
+//    lifeCards.print();
 }
 
 Leader *Player::getLeader() const

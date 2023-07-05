@@ -180,7 +180,12 @@ bool FSM::selectEnemyCardRequest(Card* selectedCard, Card* selectedEnemyCard)
 
     ApiLogic::attackCard(selectedCard, selectedEnemyCard, _currentPlayer);
 
-    _currentState = Enums::State::SelectCard;
+    if(ApiLogic::getOpponent(_currentPlayer)->getLife() == 0)
+    {
+        FSM::endGameRequest();
+    } else{
+        _currentState = Enums::State::SelectCard;
+    }
 
     return false;
 }
@@ -255,4 +260,11 @@ Player *FSM::getCurrentPlayer()
 Enums::State FSM::getCurrentState()
 {
     return (_currentState);
+}
+
+bool FSM::endGameRequest()
+{
+    Debug::LogEnv("FSM::endGameRequest");
+
+    _currentState = Enums::State::EndGame;
 }

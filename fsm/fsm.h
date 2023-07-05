@@ -26,6 +26,7 @@ public:
     static bool endTurnRequest();
     static Player* getCurrentPlayer();
     static Enums::State getCurrentState();
+    static bool endGameRequest();
 };
 
 #endif

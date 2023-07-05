@@ -7,6 +7,7 @@
 #include <QMenuBar>
 #include <QMenu>
 #include <QLabel>
+#include <QDialog>
 
 #include "./fsm/api/api_logic.h"
 #include "./models/Player.h"
@@ -23,6 +24,8 @@ public:
     static void updateOpponent(PlayerArea* myPlayerArea);
     static PlayerArea* player1Area;
     static PlayerArea* player2Area;
+    static void showEndGame(Player*);
+    static GameWindow* game;
 signals:
 
 private:

@@ -26,6 +26,7 @@ public:
     void displayHand(std::vector<Card*> hand);
     void displayGround(std::vector<Card*>, Card* rotateCard = nullptr);
     void displayLeader(Leader*, bool rotate = false);
+    void displayStage(Card*);
     void clearLayouts(QHBoxLayout* layout);
     void updateGui(bool = false);
     void changePlayerTextColor();
@@ -35,6 +36,7 @@ signals:
 private:
     CardView* leaderView;
     CardView* bufferCardView;
+    CardView* stageView;
     Don* bufferDon;
     Player* player;
     QHBoxLayout* handLayout = new QHBoxLayout();
@@ -43,6 +45,8 @@ private:
     QHBoxLayout* leaderLayout = new QHBoxLayout();
     QLabel* donText = new QLabel();
     QLabel* playerIndicator = new QLabel();
+    QLabel* lifesText = new QLabel();
+    QHBoxLayout* stageLayout = new QHBoxLayout();
 
 
 public slots:
