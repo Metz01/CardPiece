@@ -16,18 +16,19 @@ GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
 
     QAction* save = new QAction("Save Game", this);
     QAction* save_as = new QAction("Save Game as...", this);
+    QAction* open_rules = new QAction("Open Rules", this);
 
     std::string path = "./assets/saves";
 
     connect(save, &QAction::triggered, this, [path, this]{GameWindow::saveGame();});
+    connect(open_rules, &QAction::triggered, this, GameWindow::showRules);
 
     QMenu* file = menuBar()->addMenu("File");
     file->addAction(save);
     file->addAction(save_as);
 
-
-
     QMenu* rules = menuBar()->addMenu("Rules");
+    rules->addAction(open_rules);
 
     QFrame* frame = new QFrame(this);
     setCentralWidget(frame);
@@ -96,13 +97,12 @@ void GameWindow::showEndGame(Player *player)
     textLabel->setAlignment(Qt::AlignCenter);
 
     QPushButton* newGameButton = new QPushButton("New Game");
-    QPushButton* closeButton = new QPushButton("Close Game");
 
     QVBoxLayout* mainLayout = new QVBoxLayout();
     QHBoxLayout* buttonsLayout = new QHBoxLayout();
+    buttonsLayout->setAlignment(Qt::AlignCenter);
 
     buttonsLayout->addWidget(newGameButton);
-    buttonsLayout->addWidget(closeButton);
 
     mainLayout->addWidget(textLabel);
     mainLayout->addLayout(buttonsLayout);
@@ -110,7 +110,7 @@ void GameWindow::showEndGame(Player *player)
 
     dialog->setLayout(mainLayout);
 
-    QObject::connect(closeButton, &QPushButton::clicked, game, &GameWindow::closeEndGame);
+    QObject::connect(newGameButton, &QPushButton::clicked, game, &GameWindow::closeEndGame);
 
     dialog->resize(300, 150);
 
@@ -122,6 +122,21 @@ void GameWindow::saveGame(std::string path)
     QString savesFolder(QDir::currentPath() + QString::fromStdString(path));
     QString filePath = QFileDialog::getSaveFileName(game, "Save Game", savesFolder, "Deck (*.txt)");
     ApiLogic::saveGame(filePath.toStdString());
+}
+
+void GameWindow::showRules()
+{
+    QFile file(QDir::currentPath() + QString::fromStdString("/assets/rules.txt"));
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QTextStream in(&file);
+        QString text = in.readAll();
+
+        RulesWindow rulesWindow;
+        rulesWindow.setFixedSize(750,500);
+        rulesWindow.setText(text);
+        rulesWindow.exec();
+    }
 }
 
 void GameWindow::endTurnButtonPressed()

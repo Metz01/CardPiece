@@ -15,6 +15,7 @@
 #include <QString>
 #include <QCoreApplication>
 #include <QDir>
+#include <QFileInfo>
 
 #include "./models/Player.h"
 #include "./fsm/api/api_logic.h"

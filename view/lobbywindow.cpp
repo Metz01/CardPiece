@@ -30,16 +30,16 @@ LobbyWindow::LobbyWindow(QWidget *parent)
     QHBoxLayout* player1Layout = new QHBoxLayout();
     QHBoxLayout* player2Layout = new QHBoxLayout();
 
-    player1LineEdit->setPlaceholderText("Enter Player1 Name");
+    player1LineEdit->setPlaceholderText("Player1 Name");
     player1LineEdit->setFixedWidth(100);
 
-    player2LineEdit->setPlaceholderText("Enter Player2 Name");
+    player2LineEdit->setPlaceholderText("Player2 Name");
     player2LineEdit->setFixedWidth(100);
 
-    player1Button->setText("Select a Deck for Player1");
+    player1Button->setText("Select Deck...");
     player1Button->setFixedSize(100,25);
     connect(player1Button, &QPushButton::clicked, this, &LobbyWindow::selectDeck1File);
-    player2Button->setText("Select a Deck for Player2");
+    player2Button->setText("Select Deck...");
     player2Button->setFixedSize(100,25);
     connect(player2Button, &QPushButton::clicked, this, &LobbyWindow::selectDeck2File);
 
@@ -79,6 +79,9 @@ void LobbyWindow::selectDeck1File()
     QString decksFolder(QDir::currentPath() + "/assets/deck");
     QString filePath = QFileDialog::getOpenFileName(this, "Select Deck for Player1", decksFolder);
     deck1Path = filePath;
+    QFileInfo fileInfo(filePath);
+    QString baseName = fileInfo.baseName();
+    player1Button->setText(baseName);
 }
 
 void LobbyWindow::selectDeck2File()
@@ -86,6 +89,9 @@ void LobbyWindow::selectDeck2File()
     QString decksFolder(QDir::currentPath() + "/assets/deck");
     QString filePath = QFileDialog::getOpenFileName(this, "Select Deck for Player2", decksFolder);
     deck2Path = filePath;
+    QFileInfo fileInfo(filePath);
+    QString baseName = fileInfo.baseName();
+    player2Button->setText(baseName);
 }
 
 void LobbyWindow::openGameWindow()
