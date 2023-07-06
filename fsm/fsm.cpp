@@ -8,10 +8,11 @@ Player *FSM::_currentPlayer = NULL;
 int FSM::_turnsPlayed = 0;
 Card *FSM::_buffedCard = NULL;
 
-FSM::FSM(Player *starterPlayer, Enums::State state)
+FSM::FSM(Player *starterPlayer, int turn, Enums::State state)
 {
     _currentPlayer = starterPlayer;
     FSM::_currentState = state;
+    _turnsPlayed = turn;
 }
 
 Card *FSM::drawCardRequest(Player* playerRequesting)
@@ -280,6 +281,11 @@ bool FSM::endTurnRequest()
 Player *FSM::getCurrentPlayer()
 {
     return _currentPlayer;
+}
+
+int FSM::getCurrentTurn()
+{
+    return _turnsPlayed;
 }
 
 Enums::State FSM::getCurrentState()

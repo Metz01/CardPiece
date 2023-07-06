@@ -59,6 +59,7 @@ void Save::saveGame(Player *player1, Player *player2, std::string path) {
     QJsonObject fileInfo;
     fileInfo["GameStatus"] = QString::fromStdString(EnumsHelper::ToString(FSM::getCurrentState()));
     fileInfo["CurrentPlayer"] =  QString::fromStdString(FSM::getCurrentPlayer()->getName());
+    fileInfo["Turn"] =  QString::fromStdString(std::to_string(FSM::getCurrentTurn()));
     QJsonObject p1Info = Save::savePalyer(player1);
     QJsonObject p2Info = Save::savePalyer(player2);
 
@@ -210,4 +211,28 @@ std::string Save::loadCurrentPlayer(std::string path){
         qDebug() << "No file selected.";
     }
     return player;
+}
+
+int Save::loadCurrentTurn(std::string path){
+    int turn = 0;
+    if (path != "") {
+        // Read the JSON file
+        QFile file(QString::fromStdString(path));
+        if (file.open(QIODevice::ReadOnly)) {
+            // Load the JSON document
+            QByteArray jsonData = file.readAll();
+            QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
+            if (!jsonDoc.isNull()) {
+                QJsonObject jsonObject = jsonDoc.object();
+                turn = jsonObject["Turn"].toString().toInt();
+            } else {
+                qDebug() << "Failed to parse JSON document.";
+            }
+        } else {
+            qDebug() << "Failed to open JSON file.";
+        }
+    } else {
+        qDebug() << "No file selected.";
+    }
+    return turn;
 }

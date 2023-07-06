@@ -22,6 +22,7 @@ namespace Save
     Enums::State loadState(std::string path);
     std::string loadCurrentPlayer(std::string _path);
     bool checkJsonSaveIntegrity(QJsonObject jsonObject);
+    int loadCurrentTurn(std::string path);
 };
 
 #endif // SAVE_H

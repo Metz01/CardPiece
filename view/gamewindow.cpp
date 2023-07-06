@@ -19,7 +19,7 @@ GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
 
     std::string path = "/assets/saves";
 
-    connect(save, &QAction::triggered, this, [path, this]{GameWindow::saveGame();});
+    connect(save, &QAction::triggered, this, [path, this]{GameWindow::saveGame(path);});
     connect(open_rules, &QAction::triggered, this, GameWindow::showRules);
 
     QMenu* file = menuBar()->addMenu("File");
@@ -118,7 +118,7 @@ void GameWindow::showEndGame(Player *player)
 void GameWindow::saveGame(std::string path)
 {
     QString savesFolder(QDir::currentPath() + QString::fromStdString(path));
-    QString filePath = QFileDialog::getSaveFileName(game, "Save Game", savesFolder, "Game (*.json)");
+    QString filePath = QFileDialog::getSaveFileName(game, "Save Game", savesFolder, "Game");
     ApiLogic::saveGame(filePath.toStdString());
 }
 

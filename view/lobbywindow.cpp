@@ -139,9 +139,9 @@ void LobbyWindow::loadGameWindow()
     }
     ApiLogic(p1, p2);
     if(Save::loadCurrentPlayer(path) == p1->getName())
-        FSM fsm(p1, Save::loadState(path));
+        FSM fsm(p1, Save::loadCurrentTurn(path), Save::loadState(path));
     else if(Save::loadCurrentPlayer(path) == p2->getName())
-        FSM fsm(p2, Save::loadState(path));
+        FSM fsm(p2, Save::loadCurrentTurn(path), Save::loadState(path));
     else
     {
         openErrorPopUp("The current Player in JSON file is not one of the Players.");

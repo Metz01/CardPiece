@@ -16,7 +16,7 @@ private:
     static Card *_buffedCard;
 
 public:
-    FSM(Player *starterPlayer, Enums::State state = Enums::State::Draw);
+    FSM(Player *starterPlayer,int turn = 0, Enums::State state = Enums::State::Draw);
     static Card *drawCardRequest(Player* playerRequesting);
     static std::vector<Don *> drawDonRequest(Player* playerRequesting);
     static bool selectCardRequest(Card* selectedCard);
@@ -25,6 +25,7 @@ public:
     static bool useCardRequest(Card* cardToUse, Card* cardToUseOn = NULL);
     static bool endTurnRequest();
     static Player* getCurrentPlayer();
+    static int getCurrentTurn();
     static Enums::State getCurrentState();
     static bool endGameRequest();
 };
