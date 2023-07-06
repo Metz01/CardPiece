@@ -114,6 +114,8 @@ void GameWindow::showEndGame(Player *player)
     QObject::connect(newGameButton, &QPushButton::clicked, game, &GameWindow::closeEndGame);
 
     dialog->resize(300, 150);
+    QIcon* icon = new QIcon(QDir::currentPath() + QString::fromStdString("/assets/icon.png"));
+    dialog->setWindowIcon(*icon);
 
     dialog->exec();
 }
@@ -136,6 +138,9 @@ void GameWindow::showRules()
         RulesWindow rulesWindow;
         rulesWindow.setFixedSize(750,500);
         rulesWindow.setText(text);
+        QIcon* icon = new QIcon(QDir::currentPath() + QString::fromStdString("/assets/icon.png"));
+        rulesWindow.setWindowIcon(*icon);
+
         rulesWindow.exec();
     }
 }

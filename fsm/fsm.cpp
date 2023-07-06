@@ -230,12 +230,19 @@ bool FSM::useCardRequest(Card* cardToUse, Card* cardToUseOn)
     if (ApiLogic::whoseCard(cardToUseOn) != _currentPlayer)
     {
         Debug::LogError("Tried to Use a Card, but the card is not yours");
+        _currentState = Enums::State::SelectCard;
         return false;
     }
 
     if (cardToUseOn->getCardType() != Enums::CardType::character && cardToUseOn->getCardType() != Enums::CardType::leader)
     {
         Debug::LogError("Tried to Use a Card, but the card is not a character or a leader");
+        return false;
+    }
+
+    if(!_currentPlayer->hasOnGround(cardToUseOn) && _currentPlayer->getLeader() != cardToUseOn){
+        Debug::LogError("Tried to Use a Card, but the card is not on ground");
+        _currentState = Enums::State::SelectCard;
         return false;
     }
 

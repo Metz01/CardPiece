@@ -26,10 +26,15 @@ PlayerArea::PlayerArea(Player* player, QWidget *parent)
     displayHand(player->getHand());
     displayStage(player->getStage());
 
+    QWidget* stageContainer = new QWidget();
+    stageLayout->setParent(stageContainer);
+    stageContainer->setFixedSize(90,90);
+    stageContainer->setLayout(stageLayout);
+
     // Setting FixedSize for groundLayout
     QWidget* groundContainer = new QWidget();
     groundLayout->setParent(groundContainer);
-    groundContainer->setFixedSize(600, 100);
+    groundContainer->setFixedSize(500, 100);
     groundContainer->setLayout(groundLayout);
 
     // Setting the alignments for ground and hand
@@ -39,13 +44,13 @@ PlayerArea::PlayerArea(Player* player, QWidget *parent)
     // Setting a fixed size for handLayout
     QWidget* handContainer = new QWidget();
     handLayout->setParent(handContainer);
-    handContainer->setFixedSize(600, 90);
+    handContainer->setFixedSize(500, 90);
     handContainer->setLayout(handLayout);
 
     // Adding the various layouts to the fieldLayout
     fieldLayout->addLayout(leaderLayout);
     fieldLayout->addWidget(groundContainer);
-    fieldLayout->addLayout(stageLayout);
+    fieldLayout->addWidget(stageContainer);
     fieldLayout->setAlignment(Qt::AlignLeft);
 
     leftLayout->addLayout(fieldLayout);
@@ -75,7 +80,7 @@ PlayerArea::PlayerArea(Player* player, QWidget *parent)
     rightLayout->setAlignment(Qt::AlignCenter);
 
     mainLayout->addLayout(leftLayout);
-    QSpacerItem* horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    QSpacerItem* horizontalSpacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     mainLayout->addSpacerItem(horizontalSpacer);
     mainLayout->addLayout(rightLayout);
 

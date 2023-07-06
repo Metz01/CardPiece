@@ -7,7 +7,7 @@
 <li><strong><em>Leader</em></strong>, your &ldquo;main character&rdquo;: his <strong>life count</strong> will also be yours, so when it reaches zero, it&rsquo;s game over.</li>
 <li><strong><em>Characters</em></strong>: the cards you can play and put on the <strong>Ground</strong>; they can <strong>attack</strong> other <em>rested</em> enemy Characters and your opponent&rsquo;s Leader.</li>
 <li><strong><em>Buff</em></strong>: special type of cards that can be played and assigned to both <em>Characters</em> and <em>Leader</em>; they <strong>increase</strong> <strong>the</strong> <strong>attack</strong> of a certain amount (and for that turn only).</li>
-<li><strong><em>Stage</em></strong>: special type of cards that can be played on the Ground and that will last permanently during the game; [&hellip;] .</li>
+<li><strong><em>Stage</em></strong>: special type of cards that can be played on the Ground and that will last permanently during the game; during the turn of the Player who placed it, they give a buff of +1000 in attack to <strong>every</strong> card on the Ground.</li>
 <li><strong><em>Don</em></strong>, the &ldquo;mana&rdquo; cards: these cards are drawn from a different deck, the <strong>DonDeck</strong>, and are used as:<ul>
 <li><strong>cost </strong>for <em>Character</em>/<em>Buff</em>/<em>Stage</em> cards to play;</li>
 <li><strong>attack buff</strong> of +1000 when attached to <em>Leader</em>/<em>Character</em> cards of your choice.</li>
