@@ -90,6 +90,9 @@ void GameWindow::showEndGame(Player *player)
 {
     dialog = new QDialog();
     dialog->setWindowTitle("EndGame");
+    Qt::WindowFlags flags = dialog->windowFlags();
+    flags &= ~Qt::WindowCloseButtonHint;
+    dialog->setWindowFlags(flags);
 
     QLabel* textLabel = new QLabel(QString::fromStdString(FSM::getCurrentPlayer()->getName() + " WINS!"));
     textLabel->setAlignment(Qt::AlignCenter);
