@@ -58,7 +58,6 @@ void LinkedList::print() const
     Node *current = head;
     while (current != NULL)
     {
-        Debug::LogDebug(current->cardCode);
         current = current->nextCard;
     }
 }

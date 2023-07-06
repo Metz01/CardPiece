@@ -17,9 +17,8 @@ Deck::Deck(std::string path) : cards(new LinkedList()){
     std::mt19937 rng(rd());
 
     std::shuffle(cardCodes.begin(), cardCodes.end(), rng);
-
-    for(auto cc: cardCodes){
-        cards->add(cc);
+    for(int i = 0; i < (int)cardCodes.size(); i++){
+        cards->add(cardCodes[i]);
     }
 
     file.close();
@@ -28,8 +27,7 @@ Deck::Deck(std::string path) : cards(new LinkedList()){
 /// @brief constructor for the deck class, it will add the cards to the linked list
 /// @param deckCodes codes of the cards in the deck
 Deck::Deck(std::vector<std::string> deckCodes) : cards(new LinkedList()){
-    for (std::string code : deckCodes)
-    {
+    for(std::string code : deckCodes){
         cards->add(code);
     }
 }
@@ -68,6 +66,19 @@ std::string Deck::drawCard()
 void Deck::printDeck() const
 {
     cards->print();
+}
+
+bool Deck::checkDeckIntegrity() const
+{
+    bool leader = false;
+    for(int i = 0; i < cards->getSize(); i++){
+        if(!DatabaseHelper::isInDataBase(cards->getCardCode(i))) return false;
+        if(DatabaseHelper::isLeader(cards->getCardCode(i))){
+            if(leader) return false;
+            if(!leader) leader = true;
+        }
+    }
+    return true;
 }
 
 /// @brief get the deck codes

@@ -214,3 +214,26 @@ bool ApiLogic::useStageCard(Player* player)
     player->useStage();
     return true;
 }
+
+bool ApiLogic::checkCardVectorIntegrity(std::vector<Card*> list){
+    for(int i = 0; i < (int)list.size(); i++){
+        if(!DatabaseHelper::isInDataBase(list[i]->getCardInfo(Enums::Code)->value.code)) return false;
+        if(DatabaseHelper::isLeader(list[i]->getCardInfo(Enums::Code)->value.code)) return false;
+    }
+    return true;
+}
+
+bool ApiLogic::checkPlayerIntegrity(Player* player)
+{
+    Debug::LogEnv("ApiLogic::checkPlayerIntegrity");
+    if(player == NULL) return false;
+    if(!player->getDeck()->checkDeckIntegrity() ) return false;
+    if(player->getLeader() == NULL) return false;
+    if(player->getName() == "") return false;
+    if(player->getLife() <= 0) return false;
+    if(!ApiLogic::checkCardVectorIntegrity(player->getHand())) return false;
+    if(!ApiLogic::checkCardVectorIntegrity(player->getGround())) return false;
+    if(!ApiLogic::checkCardVectorIntegrity(player->getGraveyard())) return false;
+    Debug::LogInfo("Player integer");
+    return true;
+}

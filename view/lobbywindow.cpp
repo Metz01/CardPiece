@@ -99,8 +99,18 @@ void LobbyWindow::selectDeck2File()
 void LobbyWindow::openGameWindow()
 {
     DatabaseHelper();
+    if(deck2Path == "" || deck2Path == "")
+    {
+        openErrorPopUp("Select Decks.");
+        return;
+    }
     Player *p1 = new Player(deck1Path.toStdString(), player1LineEdit->text().toStdString());
     Player *p2 = new Player(deck2Path.toStdString(), player2LineEdit->text().toStdString());
+    if(!ApiLogic::checkPlayerIntegrity(p1) || !ApiLogic::checkPlayerIntegrity(p2))
+    {
+        openErrorPopUp("<p>Error in load Players' info.</p> <p>Check you inserted Players' names</p> <p> Check that files of Decks are correctly formatted.</p>");
+        return;
+    }
     ApiLogic(p1, p2);
     FSM fsm(p1);
     w = new GameWindow(p1,p2);
@@ -114,20 +124,50 @@ void LobbyWindow::loadGameWindow()
     QString savesFolder(QDir::currentPath() + "/assets/saves");
     QString filePath = QFileDialog::getOpenFileName(this, "Select Game to load", savesFolder);
     std::string path = filePath.toStdString();
-    if(path == "") return;
+    if(path == "")
+    {
+        openErrorPopUp("Select a file to load.");
+        return;
+    }
     DatabaseHelper();
-    Player *p1 = Save::loadPlayer(path, "Player1");;
-    Player *p2 = Save::loadPlayer(path, "Player2");;
+    Player *p1 = Save::loadPlayer(path, "Player1");
+    Player *p2 = Save::loadPlayer(path, "Player2");
+    if(!ApiLogic::checkPlayerIntegrity(p1) || !ApiLogic::checkPlayerIntegrity(p2))
+    {
+        openErrorPopUp("JSON file not correctly formatted.");
+        return;
+    }
     ApiLogic(p1, p2);
     if(Save::loadCurrentPlayer(path) == p1->getName())
         FSM fsm(p1, Save::loadState(path));
     else if(Save::loadCurrentPlayer(path) == p2->getName())
         FSM fsm(p2, Save::loadState(path));
-    else return;
+    else
+    {
+        openErrorPopUp("The current Player in JSON file is not one of the Players.");
+        return;
+    }
     w = new GameWindow(p1,p2);
     w->show();
 
     hide();
+}
+
+void LobbyWindow::openErrorPopUp(std::string errorText)
+{
+    QDialog* popUp = new QDialog();
+    popUp->setWindowTitle("ERROR");
+
+    QLabel* textLabel = new QLabel(QString::fromStdString(errorText));
+    textLabel->setAlignment(Qt::AlignCenter);
+
+    QHBoxLayout* layout = new QHBoxLayout();
+    layout->addWidget(textLabel);
+    popUp->setLayout(layout);
+
+    popUp->setFixedSize(300,150);
+
+    popUp->exec();
 }
 
 void LobbyWindow::clearWindow()

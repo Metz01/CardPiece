@@ -88,3 +88,11 @@ bool DatabaseHelper::isLeader(std::string cardCode){
         return false;
     }
 }
+
+bool DatabaseHelper::isInDataBase(std::string cardCode)
+{
+    QJsonObject jsonObj = database.object();
+    QJsonObject cardInfoJson = JsonParser::jsonKeytoJsonObject(jsonObj, cardCode);
+    if(cardInfoJson.empty()) return false;
+    return true;
+}

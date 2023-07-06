@@ -10,12 +10,15 @@ Player::Player(std::string path, std::string name) : deck(Deck(path)), hand(std:
 {
     this->don = 0;
     this->activeDon = 0;
-    this->leader = dynamic_cast<Leader *>(DatabaseHelper::selectJSonCard(getLeaderCodeFromDeck()));
-    this->life = leader->getLife();
-    for(int i = 0; i < 5; i++){
-        hand.push_back(DatabaseHelper::selectJSonCard(deck.drawCard()));
+    if(deck.checkDeckIntegrity()){
+        this->leader = dynamic_cast<Leader *>(DatabaseHelper::selectJSonCard(getLeaderCodeFromDeck()));
+        this->life = leader->getLife();
+        for(int i = 0; i < 5; i++){
+            hand.push_back(DatabaseHelper::selectJSonCard(deck.drawCard()));
+        }
     }
-    Debug::LogEnv("Player::Player setrupped");
+    deck.printDeck();
+    Debug::LogEnv("Player::Player setupped");
 }
 
 /// @brief constructor for the player class, it will create a deck and set the leader from the deck
@@ -82,9 +85,11 @@ std::string Player::getLeaderCodeFromDeck() const
 
 /// @brief draw a card from the deck and add it to the hand
 Card *Player::drawCard()
-{   
+{
     Debug::LogEnv("Player::drawCard");
-    Card *drewCard = DatabaseHelper::selectJSonCard(deck.drawCard());
+    std::string cardCode = deck.drawCard();
+    if(cardCode == END_OF_DECK) Debug::LogError("End of deck");
+    Card *drewCard = DatabaseHelper::selectJSonCard(cardCode);
     hand.push_back(drewCard);
     return drewCard;
 }
@@ -171,7 +176,7 @@ void Player::playCard(Card *selectedCard)
         for (; lastAnalyzedDonPos < donSize; lastAnalyzedDonPos++)
         {
             if (!donList[lastAnalyzedDonPos]->isActive()) continue;
-            
+
             donList[lastAnalyzedDonPos]->restCard();
             deactivated++;
             break;
@@ -393,4 +398,9 @@ void Player::useStage(){
        dynamic_cast<Attacker*>(c)->buffAttack(buff);
     }
     leader->buffAttack(buff);
+}
+
+Deck* Player::getDeck()
+{
+    return &this->deck;
 }

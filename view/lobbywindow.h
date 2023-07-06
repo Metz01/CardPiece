@@ -31,6 +31,7 @@ public:
     void selectDeck2File();
     void openGameWindow();
     void loadGameWindow();
+    void openErrorPopUp(std::string);
     static LobbyWindow* lobby;
     static void clearWindow();
 

@@ -21,6 +21,7 @@ public:
     std::string drawCard();
     std::vector<std::string> getDeckCodes() const;
     void printDeck() const;
+    bool checkDeckIntegrity() const;
 };
 
 #endif

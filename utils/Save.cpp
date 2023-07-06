@@ -11,8 +11,6 @@
 
 QJsonObject Save::savePalyer(Player *player){
     QJsonObject jsonObject;
-    jsonObject["GameStatus"] = QString::fromStdString(EnumsHelper::ToString(FSM::getCurrentState()));
-    jsonObject["CurrentPlayer"] = QString::fromStdString(FSM::getCurrentPlayer()->getName());
     jsonObject["Name"] = QString::fromStdString(player->getName());
     jsonObject["Life"] = QString::fromStdString(std::to_string(player->getLife()));
     jsonObject["Leader"] = QString::fromStdString(player->getLeader()->getCode() +
@@ -86,6 +84,20 @@ void Save::saveGame(Player *player1, Player *player2, std::string path) {
     }
 }
 
+bool Save::checkJsonSaveIntegrity(QJsonObject jsonObject){
+    if(!jsonObject.contains("Name")) return false;
+    if(!jsonObject.contains("Life")) return false;
+    if(!jsonObject.contains("Leader")) return false;
+    if(!jsonObject.contains("DonNumber")) return false;
+    if(!jsonObject.contains("ActiveDon")) return false;
+    if(!jsonObject.contains("Stage")) return false;
+    if(!jsonObject.contains("Hand")) return false;
+    if(!jsonObject.contains("Ground")) return false;
+    if(!jsonObject.contains("Graveyard")) return false;
+    if(!jsonObject.contains("Deck")) return false;
+    return true;
+}
+
 Player* Save::loadPlayer(std::string path, std::string player){
     if (path != "") {
         // Read the JSON file
@@ -99,6 +111,10 @@ Player* Save::loadPlayer(std::string path, std::string player){
                 // Retrieve values from the JSON document
                 QJsonObject jsonObject = jsonDoc.object();
                 QJsonObject PlayerInfo = jsonObject[QString::fromStdString(player)].toObject();
+                if(!Save::checkJsonSaveIntegrity(PlayerInfo)){
+                    Debug::LogError("File Json of Save not right formatted");
+                    return NULL;
+                }
                 std::string name = PlayerInfo["Name"].toString().toStdString();
                 int life = std::stoi(PlayerInfo["Life"].toString().toStdString());
                 std::string leaderCode =PlayerInfo["Leader"].toString().toStdString();
@@ -135,9 +151,6 @@ Player* Save::loadPlayer(std::string path, std::string player){
                         deckCodes.push_back(value.toString().toStdString());
                 }
                 Debug::LogEnv("making player");
-                for(auto s: groundCodes){
-                    Debug::LogInfo(s);
-                }
                 return new Player(name, life, leaderCode, donListSize, donactive, handCodes, groundCodes, graveyardCodes, stage, deckCodes);
             } else {
                 qDebug() << "Failed to parse JSON document.";

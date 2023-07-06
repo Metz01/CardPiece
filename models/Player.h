@@ -56,7 +56,7 @@ public:
     bool setAllCardActive();
     void setStage(Card* stage);
     void useStage();
-
+    Deck* getDeck();
 };
 
 #endif // PLAYER_H
