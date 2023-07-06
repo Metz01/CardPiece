@@ -27,7 +27,7 @@ public:
     static QJsonDocument database;
     DatabaseHelper();
     /* ~DatabaseHelper(); */
-    static QJsonObject getCardInfo(std::string cardCode);
+    static QJsonObject getJsonInfo(std::string cardCode);
     static Card *selectJSonCard(std::string cardCode);
     static bool isLeader(std::string cardCode);
 };

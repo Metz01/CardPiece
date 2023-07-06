@@ -2,197 +2,199 @@
 #include "Debug.h"
 #include <fstream>
 #include <unistd.h>
+#include <QCoreApplication>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QFile>
+#include <QDebug>
+#include <QJsonArray>
 
-void Save::saveGame(Player *player1, Player *player2, std::string path)
-{
-    std::ofstream file;
-    file.open(path);
-    file << "-GameStatus-"<< std::endl;
-    file << EnumsHelper::ToString(FSM::getCurrentState()) << std::endl;
-    file << "-CurrentPlayer-"<< std::endl;
-    file << FSM::getCurrentPlayer()->getName() << std::endl;
-    file << "!-Player1-!" << std::endl;
-    file << player1->getName() << std::endl;
-    file << "-Life-" << std::endl;
-    file << player1->getLife() << std::endl;
-    file << "-Leader-" << std::endl;
-    file << player1->getLeader()->getCode();
-    file << "-" << player1->getLeader()->getCardInfo(Enums::InfoAttribute::Buff)->value.buff << std::endl;
-    file << "-DonNumber-" << std::endl;
-    file << player1->getDonList().size() << std::endl;
-    file << "-ActiveDon-" << std::endl;
-    file << player1->getActiveDon() << std::endl;
-    file << "-Stage-" << std::endl;
-    if(player1->getStage()) file << player1->getStage() << std::endl;
-    else file << "0" << std::endl;
-    file << "-Hand-" << std::endl;
-    for (Card *card : player1->getHand())
+QJsonObject Save::savePalyer(Player *player){
+    QJsonObject jsonObject;
+    jsonObject["GameStatus"] = QString::fromStdString(EnumsHelper::ToString(FSM::getCurrentState()));
+    jsonObject["CurrentPlayer"] = QString::fromStdString(FSM::getCurrentPlayer()->getName());
+    jsonObject["Name"] = QString::fromStdString(player->getName());
+    jsonObject["Life"] = QString::fromStdString(std::to_string(player->getLife()));
+    jsonObject["Leader"] = QString::fromStdString(player->getLeader()->getCode() +
+                                                  "-" + std::to_string(player->getLeader()->getCardInfo(Enums::InfoAttribute::Buff)->value.buff)+
+                                                  "+" + std::to_string(player->getLeader()->isActive()));
+    jsonObject["DonNumber"] = QString::fromStdString(std::to_string((int)player->getDonList().size()));
+    jsonObject["ActiveDon"] = QString::fromStdString(std::to_string(player->getActiveDon()));
+    if(player->getStage()) jsonObject["Stage"] = QString::fromStdString(player->getStage()->getCardInfo(Enums::Code)->value.code);
+    else jsonObject["Stage"] = "0";
+    QJsonArray jsonArray;
+    for (Card *card : player->getHand())
     {
-        file << card->getCardInfo(Enums::InfoAttribute::Code)->value.code << std::endl;
+        QString qStringValue = QString::fromStdString(card->getCardInfo(Enums::Code)->value.code);
+        jsonArray.append(qStringValue);
     }
-    file << "-Ground-" << std::endl;
-    for (Card *card : player1->getGround())
+    jsonObject["Hand"] = jsonArray;
+    jsonArray = QJsonArray();
+    for (Card *card : player->getGround())
     {
-        file << card->getCardInfo(Enums::InfoAttribute::Code)->value.code;
-        file << "-" << card->getCardInfo(Enums::InfoAttribute::Buff)->value.buff << std::endl;
+        QString qStringValue = QString::fromStdString(std::string(card->getCardInfo(Enums::Code)->value.code) +
+                                                      "-" + std::to_string(card->getCardInfo(Enums::InfoAttribute::Buff)->value.buff)+
+                                                      "+" + std::to_string(card->isActive()));
+        jsonArray.append(qStringValue);
     }
-    file << "-Graveyard-" << std::endl;
-    for (Card *card : player1->getGraveyard())
+    jsonObject["Ground"] = jsonArray;
+    jsonArray = QJsonArray();
+    for (Card *card : player->getGraveyard())
     {
-        file << card->getCardInfo(Enums::InfoAttribute::Code)->value.code << std::endl;
+        QString qStringValue = QString::fromStdString(card->getCardInfo(Enums::Code)->value.code);
+        jsonArray.append(qStringValue);
     }
-    file << "-Deck-" << std::endl;
-    for (std::string code : player1->getDeckCodes())
+    jsonObject["Graveyard"] = jsonArray;
+    jsonArray = QJsonArray();
+    for (std::string card : player->getDeckCodes())
     {
-        file << code << std::endl;
+        QString qStringValue = QString::fromStdString(card);
+        jsonArray.append(qStringValue);
     }
-
-    file << "!-Player2-!" << std::endl;
-
-    file << player2->getName() << std::endl;
-    file << "-Life-" << std::endl;
-    file << player2->getLife() << std::endl;
-    file << "-Leader-" << std::endl;
-    file << player2->getLeader()->getCode();
-    file << "-" << player2->getLeader()->getCardInfo(Enums::InfoAttribute::Buff)->value.buff << std::endl;
-    file << "-DonNumber-" << std::endl;
-    file << player2->getDonList().size() << std::endl;
-    file << "-ActiveDon-" << std::endl;
-    file << player2->getActiveDon() << std::endl;
-    file << "-Stage-" << std::endl;
-    if(player2->getStage()) file << player2->getStage() << std::endl;
-    else file << "0" << std::endl;
-    file << "-Hand-" << std::endl;
-    for (Card *card : player2->getHand())
-    {
-        file << card->getCardInfo(Enums::InfoAttribute::Code)->value.code << std::endl;
-    }
-    file << "-Ground-" << std::endl;
-    for (Card *card : player2->getGround())
-    {
-        file << card->getCardInfo(Enums::InfoAttribute::Code)->value.code;
-        file << "-" << card->getCardInfo(Enums::InfoAttribute::Buff)->value.buff << std::endl;
-    }
-    file << "-Graveyard-" << std::endl;
-    for (Card *card : player2->getGraveyard())
-    {
-        file << card->getCardInfo(Enums::InfoAttribute::Code)->value.code << std::endl;
-    }
-    file << "-Deck-" << std::endl;
-    for (std::string code : player2->getDeckCodes())
-    {
-        file << code << std::endl;
-    }
-
-    file.close();
-
-};
-
-Player* Save::loadPlayer(std::vector<std::string> playerInfo){
-    Debug::LogEnv("splitting  information");
-    if (playerInfo.size() > 65){
-        std::cerr << "Too many lines in the file.";
-        return nullptr;
-    } 
-    
-    try
-    {
-        std::string name = playerInfo.at(0);
-        int life = std::stoi(playerInfo.at(2));
-        std::string leaderCode = playerInfo.at(4);
-        int donListSize = std::stoi(playerInfo.at(6));
-        int donactive = std::stoi(playerInfo.at(8));
-        std::string stage;
-        std::vector<std::string> handCodes;
-        std::vector<std::string> groundCodes;
-        std::vector<std::string> graveyardCodes;
-        std::vector<std::string> deckCodes;
-        int i = 10;
-        while (playerInfo.at(i) != "-Hand-")
-        {
-            stage = playerInfo.at(i);
-            i++;
-        }
-        i++;
-        while (playerInfo.at(i) != "-Ground-")
-        {
-            handCodes.push_back(playerInfo.at(i));
-            i++;
-        }
-        i++;
-        while (playerInfo.at(i) != "-Graveyard-")
-        {
-            groundCodes.push_back(playerInfo.at(i));
-            i++;
-        }
-        i++;
-        while (playerInfo.at(i) != "-Deck-")
-        {
-            graveyardCodes.push_back(playerInfo.at(i));
-            i++;
-        }
-        i++;
-        while (i < (int)playerInfo.size() && playerInfo.at(i).compare("!-Player2-!") != 0)
-        {
-            deckCodes.push_back(playerInfo.at(i));
-            i++;
-        }
-        Debug::LogEnv("making player");
-        return new Player(name, life, leaderCode, donListSize, donactive, handCodes, groundCodes, graveyardCodes, stage, deckCodes);
-    }
-    catch(const std::out_of_range& e)
-    {
-        std::cerr << e.what() << " : input File for load game not well formatted" << '\n';
-    }
-    return nullptr;
+    jsonObject["Deck"] = jsonArray;
+    return jsonObject;
 }
 
-Player* Save::loadPlayer1(std::string _path){
-    std::ifstream file;
-    file.open(_path);
-    std::string line;
-    std::vector<std::string> lines;
-    while (std::getline(file, line) && line.compare("!-Player1-!") != 0)
-    {   }
-    while (std::getline(file, line) && line.compare("!-Player2-!") != 0)
-    {
-        lines.push_back(line);
+void Save::saveGame(Player *player1, Player *player2, std::string path) {
+
+    // Create a JSON object
+    QJsonObject fileInfo;
+    fileInfo["GameStatus"] = QString::fromStdString(EnumsHelper::ToString(FSM::getCurrentState()));
+    fileInfo["CurrentPlayer"] =  QString::fromStdString(FSM::getCurrentPlayer()->getName());
+    QJsonObject p1Info = Save::savePalyer(player1);
+    QJsonObject p2Info = Save::savePalyer(player2);
+
+
+    fileInfo["Player1"] = p1Info;
+    fileInfo["Player2"] = p2Info;
+
+    // Create a JSON document
+    QJsonDocument jsonDoc(fileInfo);
+
+    // Convert the JSON document to a string
+    QString jsonString = jsonDoc.toJson(QJsonDocument::Indented);
+
+    // Save the JSON string to a file
+    QFile file(QString::fromStdString(path));
+    if (file.open(QIODevice::WriteOnly)) {
+        QTextStream stream(&file);
+        stream << jsonString;
+        file.close();
+        qDebug() << "JSON data saved successfully!";
+    } else {
+        qDebug() << "Failed to save JSON data!";
     }
-    file.close();
-    return loadPlayer(lines);
 }
 
-Player* Save::loadPlayer2(std::string _path){
-    std::ifstream file;
-    file.open(_path);
-    std::string line;
-    std::vector<std::string> lines;
-    while (std::getline(file, line) && line.compare("!-Player2-!") != 0)
-    {   }
-    while (std::getline(file, line))
-    {
-        lines.push_back(line);
+Player* Save::loadPlayer(std::string path, std::string player){
+    if (path != "") {
+        // Read the JSON file
+        QFile file(QString::fromStdString(path));
+        if (file.open(QIODevice::ReadOnly)) {
+            // Load the JSON document
+            QByteArray jsonData = file.readAll();
+            QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
+
+            if (!jsonDoc.isNull()) {
+                // Retrieve values from the JSON document
+                QJsonObject jsonObject = jsonDoc.object();
+                QJsonObject PlayerInfo = jsonObject[QString::fromStdString(player)].toObject();
+                std::string name = PlayerInfo["Name"].toString().toStdString();
+                int life = std::stoi(PlayerInfo["Life"].toString().toStdString());
+                std::string leaderCode =PlayerInfo["Leader"].toString().toStdString();
+                int donListSize = std::stoi(PlayerInfo["DonNumber"].toString().toStdString());
+                int donactive = std::stoi(PlayerInfo["ActiveDon"].toString().toStdString());
+                std::string stage = PlayerInfo["Stage"].toString().toStdString();
+                std::vector<std::string> handCodes;
+                std::vector<std::string> groundCodes;
+                std::vector<std::string> graveyardCodes;
+                std::vector<std::string> deckCodes;
+                QJsonArray jsonArray;
+                jsonArray = PlayerInfo["Hand"].toArray();
+                for (const QJsonValue& value : jsonArray) {
+                    // Check if the element is a string
+                    if (value.isString())
+                        handCodes.push_back(value.toString().toStdString());
+                }
+                jsonArray = PlayerInfo["Ground"].toArray();
+                for (const QJsonValue& value : jsonArray) {
+                    // Check if the element is a string
+                    if (value.isString())
+                        groundCodes.push_back(value.toString().toStdString());
+                }
+                jsonArray = PlayerInfo["Graveyard"].toArray();
+                for (const QJsonValue& value : jsonArray) {
+                    // Check if the element is a string
+                    if (value.isString())
+                        graveyardCodes.push_back(value.toString().toStdString());
+                }
+                jsonArray = PlayerInfo["Deck"].toArray();
+                for (const QJsonValue& value : jsonArray) {
+                    // Check if the element is a string
+                    if (value.isString())
+                        deckCodes.push_back(value.toString().toStdString());
+                }
+                Debug::LogEnv("making player");
+                for(auto s: groundCodes){
+                    Debug::LogInfo(s);
+                }
+                return new Player(name, life, leaderCode, donListSize, donactive, handCodes, groundCodes, graveyardCodes, stage, deckCodes);
+            } else {
+                qDebug() << "Failed to parse JSON document.";
+            }
+        } else {
+            qDebug() << "Failed to open JSON file.";
+        }
+    } else {
+        qDebug() << "No file selected.";
     }
-    file.close();
-    return loadPlayer(lines);
+    return NULL;
 }
 
-Enums::State Save::loadState(std::string _path){
-    std::ifstream file;
-    file.open(_path);
-    std::string line;
-    while (std::getline(file, line) && line.compare("-GameStatus-") != 0)
-    {   }
-    std::getline(file, line);
-    return EnumsHelper::getState(line);
+Enums::State Save::loadState(std::string path){
+    std::string state;
+    if (path != "") {
+        // Read the JSON file
+        QFile file(QString::fromStdString(path));
+        if (file.open(QIODevice::ReadOnly)) {
+            // Load the JSON document
+            QByteArray jsonData = file.readAll();
+            QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
+            if (!jsonDoc.isNull()) {
+                QJsonObject jsonObject = jsonDoc.object();
+                state = jsonObject["GameStatus"].toString().toStdString();
+            } else {
+                qDebug() << "Failed to parse JSON document.";
+            }
+        } else {
+            qDebug() << "Failed to open JSON file.";
+        }
+    } else {
+        qDebug() << "No file selected.";
+    }
+    return EnumsHelper::getState(state);
 }
 
-std::string Save::loadCurrentPlayer(std::string _path){
-    std::ifstream file;
-    file.open(_path);
-    std::string line;
-    while (std::getline(file, line) && line.compare("-CurrentPlayer-") != 0)
-    {   }
-    std::getline(file, line);
-    return (line);
+std::string Save::loadCurrentPlayer(std::string path){
+    std::string player;
+    if (path != "") {
+        // Read the JSON file
+        QFile file(QString::fromStdString(path));
+        if (file.open(QIODevice::ReadOnly)) {
+            // Load the JSON document
+            QByteArray jsonData = file.readAll();
+            QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
+            if (!jsonDoc.isNull()) {
+                QJsonObject jsonObject = jsonDoc.object();
+                player = jsonObject["CurrentPlayer"].toString().toStdString();
+            } else {
+                qDebug() << "Failed to parse JSON document.";
+            }
+        } else {
+            qDebug() << "Failed to open JSON file.";
+        }
+    } else {
+        qDebug() << "No file selected.";
+    }
+    return player;
 }

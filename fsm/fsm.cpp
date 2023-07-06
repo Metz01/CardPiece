@@ -103,6 +103,12 @@ bool FSM::selectCardRequest(Card* selectedCard)
             ApiLogic::playCard(_currentPlayer, selectedCard, isPlayedFromHand);
             _currentState = *isPlayedFromHand ? Enums::State::SelectCard : Enums::State::SelectEnemyCard;
 
+            if(_currentState == Enums::State::SelectEnemyCard && !selectedCard->isActive()){
+                Debug::LogError("Tried to attack with a rested card");
+                _currentState = Enums::State::SelectCard;
+                return false;
+            }
+
             Debug::LogDebug("This card was " + (std::string)(*isPlayedFromHand ? " played by hand" : " an enemy that has been selected"));
             
             return true;

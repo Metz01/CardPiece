@@ -153,9 +153,9 @@ Player* ApiLogic::loadPlayer(std::string path, int playerNumber)
     Debug::LogEnv("ApiLogic::loadPlayer");
     switch (playerNumber){
     case 1:
-        return Save::loadPlayer1(path);
+        return Save::loadPlayer(path, "Player1");
     case 2:
-        return Save::loadPlayer2(path);
+        return Save::loadPlayer(path, "Player2");
     default:
         Debug::LogError("ApiLogic::loadPlayer - Invalid Player Number");
         return NULL;

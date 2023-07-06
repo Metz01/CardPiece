@@ -116,8 +116,8 @@ void LobbyWindow::loadGameWindow()
     std::string path = filePath.toStdString();
     if(path == "") return;
     DatabaseHelper();
-    Player *p1 = Save::loadPlayer1(path);;
-    Player *p2 = Save::loadPlayer2(path);;
+    Player *p1 = Save::loadPlayer(path, "Player1");;
+    Player *p2 = Save::loadPlayer(path, "Player2");;
     ApiLogic(p1, p2);
     if(Save::loadCurrentPlayer(path) == p1->getName())
         FSM fsm(p1, Save::loadState(path));

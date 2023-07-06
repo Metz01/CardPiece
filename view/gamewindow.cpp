@@ -18,7 +18,7 @@ GameWindow::GameWindow(Player* player1, Player* player2, QWidget *parent)
     QAction* save_as = new QAction("Save Game as...", this);
     QAction* open_rules = new QAction("Open Rules", this);
 
-    std::string path = "./assets/saves";
+    std::string path = "/assets/saves";
 
     connect(save, &QAction::triggered, this, [path, this]{GameWindow::saveGame();});
     connect(open_rules, &QAction::triggered, this, GameWindow::showRules);
@@ -93,7 +93,7 @@ void GameWindow::showEndGame(Player *player)
     dialog = new QDialog();
     dialog->setWindowTitle("EndGame");
 
-    QLabel* textLabel = new QLabel(QString::fromStdString(player->getName() + " WINS!"));
+    QLabel* textLabel = new QLabel(QString::fromStdString(FSM::getCurrentPlayer()->getName() + " WINS!"));
     textLabel->setAlignment(Qt::AlignCenter);
 
     QPushButton* newGameButton = new QPushButton("New Game");

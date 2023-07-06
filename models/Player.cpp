@@ -12,6 +12,9 @@ Player::Player(std::string path, std::string name) : deck(Deck(path)), hand(std:
     this->activeDon = 0;
     this->leader = dynamic_cast<Leader *>(DatabaseHelper::selectJSonCard(getLeaderCodeFromDeck()));
     this->life = leader->getLife();
+    for(int i = 0; i < 5; i++){
+        hand.push_back(DatabaseHelper::selectJSonCard(deck.drawCard()));
+    }
     Debug::LogEnv("Player::Player setrupped");
 }
 
@@ -30,17 +33,22 @@ Player::Player(std::string name, int life, std::string leaderCode, int donNumber
     this->activeDon = donNumber;
     if(stage != "0") this->stage = DatabaseHelper::selectJSonCard(stage);
     else this->stage = NULL;
-    size_t tokenPosition = leaderCode.find("-");
-    this->leader = dynamic_cast<Leader *>(DatabaseHelper::selectJSonCard(leaderCode.substr(0, tokenPosition)));
-    dynamic_cast<Attacker*>(leader)->buffAttack(std::stoi(leaderCode.substr(tokenPosition + std::string("-").length())));
+    std::string buffToken = "-";
+    std::string activeToken = "+";
+    size_t tokenPositionBuff = leaderCode.find(buffToken);
+    size_t tokenPositionActive = leaderCode.find(activeToken);
+    this->leader = dynamic_cast<Leader *>(DatabaseHelper::selectJSonCard(leaderCode.substr(0, tokenPositionBuff)));
+    (leader)->buffAttack(std::stoi(leaderCode.substr(tokenPositionBuff + std::string(buffToken).length(), tokenPositionActive)));
+    if(leaderCode.substr(tokenPositionActive + std::string(activeToken).length()) == "0") leader->restCard();
     for (std::string code : handCode)
     {
         hand.push_back(DatabaseHelper::selectJSonCard(code));
     }
     for (std::string code : groundCode)
     {
-        ground.push_back(DatabaseHelper::selectJSonCard(code.substr(0, tokenPosition)));
-        dynamic_cast<Attacker*>(ground.back())->buffAttack(std::stoi(code.substr(tokenPosition + std::string("-").length())));
+        ground.push_back(DatabaseHelper::selectJSonCard(code.substr(0, tokenPositionBuff)));
+        dynamic_cast<Attacker*>(ground.back())->buffAttack(std::stoi(code.substr(tokenPositionBuff + std::string(buffToken).length(), tokenPositionActive)));
+        if(code.substr(tokenPositionActive + std::string(activeToken).length()) == "0") ground.back()->restCard();
     }
     for (std::string code : graveCode)
     {

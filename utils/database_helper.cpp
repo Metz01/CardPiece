@@ -31,12 +31,12 @@ DatabaseHelper::DatabaseHelper() {
     }
 }
 
-QJsonObject DatabaseHelper::getCardInfo(std::string cardCode){
-    Debug::LogDebug(cardCode);
+QJsonObject DatabaseHelper::getJsonInfo(std::string code){
+    Debug::LogDebug(code);
     QJsonObject jsonObj = database.object();
 
-    QJsonObject cardInfoJson = JsonParser::jsonKeytoJsonObject(jsonObj, cardCode);
-    QJsonDocument doc(jsonObj);
+    QJsonObject cardInfoJson = JsonParser::jsonKeytoJsonObject(jsonObj, code);
+    //QJsonDocument doc(jsonObj);
 //    QString jsonString = doc.toJson(QJsonDocument::Indented);
 //    qDebug() << jsonString.toStdString().c_str();
     return cardInfoJson;
@@ -50,7 +50,7 @@ Card* DatabaseHelper::selectJSonCard(std::string cardCode){
 
     Debug::LogEnv("DatabaseHelper::selectJSonCard " + cardCode);
     
-    QJsonObject cardInfoJson = getCardInfo(cardCode);
+    QJsonObject cardInfoJson = getJsonInfo(cardCode);
     QJsonValue type = cardInfoJson.value(QString("type"));
 
     int cardType = (type.toString().toInt());
