@@ -29,6 +29,7 @@ namespace Utils{
                 int life;
                 char code[30];
                 int buff;
+                int counter;
             } value;
     
 

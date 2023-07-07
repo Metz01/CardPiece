@@ -77,7 +77,8 @@ bool FSM::selectCardRequest(Card* selectedCard)
     // Assert State
     if (_currentState == Enums::State::SelectCard)
     {
-        _bufferCard[0] = selectedCard;
+        if(_bufferCard.size() >= 1) _bufferCard[0] = selectedCard;
+        else _bufferCard.push_back(selectedCard);
         if (ApiLogic::whoseCard(selectedCard) != _currentPlayer)
         {
             Debug::LogError("Tried to Select a Card, but the card is not yours");
@@ -133,6 +134,7 @@ bool FSM::selectCardRequest(Card* selectedCard)
     }
     else if(_currentState == Enums::State::SelectEnemyCard)
     {
+        _bufferCard[1] = selectedCard;
         FSM::selectEnemyCardRequest(_bufferCard[0], selectedCard);
     }
     else if (_currentState == Enums::State::AttachDon)
@@ -260,6 +262,7 @@ bool FSM::useCounterRequest(Card * defender, Card * counter)
         Attacker* def = dynamic_cast<Attacker*>(defender);
         def->buffAttack(buff);
         _buffCounter += buff;
+        ApiLogic::getOpponent(_currentPlayer)->discardCard(counter);
     }
     return true;
 
@@ -269,6 +272,7 @@ bool FSM::battleRequest(Card* attacker, Card* defender){
     if(_currentState == Enums::CounterPhase)
     ApiLogic::attackCard(attacker, defender, _currentPlayer);
     if(_buffCounter != 0) dynamic_cast<Attacker*>(defender)->buffAttack(-_buffCounter);
+    _buffCounter = 0;
     if(ApiLogic::getOpponent(_currentPlayer)->getLife() == 0)
     {
     FSM::endGameRequest();

@@ -26,6 +26,7 @@ public:
     void clearLayouts(QHBoxLayout* layout);
     void updateGui(bool = false);
     void changePlayerTextColor();
+    void showCounterButton();
 
     ~PlayerArea();
 signals:
@@ -43,12 +44,14 @@ private:
     QLabel* playerIndicator = new QLabel();
     QLabel* lifesText = new QLabel();
     QHBoxLayout* stageLayout = new QHBoxLayout();
+    QPushButton* counterButton;
 
 
 public slots:
     void deckButtonPressed();
     void donButtonPressed();
     void cardButtonPressed(CardView*);
+    void counterButtonPressed();
 
 };
 

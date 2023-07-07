@@ -34,7 +34,7 @@ PlayerArea::PlayerArea(Player* player, QWidget *parent)
     // Setting FixedSize for groundLayout
     QWidget* groundContainer = new QWidget();
     groundLayout->setParent(groundContainer);
-    groundContainer->setFixedSize(500, 100);
+    groundContainer->setFixedSize(500, 90);
     groundContainer->setLayout(groundLayout);
 
     // Setting the alignments for ground and hand
@@ -44,8 +44,20 @@ PlayerArea::PlayerArea(Player* player, QWidget *parent)
     // Setting a fixed size for handLayout
     QWidget* handContainer = new QWidget();
     handLayout->setParent(handContainer);
-    handContainer->setFixedSize(500, 90);
+    handContainer->setFixedSize(640, 90);
     handContainer->setLayout(handLayout);
+
+    // Counter Button
+    QHBoxLayout* counterLayout = new QHBoxLayout();
+    counterButton = new QPushButton("END COUNTER");
+    counterButton->setFixedSize(90,30);
+    counterButton->setHidden(true);
+    counterLayout->addWidget(counterButton);
+
+    QHBoxLayout *HCLayout = new QHBoxLayout();
+    HCLayout->addWidget(handContainer);
+    HCLayout->addLayout(counterLayout);
+    HCLayout->setAlignment(Qt::AlignLeft);
 
     // Adding the various layouts to the fieldLayout
     fieldLayout->addLayout(leaderLayout);
@@ -54,7 +66,7 @@ PlayerArea::PlayerArea(Player* player, QWidget *parent)
     fieldLayout->setAlignment(Qt::AlignLeft);
 
     leftLayout->addLayout(fieldLayout);
-    leftLayout->addWidget(handContainer);
+    leftLayout->addLayout(HCLayout);
 
     QPushButton* deck = new QPushButton();
     QPixmap imageDeck("./assets/CardBackRegular.png");
@@ -100,6 +112,7 @@ PlayerArea::PlayerArea(Player* player, QWidget *parent)
     // Connections
     connect(deck, &QPushButton::clicked, this, &PlayerArea::deckButtonPressed);
     connect(donDeck, &QPushButton::clicked, this, &PlayerArea::donButtonPressed);
+    connect(counterButton, &QPushButton::clicked, this, &PlayerArea::counterButtonPressed);
 }
 
 PlayerArea::~PlayerArea()
@@ -176,6 +189,11 @@ void PlayerArea::changePlayerTextColor()
     }
 }
 
+void PlayerArea::showCounterButton()
+{
+    counterButton->setHidden(false);
+}
+
 void PlayerArea::deckButtonPressed()
 {
     Card* newCard = FSM::drawCardRequest(player);
@@ -249,6 +267,11 @@ void PlayerArea::cardButtonPressed(CardView* cardview)
     if(FSM::getCurrentState() == Enums::SelectEnemyCard && cardview->getCard() == player->getLeader()){
         PlayerArea::displayLeader(player->getLeader(), true);
     }
+    if(FSM::getCurrentState() == Enums::State::CounterPhase)
+    {
+        showCounterButton();
+        return;
+    }
     if(FSM::getCurrentState() == Enums::State::EndGame)
     {
         GameWindow::showEndGame();
@@ -256,4 +279,12 @@ void PlayerArea::cardButtonPressed(CardView* cardview)
     }
     GameWindow::updateOpponent(this);
 
+}
+
+void PlayerArea::counterButtonPressed()
+{
+    FSM::battleRequest();
+    counterButton->setHidden(true);
+    updateGui();
+    GameWindow::updateGameStatus();
 }

@@ -11,11 +11,12 @@ class Character: public Attacker, public PlayableCard
 private:
     int counter;
 public:
-    Character(std::string, std::string, std::string, Enums::Colors, int, int);
+    Character(std::string, std::string, std::string, Enums::Colors, int, int,int);
     Character(QJsonObject Json, std::string cardCode);
     ~Character();
     Enums::CardType getCardType() const;
     Utils::CardInfo* getCardInfo(Enums::InfoAttribute attribute) const;
+    int getCounter() const;
 };
 
 #endif

@@ -17,7 +17,8 @@ namespace Enums{
         UseCard=4,
         SelectEnemyCard=5,
         AttachDon=6,
-        EndGame=7
+        CounterPhase=7,
+        EndGame=8
     };
 
     enum InfoAttribute{

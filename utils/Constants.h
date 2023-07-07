@@ -9,6 +9,7 @@
 #define JSON_NAME std::string("name")
 #define JSON_ATTACK std::string("attack")
 #define JSON_LIFE std::string("life")
+#define JSON_COUNTER std::string("counter")
 #define JSON_TYPE std::string("type")
 #define JSON_EFFECT std::string("description")
 #define JSON_BUFF std::string("buff")
