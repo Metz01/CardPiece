@@ -60,7 +60,6 @@ Card* ApiLogic::playCard(Player* player, Card* card, bool* isFromHand)
     if(player->hasOnHand(card)){
         Debug::LogInfo("ApiLogic::playCard Card On Hand");
         bool isCharacter = (card->getCardInfo(Enums::InfoAttribute::Type)->value.type) == Enums::CardType::character;
-        Debug::LogInfo("ApiLogic::playCard isCharacter: " + std::to_string(isCharacter));
         if(isCharacter){
             player->playCard(card);
             // _currentState = Enums::State::SelectCard;
@@ -94,7 +93,6 @@ bool ApiLogic::attackCard(Card* attacker, Card* defender, Player* currentPlayer)
         return false;
     }
     if(!attacker->isActive()){
-        Debug::LogInfo(std::to_string(attacker->isActive()));
         Debug::LogError("Tried to attack with a rested card");
         return false;
     }

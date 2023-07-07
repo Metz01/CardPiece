@@ -129,7 +129,6 @@ void PlayerArea::displayStage(Card *stage)
 {
     Debug::LogEnv("PlayerArea::displayStage");
     if(!stage){
-        Debug::LogInfo("No stage found in playerArea");
         return;
     }
     clearLayouts(stageLayout);
@@ -252,7 +251,7 @@ void PlayerArea::cardButtonPressed(CardView* cardview)
     }
     if(FSM::getCurrentState() == Enums::State::EndGame)
     {
-        GameWindow::showEndGame(player);
+        GameWindow::showEndGame();
         return;
     }
     GameWindow::updateOpponent(this);

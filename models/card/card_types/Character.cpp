@@ -23,3 +23,8 @@ Enums::CardType Character::getCardType() const{
 Utils::CardInfo* Character::getCardInfo(Enums::InfoAttribute attribute) const{
     return new Utils::CardInfo(attribute, this);
 }
+
+int Character::getCounter() const
+{
+    return this->counter;
+}

@@ -81,7 +81,6 @@ bool DatabaseHelper::isLeader(std::string cardCode){
     QJsonObject cardInfoJson = JsonParser::jsonKeytoJsonObject(jsonObj, cardCode);
     QJsonValue type = cardInfoJson.value(QString("type"));
     int cardType = (type.toString().toInt());
-    Debug::LogInfo(std::to_string(cardType));
     if(cardType == Enums::leader){
         return true;
     }else{

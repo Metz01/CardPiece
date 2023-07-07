@@ -9,10 +9,8 @@
 #include <QLabel>
 #include <QDialog>
 
-#include "./fsm/api/api_logic.h"
 #include "./models/Player.h"
 #include "./view/playerarea.h"
-#include "./view/ruleswindow.h"
 
 class LobbyWindow;
 
@@ -29,7 +27,7 @@ public:
     static void updateOpponent(PlayerArea* myPlayerArea);
     static PlayerArea* player1Area;
     static PlayerArea* player2Area;
-    static void showEndGame(Player*);
+    static void showEndGame();
     static GameWindow* game;
     void saveGame(std::string path = "/assets/saves");
     static void showRules();

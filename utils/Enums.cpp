@@ -30,6 +30,7 @@ std::string EnumsHelper::ToString(Enums::State state){
         case Enums::UseCard: return "UseCard";
         case Enums::SelectEnemyCard: return "SelectEnemyCard";
         case Enums::AttachDon: return "AttachDon";
+        case Enums::CounterPhase: return "CounterSelect";
         case Enums::EndGame: return "EndGame";
         default:      return "[Unknown State]";
     }
@@ -61,6 +62,7 @@ Enums::State EnumsHelper::getState(std::string state){
     if(state == "UseCard") return Enums::UseCard;
     if(state == "SelectEnemyCard") return Enums::SelectEnemyCard;
     if(state == "AttachDon") return Enums::AttachDon;
+    if(state == "CounterSelect") return Enums::CounterPhase;
     if(state == "EndGame") return Enums::EndGame;
     return Enums::SelectCard;
 
@@ -81,6 +83,7 @@ std::string EnumsHelper::getAttributeName(Enums::InfoAttribute type){
         case Enums::ArtPath: return "ArtPath";
         case Enums::Life: return "Life";
         case Enums::Code: return "Code";
+        case Enums::Counter: return "Code";
         default:      return "[Unknown Attribute]";
     }
 }

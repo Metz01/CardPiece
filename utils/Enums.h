@@ -30,7 +30,8 @@ namespace Enums{
         ArtPath=7,
         Life=8,
         Code=9,
-        Buff=10
+        Buff=10,
+        Counter=11
     };
 }
 

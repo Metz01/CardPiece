@@ -1,5 +1,6 @@
 #include "gamewindow.h"
 #include "lobbywindow.h"
+#include "view/ruleswindow.h"
 #include <QFrame>
 #include <QVBoxLayout>
 
@@ -86,7 +87,7 @@ void GameWindow::updateOpponent(PlayerArea* myPlayerArea)
     }
 }
 
-void GameWindow::showEndGame(Player *player)
+void GameWindow::showEndGame()
 {
     dialog = new QDialog();
     dialog->setWindowTitle("EndGame");

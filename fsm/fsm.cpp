@@ -6,7 +6,8 @@
 Enums::State FSM::_currentState = Enums::State::Draw;
 Player *FSM::_currentPlayer = NULL;
 int FSM::_turnsPlayed = 0;
-Card *FSM::_buffedCard = NULL;
+std::vector<Card *>FSM::_bufferCard = std::vector<Card *>();
+int FSM::_buffCounter = 0;
 
 FSM::FSM(Player *starterPlayer, int turn, Enums::State state)
 {
@@ -76,7 +77,7 @@ bool FSM::selectCardRequest(Card* selectedCard)
     // Assert State
     if (_currentState == Enums::State::SelectCard)
     {
-        _buffedCard = selectedCard;
+        _bufferCard[0] = selectedCard;
         if (ApiLogic::whoseCard(selectedCard) != _currentPlayer)
         {
             Debug::LogError("Tried to Select a Card, but the card is not yours");
@@ -132,15 +133,20 @@ bool FSM::selectCardRequest(Card* selectedCard)
     }
     else if(_currentState == Enums::State::SelectEnemyCard)
     {
-        FSM::selectEnemyCardRequest(_buffedCard, selectedCard);
+        FSM::selectEnemyCardRequest(_bufferCard[0], selectedCard);
     }
     else if (_currentState == Enums::State::AttachDon)
     {
-        FSM::attachDonRequest(selectedCard, dynamic_cast<Don*>(_buffedCard));
+        FSM::attachDonRequest(selectedCard, dynamic_cast<Don*>(_bufferCard[0]));
     }
     else if (_currentState == Enums::State::UseCard)
     {
-        FSM::useCardRequest(_buffedCard, selectedCard);
+        FSM::useCardRequest(_bufferCard[0], selectedCard);
+    }
+    else if (_currentState == Enums::CounterPhase){
+        if(selectedCard->getCardType() == Enums::character)
+            FSM::useCounterRequest(_bufferCard[1], selectedCard);
+        else Debug::LogWarning("Tried to Select a Card, but it's not a counter");
     }
     else
     {
@@ -193,14 +199,8 @@ bool FSM::selectEnemyCardRequest(Card* selectedCard, Card* selectedEnemyCard)
         return false;
     }
 
-    ApiLogic::attackCard(selectedCard, selectedEnemyCard, _currentPlayer);
 
-    if(ApiLogic::getOpponent(_currentPlayer)->getLife() == 0)
-    {
-        FSM::endGameRequest();
-    } else{
-        _currentState = Enums::State::SelectCard;
-    }
+    FSM::_currentState = Enums::CounterPhase;
 
     return false;
 }
@@ -251,6 +251,31 @@ bool FSM::useCardRequest(Card* cardToUse, Card* cardToUseOn)
     _currentState = Enums::State::SelectCard;
 
     return false;
+}
+
+bool FSM::useCounterRequest(Card * defender, Card * counter)
+{
+    if(counter){
+        int buff = counter->getCardInfo(Enums::Counter)->value.counter;
+        Attacker* def = dynamic_cast<Attacker*>(defender);
+        def->buffAttack(buff);
+        _buffCounter += buff;
+    }
+    return true;
+
+}
+
+bool FSM::battleRequest(Card* attacker, Card* defender){
+    if(_currentState == Enums::CounterPhase)
+    ApiLogic::attackCard(attacker, defender, _currentPlayer);
+    if(_buffCounter != 0) dynamic_cast<Attacker*>(defender)->buffAttack(-_buffCounter);
+    if(ApiLogic::getOpponent(_currentPlayer)->getLife() == 0)
+    {
+    FSM::endGameRequest();
+    } else{
+    _currentState = Enums::State::SelectCard;
+    }
+    return true;
 }
 
 bool FSM::endTurnRequest()

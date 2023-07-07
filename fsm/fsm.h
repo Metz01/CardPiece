@@ -13,7 +13,8 @@ private:
     static Enums::State _currentState;
     static Player *_currentPlayer;
     static int _turnsPlayed;
-    static Card *_buffedCard;
+    static std::vector<Card *>_bufferCard;
+    static int _buffCounter;
 
 public:
     FSM(Player *starterPlayer,int turn = 0, Enums::State state = Enums::State::Draw);
@@ -23,6 +24,8 @@ public:
     static bool attachDonRequest(Card* selectedCard, Don* selectedDon);
     static bool selectEnemyCardRequest(Card* selectedCard, Card* selectedEnemyCard);
     static bool useCardRequest(Card* cardToUse, Card* cardToUseOn = NULL);
+    static bool useCounterRequest(Card* defender, Card* counter = NULL);
+    static bool battleRequest(Card* attacker = _bufferCard[0], Card* defender = _bufferCard[1]);
     static bool endTurnRequest();
     static Player* getCurrentPlayer();
     static int getCurrentTurn();

@@ -30,6 +30,8 @@ Utils::CardInfo::CardInfo(Enums::InfoAttribute attribut, Character const* card){
     case Enums::Buff:
         value.buff = card->getBuff();
         break;
+    case Enums::Counter:
+        value.counter = card->getCounter();
     default:
         break;
     }
