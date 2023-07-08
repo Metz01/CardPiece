@@ -41,5 +41,21 @@
         <file>assets/Cards/ST01-001.png</file>
         <file>assets/Cards/ST02-001.png</file>
         <file>assets/Cards/ST02-006.png</file>
+        <file>assets/Cards/OP02-048.png</file>
+        <file>assets/Cards/OP02-070.png</file>
+        <file>assets/Cards/ST01-017.png</file>
+        <file>assets/Cards/ST04-017.png</file>
+        <file>assets/deck/BROKENdeck.txt</file>
+        <file>assets/deck/deckBLUE.txt</file>
+        <file>assets/deck/deckGREEN.txt</file>
+        <file>assets/deck/deckPURPLE.txt</file>
+        <file>assets/deck/deckRED.txt</file>
+        <file>assets/saves/test1</file>
+        <file>assets/saves/test1.txt</file>
+        <file>assets/cardDB.csv</file>
+        <file>assets/counterrules_image.png</file>
+        <file>assets/icon.png</file>
+        <file>assets/rules.txt</file>
+        <file>assets/rules_image.png</file>
     </qresource>
 </RCC>
