@@ -98,3 +98,4 @@
 <p>&nbsp;</p>
 <p><span style="font-size:16px;"><strong>Winning Condition</strong></span></p>
 <p>If one of the two Players&rsquo; successfully attacks the Opponent&rsquo;s <em>Leader</em> making his life count reach zero, the game is set and the attacking Player wins. A pop-up window will appear asking for starting another game or simply close the app.</p>
+<p>Another possible way of finishing the game is if <em>PlayerA</em> finishes the cards in his Deck: in this case, <em>PlayerB</em> wins the game.</p>
