@@ -87,7 +87,7 @@ void GameWindow::updateOpponent(PlayerArea* myPlayerArea)
     }
 }
 
-void GameWindow::showEndGame()
+void GameWindow::showEndGame(std::string player)
 {
     dialog = new QDialog();
     dialog->setWindowTitle("EndGame");
@@ -95,7 +95,7 @@ void GameWindow::showEndGame()
     flags &= ~Qt::WindowCloseButtonHint;
     dialog->setWindowFlags(flags);
 
-    QLabel* textLabel = new QLabel(QString::fromStdString(FSM::getCurrentPlayer()->getName() + " WINS!"));
+    QLabel* textLabel = new QLabel(QString::fromStdString(player + " WINS!"));
     textLabel->setAlignment(Qt::AlignCenter);
 
     QPushButton* newGameButton = new QPushButton("New Game");

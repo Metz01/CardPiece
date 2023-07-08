@@ -88,7 +88,10 @@ Card *Player::drawCard()
 {
     Debug::LogEnv("Player::drawCard");
     std::string cardCode = deck.drawCard();
-    if(cardCode == END_OF_DECK) Debug::LogError("End of deck");
+    if(cardCode == END_OF_DECK){
+        Debug::LogError("End of deck");
+        return NULL;
+    }
     Card *drewCard = DatabaseHelper::selectJSonCard(cardCode);
     hand.push_back(drewCard);
     return drewCard;
@@ -337,6 +340,7 @@ void Player::setStage(Card* stage)
     Card* prev = this->stage;
     Debug::LogEnv("Player::setStage " + stage->getName());
     this->stage = stage;
+    if(prev) graveyard.push_back(stage);
     hand.erase(std::remove(hand.begin(), hand.end(), stage), hand.end());
     if(!prev) useStage();
 }

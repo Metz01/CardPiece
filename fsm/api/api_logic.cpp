@@ -225,11 +225,11 @@ bool ApiLogic::checkCardVectorIntegrity(std::vector<Card*> list){
     return true;
 }
 
-bool ApiLogic::checkPlayerIntegrity(Player* player)
+bool ApiLogic::checkPlayerIntegrity(Player* player, bool isLoaded)
 {
     Debug::LogEnv("ApiLogic::checkPlayerIntegrity");
     if(player == NULL) return false;
-    if(!player->getDeck()->checkDeckIntegrity() ) return false;
+    if(!player->getDeck()->checkDeckIntegrity(isLoaded)) return false;
     if(player->getLeader() == NULL) return false;
     if(player->getName() == "") return false;
     if(player->getLife() <= 0) return false;
@@ -238,4 +238,9 @@ bool ApiLogic::checkPlayerIntegrity(Player* player)
     if(!ApiLogic::checkCardVectorIntegrity(player->getGraveyard())) return false;
     Debug::LogInfo("Player integer");
     return true;
+}
+
+Card* ApiLogic::getLastGrave(Player* player){
+    if(player->getGraveyard().empty()) return NULL;
+    return player->getGraveyard().back();
 }

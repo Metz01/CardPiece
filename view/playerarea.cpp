@@ -76,7 +76,7 @@ PlayerArea::PlayerArea(Player* player, QWidget *parent)
     QIcon deckIcon(imageDeck);
     deck->setIcon(deckIcon);
     deck->setIconSize(CARD_SIZE);
-    QPushButton* graveyard = new QPushButton();
+    graveyard = new QPushButton();
     QPixmap imageGraveyard("./assets/Cards/EmptyCard.png");
     QIcon graveyardIcon(imageGraveyard);
     graveyard->setIcon(graveyardIcon);
@@ -127,6 +127,7 @@ PlayerArea::~PlayerArea()
     delete PlayerArea::playerIndicator;
     delete PlayerArea::lifesText;
     delete PlayerArea::counterButton;
+    delete PlayerArea::graveyard;
 }
 
 void PlayerArea::displayLeader(Leader *leader, bool rotate)
@@ -141,6 +142,15 @@ void PlayerArea::displayLeader(Leader *leader, bool rotate)
     }
     connect(cardView, &QPushButton::clicked, this, [cardView, this](){PlayerArea::cardButtonPressed(cardView);});
 }
+
+void PlayerArea::displayGraveyard(){
+    Card* toDisplay = ApiLogic::getLastGrave(player);
+    if(!toDisplay) return;
+    QPixmap imageGraveyard(QString::fromStdString(toDisplay->getArtPath()));
+    QIcon graveyardIcon(imageGraveyard);
+    graveyard->setIcon(graveyardIcon);
+}
+
 
 void PlayerArea::displayStage(Card *stage)
 {
@@ -175,11 +185,13 @@ void PlayerArea::updateGui(bool changeTurn)
     displayGround(player->getGround());
     displayHand(player->getHand());
     displayStage(player->getStage());
+    displayGraveyard();
     int dons = ApiLogic::getAvailableDon(player);
     donText->setText("ACTIVE DON : " + QString::number(dons));
     std::string lifeString = std::to_string(player->getLife());
     lifesText->setText(QString::fromStdString("-  LIFES: " + lifeString));
     if(changeTurn) changePlayerTextColor();
+
 }
 
 void PlayerArea::changePlayerTextColor()
@@ -202,7 +214,10 @@ void PlayerArea::showCounterButton()
 void PlayerArea::deckButtonPressed()
 {
     Card* newCard = FSM::drawCardRequest(player);
-    if(!newCard) return;
+    if(!newCard){
+        GameWindow::showEndGame(ApiLogic::getOpponent(player)->getName());
+        return;
+    }
     CardView* newCardView = new CardView(newCard, CARD_SIZE);
     handLayout->addWidget(newCardView);
     connect(newCardView, &QPushButton::clicked, this, [newCardView, this](){PlayerArea::cardButtonPressed(newCardView);});

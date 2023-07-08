@@ -68,8 +68,10 @@ void Deck::printDeck() const
     cards->print();
 }
 
-bool Deck::checkDeckIntegrity() const
+bool Deck::checkDeckIntegrity(bool isLoaded) const
 {
+    if(cards->getSize() == 0 && !isLoaded) return false;
+    else if(cards->getSize() == 0 && isLoaded) return true;
     bool leader = false;
     Enums::Colors color = EnumsHelper::getCardColor(DatabaseHelper::cardColor(cards->getCardCode(0)));
     Debug::LogInfo(std::to_string(DatabaseHelper::cardColor(cards->getCardCode(0))));

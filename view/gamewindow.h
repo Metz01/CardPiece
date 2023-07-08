@@ -27,7 +27,7 @@ public:
     static void updateOpponent(PlayerArea* myPlayerArea);
     static PlayerArea* player1Area;
     static PlayerArea* player2Area;
-    static void showEndGame();
+    static void showEndGame(std::string player = FSM::getCurrentPlayer()->getName());
     static GameWindow* game;
     void saveGame(std::string path = "/assets/saves");
     static void showRules();

@@ -136,7 +136,7 @@ void LobbyWindow::loadGameWindow()
     DatabaseHelper();
     Player *p1 = Save::loadPlayer(path, "Player1");
     Player *p2 = Save::loadPlayer(path, "Player2");
-    if(!ApiLogic::checkPlayerIntegrity(p1) || !ApiLogic::checkPlayerIntegrity(p2))
+    if(!ApiLogic::checkPlayerIntegrity(p1, true) || !ApiLogic::checkPlayerIntegrity(p2, true))
     {
         openErrorPopUp("JSON file not correctly formatted.");
         return;

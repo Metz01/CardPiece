@@ -23,6 +23,7 @@ public:
     void displayGround(std::vector<Card*>, Card* rotateCard = nullptr);
     void displayLeader(Leader*, bool rotate = false);
     void displayStage(Card*);
+    void displayGraveyard();
     void clearLayouts(QHBoxLayout* layout);
     void updateGui(bool = false);
     void changePlayerTextColor();
@@ -45,6 +46,7 @@ private:
     QLabel* lifesText = new QLabel();
     QHBoxLayout* stageLayout = new QHBoxLayout();
     QPushButton* counterButton;
+    QPushButton* graveyard;
 
 
 public slots:

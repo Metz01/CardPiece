@@ -37,10 +37,8 @@ public:
     static bool setStageCard(Card *);
     static bool useStageCard(Player *);
     static bool checkCardVectorIntegrity(std::vector<Card*> list);
-    static bool checkPlayerIntegrity(Player *);
-    // static void selectCard();
-    // static void useCard();
-    // static void selectEnemyCard();
+    static bool checkPlayerIntegrity(Player * player, bool isLoaded = false);
+    static Card* getLastGrave(Player* player);
 };
 
 #endif

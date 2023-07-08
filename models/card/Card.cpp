@@ -4,12 +4,12 @@
 
 
 Card::Card(std::string name, std::string artPath) :
-    _artPath(artPath),
+    _artPath(std::string(CARDIMAGE_PATH) + artPath),
     _name(name),
     _active(1){};
 
 Card::Card(QJsonObject Json) : 
-    _artPath(JsonParser::jsonKeytoString(Json, JSON_ARTPATH)), 
+    _artPath(std::string(CARDIMAGE_PATH) + JsonParser::jsonKeytoString(Json, JSON_ARTPATH)),
     _name(JsonParser::jsonKeytoString(Json, JSON_NAME)),
     _active(1){}
 

@@ -35,6 +35,7 @@ Card *FSM::drawCardRequest(Player* playerRequesting)
 
     // Draw Card
     Card *card = ApiLogic::drawCard(_currentPlayer);
+    if(!card) FSM::endGameRequest();
 
     // Change State
     if(_currentPlayer->getDonList().size() == 10) _currentState = Enums::State::SelectCard;
@@ -265,6 +266,7 @@ bool FSM::useCounterRequest(Card * defender, Card * counter)
     if(counter && ApiLogic::getOpponent(_currentPlayer)->hasOnHand(counter)){
         if(ApiLogic::whoseCard(counter) == _currentPlayer) return false;
         int buff = counter->getCardInfo(Enums::Counter)->value.counter;
+        if(buff == 0) return false;
         Attacker* def = dynamic_cast<Attacker*>(defender);
         def->buffAttack(buff);
         _buffCounter += buff;
