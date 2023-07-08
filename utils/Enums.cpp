@@ -55,6 +55,21 @@ Enums::CardType EnumsHelper::getCardType(int value){
     return Enums::leader;
 }
 
+Enums::Colors EnumsHelper::getCardColor(int value){
+    std::map<int, Enums::Colors> map = {
+          {1, Enums::red},
+          {2, Enums::green},
+          {3, Enums::blue},
+          {4, Enums::purple},
+          };
+    for(auto it = map.begin(); it != map.end(); it++){
+        if(it->first == value){
+            return it->second;
+        }
+    }
+    return Enums::red;
+}
+
 Enums::State EnumsHelper::getState(std::string state){
     if(state == "Draw") return Enums::Draw;
     if(state == "DrawDon") return Enums::DrawDon;

@@ -31,6 +31,7 @@ public:
     static Card *selectJSonCard(std::string cardCode);
     static bool isLeader(std::string cardCode);
     static bool isInDataBase(std::string cardCode);
+    static int cardColor(std::string cardCode);
 };
 
 #endif

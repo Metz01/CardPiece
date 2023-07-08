@@ -50,6 +50,9 @@ PlayerArea::PlayerArea(Player* player, QWidget *parent)
     // Counter Button
     QHBoxLayout* counterLayout = new QHBoxLayout();
     counterButton = new QPushButton("END COUNTER");
+    QFont font = counterButton->font();
+    font.setPointSize(6);
+    counterButton->setFont(font);
     counterButton->setFixedSize(90,30);
     counterButton->setHidden(true);
     counterLayout->addWidget(counterButton);
@@ -69,17 +72,17 @@ PlayerArea::PlayerArea(Player* player, QWidget *parent)
     leftLayout->addLayout(HCLayout);
 
     QPushButton* deck = new QPushButton();
-    QPixmap imageDeck("./assets/CardBackRegular.png");
+    QPixmap imageDeck("./assets/Cards/CardBackRegular.png");
     QIcon deckIcon(imageDeck);
     deck->setIcon(deckIcon);
     deck->setIconSize(CARD_SIZE);
     QPushButton* graveyard = new QPushButton();
-    QPixmap imageGraveyard("./assets/EmptyCard.png");
+    QPixmap imageGraveyard("./assets/Cards/EmptyCard.png");
     QIcon graveyardIcon(imageGraveyard);
     graveyard->setIcon(graveyardIcon);
     graveyard->setIconSize(CARD_SIZE);
     QPushButton* donDeck = new QPushButton();
-    QPixmap imageDonDeck("./assets/Don.png");
+    QPixmap imageDonDeck("./assets/Cards/Don.png");
     QIcon donDeckIcon(imageDonDeck);
     donDeck->setIcon(donDeckIcon);
     donDeck->setIconSize(CARD_SIZE);
@@ -123,6 +126,7 @@ PlayerArea::~PlayerArea()
     delete PlayerArea::donText;
     delete PlayerArea::playerIndicator;
     delete PlayerArea::lifesText;
+    delete PlayerArea::counterButton;
 }
 
 void PlayerArea::displayLeader(Leader *leader, bool rotate)
@@ -191,7 +195,8 @@ void PlayerArea::changePlayerTextColor()
 
 void PlayerArea::showCounterButton()
 {
-    counterButton->setHidden(false);
+    if(player != FSM::getCurrentPlayer())
+        counterButton->setHidden(false);
 }
 
 void PlayerArea::deckButtonPressed()
@@ -259,9 +264,12 @@ void PlayerArea::cardButtonPressed(CardView* cardview)
     }else{
         FSM::selectCardRequest(cardview->getCard());
     }
+    if(FSM::getCurrentState() != Enums::State::CounterPhase)
+    this->updateGui();
+    else if (FSM::getCurrentState() == Enums::State::CounterPhase && FSM::getCurrentPlayer() != player)
     this->updateGui();
     GameWindow::updateGameStatus();
-    if(FSM::getCurrentState() == Enums::SelectEnemyCard){
+    if(FSM::getCurrentState() == Enums::SelectEnemyCard && FSM::getCurrentPlayer() == player){
         displayGround(player->getGround(), cardview->getCard());
     }
     if(FSM::getCurrentState() == Enums::SelectEnemyCard && cardview->getCard() == player->getLeader()){
@@ -286,5 +294,11 @@ void PlayerArea::counterButtonPressed()
     FSM::battleRequest();
     counterButton->setHidden(true);
     updateGui();
+    if(FSM::getCurrentState() == Enums::State::EndGame)
+    {
+        GameWindow::showEndGame();
+        return;
+    }
     GameWindow::updateGameStatus();
+    GameWindow::updateOpponent(this);
 }

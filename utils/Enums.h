@@ -43,6 +43,7 @@ class EnumsHelper{
         static Enums::CardType getCardType(int value);
         static Enums::State getState(std::string state);
         static std::string getAttributeName(Enums::InfoAttribute type);
+        static Enums::Colors getCardColor(int value);
 };
 
 #endif

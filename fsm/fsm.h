@@ -25,7 +25,7 @@ public:
     static bool selectEnemyCardRequest(Card* selectedCard, Card* selectedEnemyCard);
     static bool useCardRequest(Card* cardToUse, Card* cardToUseOn = NULL);
     static bool useCounterRequest(Card* defender, Card* counter = NULL);
-    static bool battleRequest(Card* attacker = _bufferCard[0], Card* defender = _bufferCard[1]);
+    static bool battleRequest(Card* attacker = _bufferCard[0], Card* defende = _bufferCard[1]);
     static bool endTurnRequest();
     static Player* getCurrentPlayer();
     static int getCurrentTurn();

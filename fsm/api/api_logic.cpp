@@ -13,6 +13,10 @@ ApiLogic::ApiLogic(Player *p1, Player *p2)
     player2 = p2;
 }
 
+ApiLogic::~ApiLogic()
+{
+}
+
 bool ApiLogic::setUpPlayer(Player *player)
 {
     Debug::LogEnv("ApiLogic::setUpPlayer");

@@ -6,7 +6,7 @@
 Enums::State FSM::_currentState = Enums::State::Draw;
 Player *FSM::_currentPlayer = NULL;
 int FSM::_turnsPlayed = 0;
-std::vector<Card *>FSM::_bufferCard = std::vector<Card *>();
+std::vector<Card *>FSM::_bufferCard(2);
 int FSM::_buffCounter = 0;
 
 FSM::FSM(Player *starterPlayer, int turn, Enums::State state)
@@ -77,8 +77,7 @@ bool FSM::selectCardRequest(Card* selectedCard)
     // Assert State
     if (_currentState == Enums::State::SelectCard)
     {
-        if(_bufferCard.size() >= 1) _bufferCard[0] = selectedCard;
-        else _bufferCard.push_back(selectedCard);
+        _bufferCard[0] = selectedCard;
         if (ApiLogic::whoseCard(selectedCard) != _currentPlayer)
         {
             Debug::LogError("Tried to Select a Card, but the card is not yours");
@@ -134,8 +133,13 @@ bool FSM::selectCardRequest(Card* selectedCard)
     }
     else if(_currentState == Enums::State::SelectEnemyCard)
     {
-        _bufferCard[1] = selectedCard;
-        FSM::selectEnemyCardRequest(_bufferCard[0], selectedCard);
+        if((!selectedCard->isActive()|| selectedCard->getCardType() == Enums::leader)
+            && ApiLogic::whoseCard(selectedCard) == ApiLogic::getOpponent(_currentPlayer)){
+            _bufferCard[1] = selectedCard;
+            FSM::selectEnemyCardRequest(_bufferCard[0], selectedCard);
+        }else{
+            _currentState = Enums::SelectCard;
+        }
     }
     else if (_currentState == Enums::State::AttachDon)
     {
@@ -146,6 +150,7 @@ bool FSM::selectCardRequest(Card* selectedCard)
         FSM::useCardRequest(_bufferCard[0], selectedCard);
     }
     else if (_currentState == Enums::CounterPhase){
+
         if(selectedCard->getCardType() == Enums::character)
             FSM::useCounterRequest(_bufferCard[1], selectedCard);
         else Debug::LogWarning("Tried to Select a Card, but it's not a counter");
@@ -257,7 +262,8 @@ bool FSM::useCardRequest(Card* cardToUse, Card* cardToUseOn)
 
 bool FSM::useCounterRequest(Card * defender, Card * counter)
 {
-    if(counter){
+    if(counter && ApiLogic::getOpponent(_currentPlayer)->hasOnHand(counter)){
+        if(ApiLogic::whoseCard(counter) == _currentPlayer) return false;
         int buff = counter->getCardInfo(Enums::Counter)->value.counter;
         Attacker* def = dynamic_cast<Attacker*>(defender);
         def->buffAttack(buff);

@@ -88,6 +88,14 @@ bool DatabaseHelper::isLeader(std::string cardCode){
     }
 }
 
+int DatabaseHelper::cardColor(std::string cardCode){
+    QJsonObject jsonObj = database.object();
+    QJsonObject cardInfoJson = JsonParser::jsonKeytoJsonObject(jsonObj, cardCode);
+    QJsonValue type = cardInfoJson.value(QString("color"));
+    int cardColor = (type.toString().toInt());
+    return cardColor;
+}
+
 bool DatabaseHelper::isInDataBase(std::string cardCode)
 {
     QJsonObject jsonObj = database.object();

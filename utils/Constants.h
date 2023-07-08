@@ -3,6 +3,7 @@
 
 // Percorso per il Database
 #define JSON_PATH "./assets/cardDB.json"
+#define CARDIMAGE_PATH "./assets/Cards"
 #define DECK1_PATH "./assets/deck/deck1.txt"
 
 // Proprietà del Database
