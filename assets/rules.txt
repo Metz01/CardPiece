@@ -5,7 +5,7 @@
 <p>At this point of the development, the simulator lets you play only with certain type of cards, which are:</p>
 <ul>
 <li><strong><em>Leader</em></strong>, your &ldquo;main character&rdquo;: his <strong>life count</strong> will also be yours, so when it reaches zero, it&rsquo;s game over.</li>
-<li><strong><em>Characters</em></strong>: the cards you can play and put on the <strong>Ground</strong>; they can <strong>attack</strong> other <em>rested</em> enemy Characters and your opponent&rsquo;s Leader.</li>
+<li><strong><em>Characters</em></strong>: the cards you can play and put on the <strong>Ground</strong>; they can <strong>attack</strong> other <em>rested</em> enemy Characters and your opponent&rsquo;s Leader; they can also be used as <strong>counter</strong>.</li>
 <li><strong><em>Buff</em></strong>: special type of cards that can be played and assigned to both <em>Characters</em> and <em>Leader</em>; they <strong>increase</strong> <strong>the</strong> <strong>attack</strong> of a certain amount (and for that turn only).</li>
 <li><strong><em>Stage</em></strong>: special type of cards that can be played on the Ground and that will last permanently during the game; during the turn of the Player who placed it, they give a buff of +1000 in attack to <strong>every</strong> card on the Ground.</li>
 <li><strong><em>Don</em></strong>, the &ldquo;mana&rdquo; cards: these cards are drawn from a different deck, the <strong>DonDeck</strong>, and are used as:<ul>
@@ -37,6 +37,7 @@
 <li><strong>SelectCard</strong>: select a card, that can be one of those in your hand, or on the Ground, or the <em>Leader</em>;</li>
 <li><strong>UseCard</strong>: active after you clicked on a <em>Buff</em> or <em>Stage</em> card type; the game waits for you to then click on the card you want to be affected by the effect of the firstly selected <em>Buff</em> or <em>Stage</em> card;</li>
 <li><strong>SelectEnemyCard</strong>: active after you clicked on one of your <em>Characters</em> on the Ground or on your <em>Leader</em>; the game waits for you to click on the opponent&rsquo;s card you want to attack (<em>Characters</em> on the Ground or <em>Leader</em>);</li>
+<li><strong>CounterPhase</strong>: after right after the SelectEnemyCard, indicates that the games is waiting for the player who has been attacked to select which cards use as a counter to prevent his attacked <em>Leader</em>/<em>Character</em> to lose the battle; during this phase, an EndCounter Button appears;</li>
 <li><strong>AttachDon</strong>: active after you clicked on the <strong>DonDeck</strong> button; the game waits for you to pick which one of your <em>Characters</em> on the Ground or <em>Leader</em> you want to buff using one of your available <em>Dons;</em></li>
 <li><strong>EndGame</strong>: active when one of the two <em>Leaders</em>&rsquo; life reaches zero.</li>
 </ul>
@@ -53,7 +54,9 @@
 </ul>
 </li>
 <li><strong>EndTurn Button</strong>, to click for finishing the turn and pass it to the other Player.</li>
+<li><strong>EndCounter Button</strong>, which only appears during the CounterPhase: whether the player has selected any <em>Character</em> cards to be used as counter or not, this button makes the CounterPhase and the related attack end and resolved.</li>
 </ol>
+<p><img src="./assets/counterrules_image.png" alt="Image Description" width="300" height="227"></p>
 <p>&nbsp;</p>
 <p><span style="font-size:14px;"><strong>Turn Progression</strong></span></p>
 <ul>
@@ -82,8 +85,15 @@
 <li>when defending, it is the &ldquo;defence power&rdquo; of the card.</li>
 </ul>
 </li>
-<li>An attack goes well if the &ldquo;Attack&rdquo; of the attacking card is greater or equal to the &ldquo;Attack&rdquo; of the defending card.</li>
+<ul>
+<li>An attack goes well if the &ldquo;Attack&rdquo; of the attacking card is greater or equal to the &ldquo;Attack&rdquo; of the defending card, but:<ul>
+<li>the Player who is defending from the attack can choose to select as many <em>Character</em> cards as it wants from its hand to be used as counter for the current attack, and what this does is actually adding a certain fixed amount of buff to the “defence power” of the attacked card;</li>
+<li>one the defending Player is satisfied with the renewed “defence power” of his card, it only has to press on the EndCounter Button to resolve the attack;</li>
+<li>please note that pressing the EndCounter Button is required to resolve the attack even if no counter has been used at all.</li>
+</ul>
+</li>
 <li>If a card has been buffed during <em>PlayerA</em>&rsquo;s turn, that buff disappears after clicking the EndTurn button, so during <em>PlayerB</em>&rsquo;s turn; this means that every possible increment of the &ldquo;Attack&rdquo; of a card is that only on the <em>PlayerA</em>&rsquo;s turn, and <em>it does not</em> influence is &ldquo;defence power&rdquo; when possibly attacked during <em>PlayerB</em>&rsquo;s turn.</li>
+</ul>
 </ul>
 <p>&nbsp;</p>
 <p><span style="font-size:16px;"><strong>Winning Condition</strong></span></p>
