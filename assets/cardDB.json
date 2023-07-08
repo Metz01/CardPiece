@@ -1,59 +1,593 @@
 {
+    "OP010020":{
+        "name": "Roronoa Zoro",
+        "attack": "5000",
+        "life": "5",
+        "type": "1",
+        "buff": "200",
+        "colorData":{
+            "color": "1",
+            "cardData": {
+                "name": "Roronoa Zoro",
+                "artPath": "OP01-001.png"
+            }
+        }
+    },
+
+    "ST010010":{
+        "name": "Monkey D. Luffy",
+        "attack": "5000",
+        "life": "5",
+        "type": "1",
+        "buff": "200",
+        "colorData":{
+            "color": "1",
+            "cardData": {
+                "name": "Monkey D. Luffy",
+                "artPath": "ST01-001.png"
+            }
+        }
+    },
+
     "OP010060":{
         "name": "Otama",
         "attack": "1000",
         "cost": "1",
         "type": "2",
-	"counter": "1000",
+	    "counter": "2000",
         "buff": "200",
         "colorData":{
-            "color": "2",
+            "color": "1",
             "cardData": {
                 "name": "Otama",
-                "artPath": "./assets/OP01-006.png"
+                "artPath": "OP01-006.png"
             }
         }
     },
 
-    "OP010020":{
-        "name": "Law",
-        "attack": "5000",
-        "life": "1",
-        "type": "1",
+    "OP010100":{
+        "name": "Komachiyo",
+        "attack": "3000",
+        "cost": "1",
+        "type": "2",
+	    "counter": "1000",
         "buff": "200",
         "colorData":{
-            "color": "2",
+            "color": "1",
             "cardData": {
-                "name": "Law",
-                "artPath": "./assets/OP01-002.png"
+                "name": "Komachiyo",
+                "artPath": "OP01-010.png"
+            }
+        }
+    },
+
+    "OP010120":{
+        "name": "Sai",
+        "attack": "4000",
+        "cost": "2",
+        "type": "2",
+	    "counter": "1000",
+        "buff": "200",
+        "colorData":{
+            "color": "1",
+            "cardData": {
+                "name": "Sai",
+                "artPath": "OP01-012.png"
+            }
+        }
+    },
+
+    "OP010180":{
+        "name": "Hajrudin",
+        "attack": "6000",
+        "cost": "4",
+        "type": "2",
+	    "counter": "1000",
+        "buff": "200",
+        "colorData":{
+            "color": "1",
+            "cardData": {
+                "name": "Hajrudin",
+                "artPath": "OP01-012.png"
+            }
+        }
+    },
+
+    "OP010230":{
+        "name": "Marco",
+        "attack": "5000",
+        "cost": "3",
+        "type": "2",
+	    "counter": "1000",
+        "buff": "200",
+        "colorData":{
+            "color": "1",
+            "cardData": {
+                "name": "Marco",
+                "artPath": "OP01-023.png"
+            }
+        }
+    },
+
+    "OP010260":{
+        "name": "Gum Gum Red Hawk",
+        "cost": "2",
+        "type": "3",
+        "buff": "4000",
+        "colorData":{
+            "color": "1",
+            "cardData": {
+                "name": "Gum Gum Red Hawk",
+                "artPath": "OP01-026.png"
+            }
+        }
+    },
+
+    "OP010290":{
+        "name": "Radical Beam!!",
+        "cost": "1",
+        "type": "3",
+        "buff": "2000",
+        "colorData":{
+            "color": "1",
+            "cardData": {
+                "name": "Radical Beam!!",
+                "artPath": "OP01-029.png"
             }
         }
     },
 
     "OP010300":{
-        "name": "Event",
+        "name": "In Two Years!!",
+        "cost": "1",
+        "type": "3",
+        "buff": "1000",
+        "colorData":{
+            "color": "1",
+            "cardData": {
+                "name": "Two Years",
+                "artPath": "OP01-030.png"
+            }
+        }
+    },
+
+    "ST010170":{
+        "name": "Thousand Sunny",
+        "cost": "2",
+        "type": "4",
+        "buff": "1000",
+        "colorData":{
+            "color": "1",
+            "cardData": {
+                "name": "Thousand Sunny",
+                "artPath": "ST01-017.png"
+            }
+        }
+    },
+
+    "ST020010":{
+        "name": "Eustass 'Captain' Kid",
+        "attack": "5000",
+        "life": "5",
+        "type": "1",
+        "buff": "200",
+        "colorData":{
+            "color": "2",
+            "cardData": {
+                "name": "Eustass 'Captain' Kid",
+                "artPath": "ST02-001.png"
+            }
+        }
+    },
+
+    "OP010360":{
+        "name": "Otsuru",
+        "attack": "3000",
+        "cost": "1",
+        "type": "2",
+	    "counter": "1000",
+        "buff": "200",
+        "colorData":{
+            "color": "2",
+            "cardData": {
+                "name": "Otsuru",
+                "artPath": "OP01-036.png"
+            }
+        }
+    },
+
+    "OP010430":{
+        "name": "Shinobu",
+        "attack": "5000",
+        "cost": "3",
+        "type": "2",
+	    "counter": "1000",
+        "buff": "200",
+        "colorData":{
+            "color": "2",
+            "cardData": {
+                "name": "Shinobu",
+                "artPath": "OP01-043.png"
+            }
+        }
+    },
+
+    "OP010450":{
+        "name": "Jean Bart",
+        "attack": "6000",
+        "cost": "4",
+        "type": "2",
+	    "counter": "1000",
+        "buff": "200",
+        "colorData":{
+            "color": "2",
+            "cardData": {
+                "name": "Jean Bart",
+                "artPath": "OP01-045.png"
+            }
+        }
+    },
+
+    "OP010530":{
+        "name": "Wire",
+        "attack": "4000",
+        "cost": "2",
+        "type": "2",
+	    "counter": "1000",
+        "buff": "200",
+        "colorData":{
+            "color": "2",
+            "cardData": {
+                "name": "Wire",
+                "artPath": "OP01-053.png"
+            }
+        }
+    },
+
+    "ST020060":{
+        "name": "Koby",
+        "attack": "6000",
+        "cost": "4",
+        "type": "2",
+	    "counter": "1000",
+        "buff": "200",
+        "colorData":{
+            "color": "2",
+            "cardData": {
+                "name": "Koby",
+                "artPath": "ST02-006.png"
+            }
+        }
+    },
+
+    "OP010570":{
+        "name": "Paradise Waterfall",
         "cost": "1",
         "type": "3",
         "buff": "2000",
         "colorData":{
             "color": "2",
             "cardData": {
-                "name": "Two Years",
-                "artPath": "./assets/OP01-030.png"
+                "name": "Paradise Waterfall",
+                "artPath": "OP01-057.png"
             }
         }
     },
 
-    "OP010900":{
-        "name": "Stage",
+    "OP010580":{
+        "name": "Punk Gibson",
+        "cost": "2",
+        "type": "3",
+        "buff": "4000",
+        "colorData":{
+            "color": "2",
+            "cardData": {
+                "name": "Punk Gibson",
+                "artPath": "OP01-058.png"
+            }
+        }
+    },
+
+    "OP020480":{
+        "name": "Flower Capital",
         "cost": "1",
         "type": "4",
         "buff": "1000",
         "colorData":{
             "color": "2",
             "cardData": {
-                "name": "Stage",
-                "artPath": "./assets/Don.png"
+                "name": "Flower Capital",
+                "artPath": "OP02-048.png"
+            }
+        }
+    },
+
+    "OP010600":{
+        "name": "Donquixote Doflamingo",
+        "attack": "5000",
+        "life": "5",
+        "type": "1",
+        "buff": "200",
+        "colorData":{
+            "color": "3",
+            "cardData": {
+                "name": "Donquixote Doflamingo",
+                "artPath": "OP01-060.png"
+            }
+        }
+    },
+
+    "OP010650":{
+        "name": "Vergo",
+        "attack": "7000",
+        "cost": "5",
+        "type": "2",
+	    "counter": "1000",
+        "buff": "200",
+        "colorData":{
+            "color": "3",
+            "cardData": {
+                "name": "Vergo",
+                "artPath": "OP01-065.png"
+            }
+        }
+    },
+
+    "OP010660":{
+        "name": "Krieg",
+        "attack": "6000",
+        "cost": "4",
+        "type": "2",
+	    "counter": "1000",
+        "buff": "200",
+        "colorData":{
+            "color": "3",
+            "cardData": {
+                "name": "Krieg",
+                "artPath": "OP01-066.png"
+            }
+        }
+    },
+
+    "OP010700":{
+        "name": "Dracule Mihawk",
+        "attack": "9000",
+        "cost": "9",
+        "type": "2",
+	    "counter": "0",
+        "buff": "200",
+        "colorData":{
+            "color": "3",
+            "cardData": {
+                "name": "Dracule Mihawk",
+                "artPath": "OP01-070.png"
+            }
+        }
+    },
+
+    "OP010760":{
+        "name": "Bellamy",
+        "attack": "4000",
+        "cost": "2",
+        "type": "2",
+	    "counter": "1000",
+        "buff": "200",
+        "colorData":{
+            "color": "3",
+            "cardData": {
+                "name": "Bellamy",
+                "artPath": "OP01-076.png"
+            }
+        }
+    },
+
+    "OP010810":{
+        "name": "Mocha",
+        "attack": "5000",
+        "cost": "3",
+        "type": "2",
+	    "counter": "1000",
+        "buff": "200",
+        "colorData":{
+            "color": "3",
+            "cardData": {
+                "name": "Mocha",
+                "artPath": "OP01-081.png"
+            }
+        }
+    },
+
+    "OP010860":{
+        "name": "Overheat",
+        "cost": "2",
+        "type": "3",
+        "buff": "4000",
+        "colorData":{
+            "color": "3",
+            "cardData": {
+                "name": "Overheat",
+                "artPath": "OP01-086.png"
+            }
+        }
+    },
+
+    "OP010880":{
+        "name": "Desert Spada",
+        "cost": "2",
+        "type": "3",
+        "buff": "2000",
+        "colorData":{
+            "color": "3",
+            "cardData": {
+                "name": "Desert Spada",
+                "artPath": "OP01-088.png"
+            }
+        }
+    },
+
+    "OP020700":{
+        "name": "New Kama Land",
+        "cost": "1",
+        "type": "4",
+        "buff": "1000",
+        "colorData":{
+            "color": "3",
+            "cardData": {
+                "name": "New Kama Land",
+                "artPath": "OP02-070.png"
+            }
+        }
+    },
+
+    "OP010910":{
+        "name": "King",
+        "attack": "5000",
+        "life": "5",
+        "type": "1",
+        "buff": "200",
+        "colorData":{
+            "color": "4",
+            "cardData": {
+                "name": "King",
+                "artPath": "OP01-091.png"
+            }
+        }
+    },
+
+    "OP010920":{
+        "name": "Urashima",
+        "attack": "9000",
+        "cost": "7",
+        "type": "2",
+	    "counter": "1000",
+        "buff": "200",
+        "colorData":{
+            "color": "4",
+            "cardData": {
+                "name": "Urashima",
+                "artPath": "OP01-092.png"
+            }
+        }
+    },
+
+    "OP010940":{
+        "name": "Kaido",
+        "attack": "12000",
+        "cost": "10",
+        "type": "2",
+	    "counter": "0",
+        "buff": "200",
+        "colorData":{
+            "color": "4",
+            "cardData": {
+                "name": "Kaido",
+                "artPath": "OP01-094.png"
+            }
+        }
+    },
+
+    "OP011030":{
+        "name": "Scratchmen Apoo",
+        "attack": "6000",
+        "cost": "4",
+        "type": "2",
+	    "counter": "1000",
+        "buff": "200",
+        "colorData":{
+            "color": "4",
+            "cardData": {
+                "name": "Scratchmen Apoo",
+                "artPath": "OP01-103.png"
+            }
+        }
+    },
+
+    "OP011040":{
+        "name": "Speed",
+        "attack": "3000",
+        "cost": "2",
+        "type": "2",
+	    "counter": "1000",
+        "buff": "200",
+        "colorData":{
+            "color": "4",
+            "cardData": {
+                "name": "Speed",
+                "artPath": "OP01-104.png"
+            }
+        }
+    },
+
+    "OP011070":{
+        "name": "Babanuki",
+        "attack": "7000",
+        "cost": "5",
+        "type": "2",
+	    "counter": "1000",
+        "buff": "200",
+        "colorData":{
+            "color": "4",
+            "cardData": {
+                "name": "Babanuki",
+                "artPath": "OP01-107.png"
+            }
+        }
+    },
+
+    "OP011100":{
+        "name": "Fukurokuju",
+        "attack": "8000",
+        "cost": "6",
+        "type": "2",
+	    "counter": "1000",
+        "buff": "200",
+        "colorData":{
+            "color": "4",
+            "cardData": {
+                "name": "Fukurokuju",
+                "artPath": "OP01-110.png"
+            }
+        }
+    },
+
+    "OP011180":{
+        "name": "Ulti-Mortar",
+        "cost": "1",
+        "type": "3",
+        "buff": "2000",
+        "colorData":{
+            "color": "4",
+            "cardData": {
+                "name": "Ulti-Mortar",
+                "artPath": "OP01-118.png"
+            }
+        }
+    },
+
+    "OP011190":{
+        "name": "Thunder Bagua",
+        "cost": "2",
+        "type": "3",
+        "buff": "4000",
+        "colorData":{
+            "color": "4",
+            "cardData": {
+                "name": "Thunder Bagua",
+                "artPath": "OP01-119.png"
+            }
+        }
+    },
+
+    "ST040170":{
+        "name": "Onigashima Island",
+        "cost": "3",
+        "type": "4",
+        "buff": "1000",
+        "colorData":{
+            "color": "4",
+            "cardData": {
+                "name": "Onigashima Island",
+                "artPath": "ST04-017.png"
             }
         }
     }
