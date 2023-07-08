@@ -39,8 +39,6 @@ SOURCES += \
     view/lobbywindow.cpp \
     view/playerarea.cpp \
     view/ruleswindow.cpp \
-    widgets/Card_widget.cpp \
-    widgets/Main_Window.cpp \
     main.cpp
 
 HEADERS += \
@@ -73,8 +71,6 @@ HEADERS += \
     view/lobbywindow.h \
     view/playerarea.h \
     view/ruleswindow.h \
-    widgets/Card_widget.h \
-    widgets/Main_Window.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
