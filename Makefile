@@ -73,10 +73,7 @@ SOURCES       = models/card/Card.cpp \
 		utils/Save.cpp \
 		utils/Utils.cpp \
 		main.cpp \
-		widgets/Card_widget.cpp \
-		widgets/Main_window.cpp qrc_resources.cpp \
-		moc_Card_widget.cpp \
-		moc_Main_window.cpp
+		qrc_resources.cpp \
 OBJECTS       = build/Card.o \
 		build/ColoredCard.o \
 		build/Attacker.o \
@@ -98,11 +95,7 @@ OBJECTS       = build/Card.o \
 		build/Save.o \
 		build/Utils.o \
 		build/main.o \
-		build/Card_widget.o \
-		build/Main_window.o \
 		build/qrc_resources.o \
-		build/moc_Card_widget.o \
-		build/moc_Main_window.o
 DIST          = /usr/lib/qt6/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt6/mkspecs/common/unix.conf \
 		/usr/lib/qt6/mkspecs/common/linux.conf \
@@ -309,8 +302,6 @@ DIST          = /usr/lib/qt6/mkspecs/features/spec_pre.prf \
 		fsm/api/api_ui.h \
 		fsm/api/battle.h \
 		fsm/fsm.h \
-		widgets/Card_widget.h \
-		widgets/Main_window.h \
 		utils/Constants.h \
 		utils/database_helper.h \
 		utils/Debug.h \
@@ -338,8 +329,6 @@ DIST          = /usr/lib/qt6/mkspecs/features/spec_pre.prf \
 		utils/Save.cpp \
 		utils/Utils.cpp \
 		main.cpp \
-		widgets/Card_widget.cpp \
-		widgets/Main_window.cpp
 QMAKE_TARGET  = main
 DESTDIR       = 
 TARGET        = main
@@ -758,8 +747,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt6/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents models/card/Card.h models/card/ColoredCard.h models/card/Attacker.h models/card/PlayableCard.h models/Deck.h models/Player.h models/LinkedList.h models/card/card_types/CardTypes.h models/card/card_types/Character.h models/card/card_types/Don.h models/card/card_types/Event.h models/card/card_types/Leader.h fsm/api/api_logic.h fsm/api/api_ui.h fsm/api/battle.h fsm/fsm.h widgets/Card_widget.h widgets/Main_window.h utils/Constants.h utils/database_helper.h utils/Debug.h utils/Enums.h utils/JsonParser.h utils/Save.h utils/Utils.h $(DISTDIR)/
-	$(COPY_FILE) --parents models/card/Card.cpp models/card/ColoredCard.cpp models/card/Attacker.cpp models/card/PlayableCard.cpp models/Deck.cpp models/Player.cpp models/LinkedList.cpp fsm/api/api_logic.cpp fsm/api/battle.cpp fsm/fsm.cpp models/card/card_types/Character.cpp models/card/card_types/Don.cpp models/card/card_types/Event.cpp models/card/card_types/Leader.cpp utils/database_helper.cpp utils/Debug.cpp utils/Enums.cpp utils/JsonParser.cpp utils/Save.cpp utils/Utils.cpp main.cpp widgets/Card_widget.cpp widgets/Main_window.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents models/card/Card.h models/card/ColoredCard.h models/card/Attacker.h models/card/PlayableCard.h models/Deck.h models/Player.h models/LinkedList.h models/card/card_types/CardTypes.h models/card/card_types/Character.h models/card/card_types/Don.h models/card/card_types/Event.h models/card/card_types/Leader.h fsm/api/api_logic.h fsm/api/api_ui.h fsm/api/battle.h fsm/fsm.h utils/Constants.h utils/database_helper.h utils/Debug.h utils/Enums.h utils/JsonParser.h utils/Save.h utils/Utils.h $(DISTDIR)/
+	$(COPY_FILE) --parents models/card/Card.cpp models/card/ColoredCard.cpp models/card/Attacker.cpp models/card/PlayableCard.cpp models/Deck.cpp models/Player.cpp models/LinkedList.cpp fsm/api/api_logic.cpp fsm/api/battle.cpp fsm/fsm.cpp models/card/card_types/Character.cpp models/card/card_types/Don.cpp models/card/card_types/Event.cpp models/card/card_types/Leader.cpp utils/database_helper.cpp utils/Debug.cpp utils/Enums.cpp utils/JsonParser.cpp utils/Save.cpp utils/Utils.cpp main.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -796,25 +785,6 @@ compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
 moc_predefs.h: /usr/lib/qt6/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/qt6/mkspecs/features/data/dummy.cpp
-
-compiler_moc_header_make_all: moc_Card_widget.cpp moc_Main_window.cpp
-compiler_moc_header_clean:
-	-$(DEL_FILE) moc_Card_widget.cpp moc_Main_window.cpp
-moc_Card_widget.cpp: widgets/Card_widget.h \
-		models/card/Card.h \
-		utils/JsonParser.h \
-		utils/Constants.h \
-		utils/Enums.h \
-		utils/Utils.h \
-		utils/Debug.h \
-		moc_predefs.h \
-		/usr/lib/qt6/moc
-	/usr/lib/qt6/moc $(DEFINES) --include /home/metz/it/projects/cpp/qt/OPDeckBuilder/OpDeckBuilder/moc_predefs.h -I/usr/lib/qt6/mkspecs/linux-g++ -I/home/metz/it/projects/cpp/qt/OPDeckBuilder/OpDeckBuilder -I/home/metz/it/projects/cpp/qt/OPDeckBuilder/OpDeckBuilder -I/usr/include/qt6 -I/usr/include/qt6/QtWidgets -I/usr/include/qt6/QtGui -I/usr/include/qt6/QtCore -I/usr/include/c++/12.2.0 -I/usr/include/c++/12.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/12.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/12.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/12.2.0/include-fixed -I/usr/include widgets/Card_widget.h -o moc_Card_widget.cpp
-
-moc_Main_window.cpp: widgets/Main_window.h \
-		moc_predefs.h \
-		/usr/lib/qt6/moc
-	/usr/lib/qt6/moc $(DEFINES) --include /home/metz/it/projects/cpp/qt/OPDeckBuilder/OpDeckBuilder/moc_predefs.h -I/usr/lib/qt6/mkspecs/linux-g++ -I/home/metz/it/projects/cpp/qt/OPDeckBuilder/OpDeckBuilder -I/home/metz/it/projects/cpp/qt/OPDeckBuilder/OpDeckBuilder -I/usr/include/qt6 -I/usr/include/qt6/QtWidgets -I/usr/include/qt6/QtGui -I/usr/include/qt6/QtCore -I/usr/include/c++/12.2.0 -I/usr/include/c++/12.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/12.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/12.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/12.2.0/include-fixed -I/usr/include widgets/Main_window.h -o moc_Main_window.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1106,7 +1076,6 @@ build/main.o: main.cpp utils/Utils.h \
 		utils/Constants.h \
 		utils/JsonParser.h \
 		utils/Debug.h \
-		widgets/Main_window.h \
 		models/card/card_types/Leader.h \
 		models/card/Attacker.h \
 		models/card/ColoredCard.h \
@@ -1125,36 +1094,8 @@ build/main.o: main.cpp utils/Utils.h \
 		utils/Save.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/main.o main.cpp
 
-build/Card_widget.o: widgets/Card_widget.cpp widgets/Card_widget.h \
-		models/card/Card.h \
-		utils/JsonParser.h \
-		utils/Constants.h \
-		utils/Enums.h \
-		utils/Utils.h \
-		utils/Debug.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Card_widget.o widgets/Card_widget.cpp
-
-build/Main_window.o: widgets/Main_window.cpp widgets/Main_window.h \
-		models/card/card_types/Leader.h \
-		models/card/Attacker.h \
-		models/card/ColoredCard.h \
-		models/card/Card.h \
-		utils/JsonParser.h \
-		utils/Constants.h \
-		utils/Enums.h \
-		utils/Utils.h \
-		utils/Debug.h \
-		widgets/Card_widget.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Main_window.o widgets/Main_window.cpp
-
 build/qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/qrc_resources.o qrc_resources.cpp
-
-build/moc_Card_widget.o: moc_Card_widget.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/moc_Card_widget.o moc_Card_widget.cpp
-
-build/moc_Main_window.o: moc_Main_window.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/moc_Main_window.o moc_Main_window.cpp
 
 ####### Install
 
