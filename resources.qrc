@@ -1,7 +1,45 @@
 <RCC>
     <qresource prefix="/">
-        <file>assets/OP01-006.png</file>
         <file>assets/cardDB.json</file>
         <file>assets/deck/deck1.txt</file>
+        <file>assets/Cards/CardBackRegular.png</file>
+        <file>assets/Cards/Don.png</file>
+        <file>assets/Cards/EmptyCard.png</file>
+        <file>assets/Cards/OP01-001.png</file>
+        <file>assets/Cards/OP01-002.png</file>
+        <file>assets/Cards/OP01-006.png</file>
+        <file>assets/Cards/OP01-010.png</file>
+        <file>assets/Cards/OP01-012.png</file>
+        <file>assets/Cards/OP01-018.png</file>
+        <file>assets/Cards/OP01-023.png</file>
+        <file>assets/Cards/OP01-026.png</file>
+        <file>assets/Cards/OP01-029.png</file>
+        <file>assets/Cards/OP01-030.png</file>
+        <file>assets/Cards/OP01-036.png</file>
+        <file>assets/Cards/OP01-043.png</file>
+        <file>assets/Cards/OP01-045.png</file>
+        <file>assets/Cards/OP01-053.png</file>
+        <file>assets/Cards/OP01-057.png</file>
+        <file>assets/Cards/OP01-058.png</file>
+        <file>assets/Cards/OP01-060.png</file>
+        <file>assets/Cards/OP01-065.png</file>
+        <file>assets/Cards/OP01-066.png</file>
+        <file>assets/Cards/OP01-070.png</file>
+        <file>assets/Cards/OP01-076.png</file>
+        <file>assets/Cards/OP01-081.png</file>
+        <file>assets/Cards/OP01-086.png</file>
+        <file>assets/Cards/OP01-088.png</file>
+        <file>assets/Cards/OP01-091.png</file>
+        <file>assets/Cards/OP01-092.png</file>
+        <file>assets/Cards/OP01-094.png</file>
+        <file>assets/Cards/OP01-103.png</file>
+        <file>assets/Cards/OP01-104.png</file>
+        <file>assets/Cards/OP01-107.png</file>
+        <file>assets/Cards/OP01-110.png</file>
+        <file>assets/Cards/OP01-118.png</file>
+        <file>assets/Cards/OP01-119.png</file>
+        <file>assets/Cards/ST01-001.png</file>
+        <file>assets/Cards/ST02-001.png</file>
+        <file>assets/Cards/ST02-006.png</file>
     </qresource>
 </RCC>

@@ -148,7 +148,8 @@ void GameWindow::showRules()
 
 void GameWindow::endTurnButtonPressed()
 {
-    FSM::endTurnRequest();
+    bool success = FSM::endTurnRequest();
+    if(!success) return;
     player1Area->updateGui(true);
     player2Area->updateGui(true);
     updateGameStatus();

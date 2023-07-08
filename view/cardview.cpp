@@ -12,6 +12,7 @@ CardView::CardView(Card* card, const QSize& size, QPushButton* button)
 
     imageLabel = new QLabel();
     pixmap = new QPixmap(QString::fromStdString(std::string(CARDIMAGE_PATH) + card->getCardInfo(Enums::InfoAttribute::ArtPath)->value.artPath));
+    Debug::LogInfo(std::string(CARDIMAGE_PATH) + card->getCardInfo(Enums::InfoAttribute::ArtPath)->value.artPath);
     imageLabel->setPixmap(*pixmap);
     imageLabel->setAlignment(Qt::AlignCenter);
     imageLabel->setFixedSize(size);

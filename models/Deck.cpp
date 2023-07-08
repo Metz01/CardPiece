@@ -72,8 +72,10 @@ bool Deck::checkDeckIntegrity() const
 {
     bool leader = false;
     Enums::Colors color = EnumsHelper::getCardColor(DatabaseHelper::cardColor(cards->getCardCode(0)));
+    Debug::LogInfo(std::to_string(DatabaseHelper::cardColor(cards->getCardCode(0))));
     for(int i = 0; i < cards->getSize(); i++){
         if(!DatabaseHelper::isInDataBase(cards->getCardCode(i))) return false;
+        Debug::LogInfo(std::to_string(DatabaseHelper::cardColor(cards->getCardCode(i))));
         if(color != DatabaseHelper::cardColor(cards->getCardCode(i))) return false;
         if(DatabaseHelper::isLeader(cards->getCardCode(i))){
             if(leader) return false;

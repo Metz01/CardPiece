@@ -10,7 +10,7 @@
             "color": "2",
             "cardData": {
                 "name": "Otama",
-                "artPath": "./assets/OP01-006.png"
+                "artPath": "OP01-006.png"
             }
         }
     },
@@ -25,7 +25,7 @@
             "color": "2",
             "cardData": {
                 "name": "Law",
-                "artPath": "./assets/OP01-002.png"
+                "artPath": "OP01-002.png"
             }
         }
     },
@@ -39,7 +39,7 @@
             "color": "2",
             "cardData": {
                 "name": "Two Years",
-                "artPath": "./assets/OP01-030.png"
+                "artPath": "OP01-030.png"
             }
         }
     },
@@ -53,7 +53,7 @@
             "color": "2",
             "cardData": {
                 "name": "Stage",
-                "artPath": "./assets/Don.png"
+                "artPath": "Don.png"
             }
         }
     }
