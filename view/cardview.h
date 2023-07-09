@@ -7,8 +7,18 @@
 #include <QContextMenuEvent>
 #include <QDialog>
 #include <QDir>
-#include "./models/card/Card.h"
+#include <QString>
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QTransform>
+#include <iostream>
 
+#include "./models/card/Card.h"
+#include "./fsm/fsm.h"
+#include "./fsm/api/api_logic.h"
+
+class GameWindow;
+class PlayerArea;
 class CardView : public QPushButton
 {
     Q_OBJECT
@@ -17,12 +27,16 @@ public:
     Card* getCard();
     void rotateCard();
     void contextMenuEvent(QContextMenuEvent* event) override;
+    virtual void pressedCard(Player* player, PlayerArea* area, Don* don = NULL) = 0;
 
     ~CardView();
+
+protected:
+    void setup(Card*, const QSize&, QString*);
+    Card* _card;
 signals:
 
 private:
-    Card* _card;
     QLabel* imageLabel;
     QPixmap* pixmap;
     bool activeCard = true;

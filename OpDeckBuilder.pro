@@ -34,12 +34,18 @@ SOURCES += \
     utils/JsonParser.cpp \
     utils/Save.cpp \
     utils/Enums.cpp \
+    view/cardviewfactory.cpp \
+    view/characterview.cpp \
+    view/creator.cpp \
+    view/effectview.cpp \
     view/gamewindow.cpp \
     view/cardview.cpp \
+    view/leaderview.cpp \
     view/lobbywindow.cpp \
     view/playerarea.cpp \
     view/ruleswindow.cpp \
-    main.cpp
+    main.cpp \
+    view/stageview.cpp
 
 HEADERS += \
     models/card/card_types/Character.h \
@@ -66,11 +72,17 @@ HEADERS += \
     utils/Enums.h \
     utils/Constants.h \
     utils/Save.h \
+    view/cardviewfactory.h \
+    view/characterview.h \
+    view/creator.h \
+    view/effectview.h \
     view/gamewindow.h \
     view/cardview.h \
+    view/leaderview.h \
     view/lobbywindow.h \
     view/playerarea.h \
     view/ruleswindow.h \
+    view/stageview.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

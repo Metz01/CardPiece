@@ -274,6 +274,9 @@ void PlayerArea::displayGround(std::vector<Card *> ground, Card* rotateCard)
 void PlayerArea::cardButtonPressed(CardView* cardview)
 {
     std::cout << "Button pressed"<< std::endl;
+    cardview->pressedCard(player, this, bufferDon);
+    GameWindow::updateGameStatus();
+    this->updateGui();
     if(FSM::getCurrentState() == Enums::AttachDon){
         FSM::attachDonRequest(cardview->getCard(), bufferDon);
     }else{
@@ -283,7 +286,6 @@ void PlayerArea::cardButtonPressed(CardView* cardview)
     this->updateGui();
     else if (FSM::getCurrentState() == Enums::State::CounterPhase && FSM::getCurrentPlayer() != player)
     this->updateGui();
-    GameWindow::updateGameStatus();
     if(FSM::getCurrentState() == Enums::SelectEnemyCard && FSM::getCurrentPlayer() == player){
         displayGround(player->getGround(), cardview->getCard());
     }
