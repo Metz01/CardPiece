@@ -235,14 +235,14 @@ void PlayerArea::donButtonPressed()
     if(FSM::getCurrentState() == Enums::DrawDon){
         FSM::drawDonRequest(player);
         dons = ApiLogic::getAvailableDon(player);
-    }else if(dons > 0){
+    }else if(dons > 0 && FSM::getCurrentState() == Enums::SelectCard){
         FSM::selectCardRequest(player->getDonList().at(dons-1));
         bufferDon = player->getDonList().at(dons-1);
     }
     donText->setText("ACTIVE DON : " + QString::number(dons));
     GameWindow::updateGameStatus();
-    PlayerArea::displayGround(player->getGround());
-    PlayerArea::displayLeader(player->getLeader());
+//    PlayerArea::displayGround(player->getGround());
+//    PlayerArea::displayLeader(player->getLeader());
 
 }
 
@@ -293,7 +293,7 @@ void PlayerArea::cardButtonPressed(CardView* cardview)
     donText->setText("ACTIVE DON : " + QString::number(dons));
     std::string lifeString = std::to_string(player->getLife());
     lifesText->setText(QString::fromStdString("-  LIFES: " + lifeString));
-    GameWindow::updateOpponent(this);
+    if(FSM::getCurrentState() != Enums::CounterPhase)GameWindow::updateOpponent(this);
 }
 
 void PlayerArea::counterButtonPressed()
