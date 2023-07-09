@@ -1,4 +1,6 @@
 #include "effectview.h"
+#include "playerarea.h"
+#include "./view/gamewindow.h"
 
 EffectView::EffectView(Card* card, const QSize& size, QPushButton* button)
     : CardView(card, size, button)
@@ -14,10 +16,15 @@ EffectView::EffectView(Card* card, const QSize& size, QPushButton* button)
         txtSize = "font-size: 8px;";
     }
 
-    setup(card, size, &text);
+    QLabel* textLabel = new QLabel(text);
+    textLabel->setAlignment(Qt::AlignCenter);
+    textLabel->setStyleSheet(QString::fromStdString(txtSize));
+
+    setup(card, size, textLabel);
 }
 
-void EffectView::pressedCard(Player *player, PlayerArea *area, Don *don)
+bool EffectView::pressedCard(Player *player, PlayerArea *area, Don *don)
 {
-
+    if(FSM::getCurrentState()== Enums::SelectCard && player->hasOnHand(_card)) FSM::selectCardRequest(_card);
+    area->updateGui();
 }

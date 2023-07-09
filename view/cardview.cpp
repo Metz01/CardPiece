@@ -9,7 +9,7 @@ CardView::~CardView()
     delete pixmap;
 }
 
-void CardView::setup(Card* card, const QSize& size, QString* text)
+void CardView::setup(Card* card, const QSize& size, QLabel* textLabel)
 {
     imageLabel = new QLabel();
     pixmap = new QPixmap(QString::fromStdString(card->getCardInfo(Enums::InfoAttribute::ArtPath)->value.artPath));
@@ -18,13 +18,8 @@ void CardView::setup(Card* card, const QSize& size, QString* text)
     imageLabel->setAlignment(Qt::AlignCenter);
     imageLabel->setFixedSize(size);
     imageLabel->setScaledContents(true);
-    std::string txtSize;
 
     _size = size;
-
-    QLabel* textLabel = new QLabel(*text);
-    textLabel->setAlignment(Qt::AlignCenter);
-    textLabel->setStyleSheet(QString::fromStdString(txtSize));
 
     QVBoxLayout* layout = new QVBoxLayout(this);
     layout->addWidget(imageLabel);

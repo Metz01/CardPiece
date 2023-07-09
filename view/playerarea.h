@@ -10,6 +10,7 @@
 #include "./models/card/card_types/Leader.h"
 #include "./view/cardview.h"
 #include "./fsm/fsm.h"
+#include "./view/creator.h"
 
 class PlayerArea : public QWidget
 {
@@ -21,7 +22,7 @@ public:
 
     void displayHand(std::vector<Card*> hand);
     void displayGround(std::vector<Card*>, Card* rotateCard = nullptr);
-    void displayLeader(Leader*, bool rotate = false);
+    void displayLeader(Card*, bool rotate = false);
     void displayStage(Card*);
     void displayGraveyard();
     void clearLayouts(QHBoxLayout* layout);
@@ -33,6 +34,7 @@ public:
 signals:
 
 private:
+    Creator creator;
     CardView* leaderView;
     CardView* stageView;
     Don* bufferDon;

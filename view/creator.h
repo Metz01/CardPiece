@@ -15,7 +15,7 @@ class Creator
 {
 public:
     Creator();
-    CardView* getCardView(Card*, const QSize&, QPushButton*);
+    CardView* getCardView(Card*, const QSize&, QPushButton*button = new QPushButton());
 };
 
 #endif // CREATOR_H

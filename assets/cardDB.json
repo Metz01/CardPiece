@@ -413,7 +413,7 @@
 
     "OP010880":{
         "name": "Desert Spada",
-        "cost": "2",
+        "cost": "1",
         "type": "3",
         "buff": "2000",
         "colorData":{

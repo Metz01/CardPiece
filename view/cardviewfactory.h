@@ -7,37 +7,30 @@
 #include "./view/effectview.h"
 #include "./view/stageview.h"
 
-class CardViewFactory
-{
+class FactoryLeader{
 public:
-    CardViewFactory();
-    virtual CardView* createCard(Card*, const QSize&, QPushButton*) = 0;
-};
-
-class FactoryLeader : public CardViewFactory {
-public:
-    CardView* createCard(Card* card, const QSize& size, QPushButton* button) override {
+    CardView* createCard(Card* card, const QSize& size, QPushButton* button) {
         return new LeaderView(card, size, button);
     }
 };
 
-class FactoryCharacter : public CardViewFactory {
+class FactoryCharacter {
 public:
-    CardView* createCard(Card* card, const QSize& size, QPushButton* button) override {
+    CardView* createCard(Card* card, const QSize& size, QPushButton* button) {
         return new CharacterView(card, size, button);
     }
 };
 
-class FactoryEffect : public CardViewFactory {
+class FactoryEffect {
 public:
-    CardView* createCard(Card* card, const QSize& size, QPushButton* button) override {
+    CardView* createCard(Card* card, const QSize& size, QPushButton* button) {
         return new EffectView(card, size, button);
     }
 };
 
-class FactoryStage : public CardViewFactory {
+class FactoryStage {
 public:
-    CardView* createCard(Card* card, const QSize& size, QPushButton* button) override {
+    CardView* createCard(Card* card, const QSize& size, QPushButton* button) {
         return new StageView(card, size, button);
     }
 };

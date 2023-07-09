@@ -134,7 +134,7 @@ bool FSM::selectCardRequest(Card* selectedCard)
     }
     else if(_currentState == Enums::State::SelectEnemyCard)
     {
-        if((!selectedCard->isActive()|| selectedCard->getCardType() == Enums::leader)
+        if(((!selectedCard->isActive() && ApiLogic::getOpponent(_currentPlayer)->hasOnGround(selectedCard))|| selectedCard->getCardType() == Enums::leader)
             && ApiLogic::whoseCard(selectedCard) == ApiLogic::getOpponent(_currentPlayer)){
             _bufferCard[1] = selectedCard;
             FSM::selectEnemyCardRequest(_bufferCard[0], selectedCard);

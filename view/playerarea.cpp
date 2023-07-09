@@ -15,6 +15,8 @@ PlayerArea::PlayerArea(Player* player, QWidget *parent)
 {
     QVBoxLayout* playerAreaLayout = new QVBoxLayout(this);
 
+    creator = Creator();
+
     QHBoxLayout* mainLayout = new QHBoxLayout();
     mainLayout->setContentsMargins(0,0,0,0);
     playerAreaLayout->addLayout(mainLayout);
@@ -130,10 +132,10 @@ PlayerArea::~PlayerArea()
     delete PlayerArea::graveyard;
 }
 
-void PlayerArea::displayLeader(Leader *leader, bool rotate)
+void PlayerArea::displayLeader(Card *leader, bool rotate)
 {
     clearLayouts(leaderLayout);
-    CardView* cardView = new CardView(leader, CARD_SIZE*1.7);
+    CardView* cardView = creator.getCardView(leader, CARD_SIZE*1.7);
     leaderView = cardView;
     cardView->setFixedSize(130,130);
     leaderLayout->addWidget(cardView);
@@ -159,7 +161,7 @@ void PlayerArea::displayStage(Card *stage)
         return;
     }
     clearLayouts(stageLayout);
-    CardView* cardView = new CardView(stage, CARD_SIZE);
+    CardView* cardView = creator.getCardView(stage, CARD_SIZE);
     stageView = cardView;
     cardView->setFixedSize(80,80);
     stageLayout->addWidget(stageView);
@@ -214,11 +216,12 @@ void PlayerArea::showCounterButton()
 void PlayerArea::deckButtonPressed()
 {
     Card* newCard = FSM::drawCardRequest(player);
+    if(FSM::getCurrentPlayer() != player) return;
     if(!newCard){
         GameWindow::showEndGame(ApiLogic::getOpponent(player)->getName());
         return;
     }
-    CardView* newCardView = new CardView(newCard, CARD_SIZE);
+    CardView* newCardView = creator.getCardView(newCard, CARD_SIZE);
     handLayout->addWidget(newCardView);
     connect(newCardView, &QPushButton::clicked, this, [newCardView, this](){PlayerArea::cardButtonPressed(newCardView);});
     GameWindow::updateGameStatus();
@@ -247,7 +250,7 @@ void PlayerArea::displayHand(std::vector<Card*> hand)
 
     for(int i = 0; i < (int)hand.size(); i++)
     {
-        CardView* cardView = new CardView(hand.at(i), CARD_SIZE);
+        CardView* cardView = creator.getCardView(hand.at(i), CARD_SIZE);
         handLayout->addWidget(cardView);
         connect(cardView, &QPushButton::clicked, this, [cardView, this](){PlayerArea::cardButtonPressed(cardView);});
 
@@ -262,7 +265,7 @@ void PlayerArea::displayGround(std::vector<Card *> ground, Card* rotateCard)
 
     for(int i = 0; i < (int)ground.size(); i++)
     {
-        CardView* cardView = new CardView(ground.at(i), CARD_SIZE);
+        CardView* cardView = creator.getCardView(ground.at(i), CARD_SIZE);
         groundLayout->addWidget(cardView);
         if (!ground.at(i)->isActive() || ground.at(i) == rotateCard){
             cardView->rotateCard();
@@ -274,36 +277,21 @@ void PlayerArea::displayGround(std::vector<Card *> ground, Card* rotateCard)
 void PlayerArea::cardButtonPressed(CardView* cardview)
 {
     std::cout << "Button pressed"<< std::endl;
-    cardview->pressedCard(player, this, bufferDon);
+    bool rotate = cardview->pressedCard(player, this, bufferDon);
     GameWindow::updateGameStatus();
-    this->updateGui();
-    if(FSM::getCurrentState() == Enums::AttachDon){
-        FSM::attachDonRequest(cardview->getCard(), bufferDon);
-    }else{
-        FSM::selectCardRequest(cardview->getCard());
-    }
-    if(FSM::getCurrentState() != Enums::State::CounterPhase)
-    this->updateGui();
-    else if (FSM::getCurrentState() == Enums::State::CounterPhase && FSM::getCurrentPlayer() != player)
-    this->updateGui();
-    if(FSM::getCurrentState() == Enums::SelectEnemyCard && FSM::getCurrentPlayer() == player){
-        displayGround(player->getGround(), cardview->getCard());
-    }
-    if(FSM::getCurrentState() == Enums::SelectEnemyCard && cardview->getCard() == player->getLeader()){
-        PlayerArea::displayLeader(player->getLeader(), true);
-    }
-    if(FSM::getCurrentState() == Enums::State::CounterPhase)
-    {
-        showCounterButton();
-        return;
-    }
-    if(FSM::getCurrentState() == Enums::State::EndGame)
-    {
-        GameWindow::showEndGame();
-        return;
-    }
+    if(cardview->getCard()->getCardType() == Enums::leader && rotate) displayLeader(player->getLeader(), rotate);
+    else displayLeader(player->getLeader());
+    std::cout << rotate << std::endl;
+    if(cardview->getCard()->getCardType() == Enums::character && rotate)displayGround(player->getGround(), cardview->getCard());
+    else displayGround(player->getGround());
+    displayHand(player->getHand());
+    displayStage(player->getStage());
+    displayGraveyard();
+    int dons = ApiLogic::getAvailableDon(player);
+    donText->setText("ACTIVE DON : " + QString::number(dons));
+    std::string lifeString = std::to_string(player->getLife());
+    lifesText->setText(QString::fromStdString("-  LIFES: " + lifeString));
     GameWindow::updateOpponent(this);
-
 }
 
 void PlayerArea::counterButtonPressed()

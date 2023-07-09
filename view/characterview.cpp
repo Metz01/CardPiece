@@ -17,32 +17,34 @@ CharacterView::CharacterView(Card* card, const QSize& size, QPushButton* button)
         txtSize = "font-size: 8px;";
     }
 
-    setup(card, size, &text);
+    QLabel* textLabel = new QLabel(text);
+    textLabel->setAlignment(Qt::AlignCenter);
+    textLabel->setStyleSheet(QString::fromStdString(txtSize));
+
+    setup(card, size, textLabel);
 }
 
-void CharacterView::pressedCard(Player *player, PlayerArea* area, Don *don)
+bool CharacterView::pressedCard(Player *player, PlayerArea* area, Don *don)
 {
     if(FSM::getCurrentState() == Enums::AttachDon){
-        FSM::attachDonRequest(this->getCard(), don);
+        FSM::attachDonRequest(_card, don);
     }else{
-        FSM::selectCardRequest(this->getCard());
+        FSM::selectCardRequest(_card);
     }
-    if(FSM::getCurrentState() != Enums::State::CounterPhase)
-        area->updateGui();
-    else if (FSM::getCurrentState() == Enums::State::CounterPhase && FSM::getCurrentPlayer() != player)
-        area->updateGui();
+    if (FSM::getCurrentState() == Enums::State::CounterPhase && FSM::getCurrentPlayer() != player)
+        return false;
     if(FSM::getCurrentState() == Enums::SelectEnemyCard && FSM::getCurrentPlayer() == player){
-        area->displayGround(player->getGround(), _card);
+        return true;
     }
     if(FSM::getCurrentState() == Enums::State::CounterPhase)
     {
         area->showCounterButton();
-        return;
+        return false;
     }
     if(FSM::getCurrentState() == Enums::State::EndGame)
     {
         GameWindow::showEndGame();
-        return;
+        return false;
     }
-    GameWindow::updateOpponent(area);
+    return false;
 }

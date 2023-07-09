@@ -1,4 +1,6 @@
 #include "stageview.h"
+#include "playerarea.h"
+#include "./view/gamewindow.h"
 
 StageView::StageView(Card* card, const QSize& size, QPushButton* button)
     : CardView(card, size, button)
@@ -14,5 +16,15 @@ StageView::StageView(Card* card, const QSize& size, QPushButton* button)
         txtSize = "font-size: 8px;";
     }
 
-    setup(card, size, &text);
+    QLabel* textLabel = new QLabel(text);
+    textLabel->setAlignment(Qt::AlignCenter);
+    textLabel->setStyleSheet(QString::fromStdString(txtSize));
+
+    setup(card, size, textLabel);
+}
+
+bool StageView::pressedCard(Player *player, PlayerArea *area, Don *don)
+{
+    if(FSM::getCurrentState()== Enums::SelectCard && player->hasOnHand(_card)) FSM::selectCardRequest(_card);
+    return false;
 }

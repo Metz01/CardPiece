@@ -27,12 +27,12 @@ public:
     Card* getCard();
     void rotateCard();
     void contextMenuEvent(QContextMenuEvent* event) override;
-    virtual void pressedCard(Player* player, PlayerArea* area, Don* don = NULL) = 0;
+    virtual bool pressedCard(Player* player, PlayerArea* area, Don* don = NULL) = 0;
 
     ~CardView();
 
 protected:
-    void setup(Card*, const QSize&, QString*);
+    void setup(Card*, const QSize&, QLabel*);
     Card* _card;
 signals:
 

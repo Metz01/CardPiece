@@ -8,7 +8,7 @@ class LeaderView : public CardView
     Q_OBJECT
 public:
     LeaderView(Card* card = nullptr, const QSize& size = QSize(200,200), QPushButton* button = new QPushButton());
-    void pressedCard(Player* player, PlayerArea* area, Don* don = NULL) override;
+    bool pressedCard(Player* player, PlayerArea* area, Don* don = NULL) override;
 };
 
 #endif // LEADERVIEW_H
