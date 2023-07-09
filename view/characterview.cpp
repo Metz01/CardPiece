@@ -8,7 +8,8 @@ CharacterView::CharacterView(Card* card, const QSize& size, QPushButton* button)
     QString text;
     std::string txtSize;
 
-    if(FSM::getCurrentState() == Enums::CounterPhase && ApiLogic::whoseCard(card)->hasOnHand(card)){
+    Player* p = ApiLogic::whoseCard(card);
+    if(FSM::getCurrentState() == Enums::CounterPhase && p->hasOnHand(card) && FSM::getCurrentPlayer() != p){
         text = "COUNTER: " + QString::number(card->getCardInfo(Enums::InfoAttribute::Counter)->value.counter);
         txtSize = "font-size: 8px;";
     }

@@ -7,7 +7,8 @@ EffectView::EffectView(Card* card, const QSize& size, QPushButton* button)
     QString text;
     std::string txtSize;
 
-    if(FSM::getCurrentState() == Enums::CounterPhase && ApiLogic::whoseCard(card)->hasOnHand(card)){
+    Player* p = ApiLogic::whoseCard(card);
+    if(FSM::getCurrentState() == Enums::CounterPhase && p->hasOnHand(card) && FSM::getCurrentPlayer() != p){
         text = "";
     }
     else{
