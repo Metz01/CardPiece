@@ -85,7 +85,7 @@ HEADERS += \
     view/stageview.h
 
 # Default rules for deployment.
-TARGET = CARD_PIECE
+TARGET = CardPiece
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
