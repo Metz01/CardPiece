@@ -25,7 +25,7 @@ StageView::StageView(Card* card, const QSize& size, QPushButton* button)
 
 bool StageView::pressedCard(Player *player, PlayerArea *area, Don *don)
 {
-    if(FSM::getCurrentState()== Enums::SelectCard && player->hasOnHand(_card) && don == NULL) FSM::selectCardRequest(_card);
-    area->updateGui();
+    FSM::selectCardRequest(_card);
+    if(player->hasOnHand(_card) && don == NULL) area->updateGui();
     return false;
 }
