@@ -85,8 +85,7 @@ HEADERS += \
     view/stageview.h
 
 # Default rules for deployment.
-qnx: TARGET = CARD PIECE
-else: unix:!android: target.path = /opt/$${TARGET}/bin
+TARGET = CARD_PIECE
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
