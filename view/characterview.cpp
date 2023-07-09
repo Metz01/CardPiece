@@ -32,7 +32,10 @@ bool CharacterView::pressedCard(Player *player, PlayerArea* area, Don *don)
         FSM::selectCardRequest(_card);
     }
     if (FSM::getCurrentState() == Enums::State::CounterPhase && FSM::getCurrentPlayer() != player)
+    {
+        area->showCounterButton();
         return false;
+    }
     if(FSM::getCurrentState() == Enums::SelectEnemyCard && FSM::getCurrentPlayer() == player){
         return true;
     }

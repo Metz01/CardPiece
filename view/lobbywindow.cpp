@@ -115,7 +115,7 @@ void LobbyWindow::openGameWindow()
     FSM fsm(p1);
     w = new GameWindow(p1,p2);
     w->setFixedSize(900,680);
-    w->setWindowTitle("CARD PIECE SIMULATOR");
+    w->setWindowTitle("CARD PIECE");
     QIcon* icon = new QIcon(QDir::currentPath() + QString::fromStdString("/assets/icon.png"));
     w->setWindowIcon(*icon);
     w->show();
@@ -153,7 +153,7 @@ void LobbyWindow::loadGameWindow()
     }
     w = new GameWindow(p1,p2);
     w->setFixedSize(900,680);
-    w->setWindowTitle("CARD PIECE SIMULATOR");
+    w->setWindowTitle("CARD PIECE");
     QIcon* icon = new QIcon(QDir::currentPath() + QString::fromStdString("/assets/icon.png"));
     w->setWindowIcon(*icon);
     w->show();

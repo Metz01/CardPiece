@@ -292,7 +292,7 @@ void PlayerArea::cardButtonPressed(CardView* cardview)
     int dons = ApiLogic::getAvailableDon(player);
     donText->setText("ACTIVE DON : " + QString::number(dons));
     std::string lifeString = std::to_string(player->getLife());
-    lifesText->setText(QString::fromStdString("-  LIFES: " + lifeString));
+    lifesText->setText(QString::fromStdString("-  LIVES: " + lifeString));
     if(FSM::getCurrentState() != Enums::CounterPhase)GameWindow::updateOpponent(this);
 }
 
