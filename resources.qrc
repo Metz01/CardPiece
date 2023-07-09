@@ -56,16 +56,4 @@
         <file>assets/Cards/ST02-006.png</file>
         <file>assets/Cards/ST04-017.png</file>
     </qresource>
-    <qresource prefix="/assets/deck">
-        <file>assets/deck/BROKENdeck.txt</file>
-        <file>assets/deck/deck1.txt</file>
-        <file>assets/deck/deckBLUE.txt</file>
-        <file>assets/deck/deckGREEN.txt</file>
-        <file>assets/deck/deckPURPLE.txt</file>
-        <file>assets/deck/deckRED.txt</file>
-    </qresource>
-    <qresource prefix="/assets/saves">
-        <file>assets/saves/test1</file>
-        <file>assets/saves/test1.txt</file>
-    </qresource>
 </RCC>
