@@ -218,7 +218,8 @@ void PlayerArea::deckButtonPressed()
     Card* newCard = FSM::drawCardRequest(player);
     if(FSM::getCurrentPlayer() != player) return;
     if(!newCard){
-        GameWindow::showEndGame(ApiLogic::getOpponent(player)->getName());
+        if(FSM::getCurrentState()== Enums::EndGame)
+            GameWindow::showEndGame(ApiLogic::getOpponent(player)->getName());
         return;
     }
     CardView* newCardView = creator.getCardView(newCard, CARD_SIZE);
@@ -241,6 +242,7 @@ void PlayerArea::donButtonPressed()
     donText->setText("ACTIVE DON : " + QString::number(dons));
     GameWindow::updateGameStatus();
     PlayerArea::displayGround(player->getGround());
+    PlayerArea::displayLeader(player->getLeader());
 
 }
 

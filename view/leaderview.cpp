@@ -3,7 +3,7 @@
 #include "./view/gamewindow.h"
 
 LeaderView::LeaderView(Card* card, const QSize& size, QPushButton* button)
-    : CardView(card, size, button)
+    : CardView(card, button)
 {
     QString text;
     std::string txtSize;

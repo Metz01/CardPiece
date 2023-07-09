@@ -137,7 +137,7 @@ bool FSM::selectCardRequest(Card* selectedCard)
         if(((!selectedCard->isActive() && ApiLogic::getOpponent(_currentPlayer)->hasOnGround(selectedCard))|| selectedCard->getCardType() == Enums::leader)
             && ApiLogic::whoseCard(selectedCard) == ApiLogic::getOpponent(_currentPlayer)){
             _bufferCard[1] = selectedCard;
-            FSM::selectEnemyCardRequest(_bufferCard[0], selectedCard);
+            FSM::selectEnemyCardRequest(selectedCard);
         }else{
             _currentState = Enums::SelectCard;
         }
@@ -182,7 +182,7 @@ bool FSM::attachDonRequest(Card* selectedCard, Don* selectedDon)
     return ApiLogic::attachDonToCard(selectedCard, selectedDon, _currentPlayer);
 }
 
-bool FSM::selectEnemyCardRequest(Card* selectedCard, Card* selectedEnemyCard)
+bool FSM::selectEnemyCardRequest(Card* selectedEnemyCard)
 {
     Debug::LogEnv("FSM::selectEnemyCardRequest");
 

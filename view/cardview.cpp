@@ -1,6 +1,6 @@
 #include "cardview.h"
 
-CardView::CardView(Card* card, const QSize& size, QPushButton* button)
+CardView::CardView(Card* card, QPushButton* button)
     : QPushButton(button), _card(card) {}
 
 CardView::~CardView()

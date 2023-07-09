@@ -22,7 +22,7 @@ public:
     static std::vector<Don *> drawDonRequest(Player* playerRequesting);
     static bool selectCardRequest(Card* selectedCard);
     static bool attachDonRequest(Card* selectedCard, Don* selectedDon);
-    static bool selectEnemyCardRequest(Card* selectedCard, Card* selectedEnemyCard);
+    static bool selectEnemyCardRequest(Card* selectedEnemyCard);
     static bool useCardRequest(Card* cardToUse, Card* cardToUseOn = NULL);
     static bool useCounterRequest(Card* defender, Card* counter = NULL);
     static bool battleRequest(Card* attacker = _bufferCard[0], Card* defende = _bufferCard[1]);

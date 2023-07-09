@@ -3,7 +3,7 @@
 #include "./view/gamewindow.h"
 
 StageView::StageView(Card* card, const QSize& size, QPushButton* button)
-    : CardView(card, size, button)
+    : CardView(card, button)
 {
     QString text;
     std::string txtSize;
@@ -25,6 +25,7 @@ StageView::StageView(Card* card, const QSize& size, QPushButton* button)
 
 bool StageView::pressedCard(Player *player, PlayerArea *area, Don *don)
 {
-    if(FSM::getCurrentState()== Enums::SelectCard && player->hasOnHand(_card)) FSM::selectCardRequest(_card);
+    if(FSM::getCurrentState()== Enums::SelectCard && player->hasOnHand(_card) && don == NULL) FSM::selectCardRequest(_card);
+    area->updateGui();
     return false;
 }
