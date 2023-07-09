@@ -5,10 +5,26 @@
 <p>At this point of the development, the simulator lets you play only with certain type of cards, which are:</p>
 <ul>
 <li><strong><em>Leader</em></strong>, your &ldquo;main character&rdquo;: his <strong>life count</strong> will also be yours, so when it reaches zero, it&rsquo;s game over.</li>
-<li><strong><em>Characters</em></strong>: the cards you can play and put on the <strong>Ground</strong>; they can <strong>attack</strong> other <em>rested</em> enemy Characters and your opponent&rsquo;s Leader; they can also be used as <strong>counter</strong>.</li>
+<li><img src="./assets/rules_card1.png" alt="Image Description" width="250" height="349"><ol>
+<li><strong>Attack</strong>: the <em>Leader</em>’s attack power;</li>
+<li><strong>Life</strong>: the <em>Leader</em>’s life count (so <em>your</em> life count).</li>
+</ol>
+<li><strong><em>Characters</em></strong>: the cards you can play and put on the <strong>Ground</strong>; they can attack other <em>rested</em> enemy <em>Characters</em> and your opponent’s <em>Leader</em>; they can also be used as <strong>counter</strong>.</li>
+<li><img src="./assets/rules_card2.png" alt="Image Description" width="250" height="349"><ol>
+<li><strong>Attack</strong>: the <em>Character</em>’s attack power;</li>
+<li><strong>Cost</strong>: the number of <em>Dons</em> needed to play the <em>Character</em>;</li>
+<li><strong>Counter amount</strong>: the quantity that would be given to a specific <em>Character</em>/<em>Leader</em> which it has been attacked when selecting this card as counter.</li>
+</ol>
 <li><strong><em>Buff</em></strong>: special type of cards that can be played and assigned to both <em>Characters</em> and <em>Leader</em>; they <strong>increase</strong> <strong>the</strong> <strong>attack</strong> of a certain amount (and for that turn only).</li>
+<li><img src="./assets/rules_card3.png" alt="Image Description" width="250" height="349"><ol>
+<li><strong>Cost</strong>: the number of <em>Dons</em> needed to play the <em>Buff</em>;</li>
+</ol>
 <li><strong><em>Stage</em></strong>: special type of cards that can be played on the Ground and that will last permanently during the game; during the turn of the Player who placed it, they give a buff of +1000 in attack to <strong>every</strong> card on the Ground.</li>
-<li><strong><em>Don</em></strong>, the &ldquo;mana&rdquo; cards: these cards are drawn from a different deck, the <strong>DonDeck</strong>, and are used as:<ul>
+<li><img src="./assets/rules_card4.png" alt="Image Description" width="250" height="349"><ol>
+<li><strong>Cost</strong>: the number of <em>Dons</em> needed to play the <em>Stage</em>;</li>
+</ol>
+<li><strong><em>Don</em></strong>, the &ldquo;mana&rdquo; cards: these cards are drawn from a different deck, the <strong>DonDeck</strong>, and are used as:</li>
+<li><img src="./assets/Cards/Don.png" alt="Image Description" width="250" height="349"><ul>
 <li><strong>cost </strong>for <em>Character</em>/<em>Buff</em>/<em>Stage</em> cards to play;</li>
 <li><strong>attack buff</strong> of +1000 when attached to <em>Leader</em>/<em>Character</em> cards of your choice.</li>
 </ul>
@@ -24,7 +40,7 @@
 <p>&nbsp;</p>
 <p><span style="font-size:16px;"><strong>How to play</strong></span></p>
 <p><span style="font-size:14px;"><strong>Legend</strong></span></p>
-<p><img src="./assets/rules_image.png" alt="Image Description" width="450" height="282"></p>
+<p><img src="./assets/rules_image.png" alt="Image Description" width="600" height="376"></p>
 <ol>
 <li><strong>MenuBar</strong>, that allows you to:<ul>
 <li>save the current game;</li>
@@ -56,7 +72,7 @@
 <li><strong>EndTurn Button</strong>, to click for finishing the turn and pass it to the other Player.</li>
 <li><strong>EndCounter Button</strong>, which only appears during the CounterPhase: whether the player has selected any <em>Character</em> cards to be used as counter or not, this button makes the CounterPhase and the related attack end and resolved.</li>
 </ol>
-<p><img src="./assets/counterrules_image.png" alt="Image Description" width="300" height="227"></p>
+<p><img src="./assets/counterrules_image.png" alt="Image Description" width="400" height="303"></p>
 <p>&nbsp;</p>
 <p><span style="font-size:14px;"><strong>Turn Progression</strong></span></p>
 <ul>

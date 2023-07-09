@@ -6,6 +6,10 @@
         <file>assets/icon.png</file>
         <file>assets/rules.txt</file>
         <file>assets/rules_image.png</file>
+        <file>assets/rules_card1.png</file>
+        <file>assets/rules_card2.png</file>
+        <file>assets/rules_card3.png</file>
+        <file>assets/rules_card4.png</file>
     </qresource>
     <qresource prefix="/assets/Cards">
         <file>assets/Cards/CardBackRegular.png</file>
