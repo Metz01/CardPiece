@@ -22,8 +22,11 @@ mano (ogni carta giocabile ha un parametro "Costo" che rappresenta il numero di 
 Leader.
 
 Per avviare l’applicazione una volta andati all’interno della cartella CardPiece bisognerà eseguire i tre seguenti comandi:
+
 qmake
+
 make
+
 ./CardPiece
 
 L'applicazione è stata sviluppata per la versione 6.2.4 di QT e la 3.1 di qmake
